@@ -1,0 +1,11 @@
+{
+  "name": "shopping-app",
+  "version": "1.0.0",
+  "description": "This project is a web based application for online shopping. This application contains two different systems:\r - Main system: this system is made for searching, viewing, selecting products.\r - Sub system: this system is made for payment feature.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
