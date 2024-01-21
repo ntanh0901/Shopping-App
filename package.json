@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "sass --watch --update --style=expanded src/scss:public/css",
     "prod": "sass --no-source-map --style=compressed src/scss:public/css",
-    "start": "nodemon --inspect scr/app.js"
+    "start": "nodemon --inspect src/app.js"
   },
   "author": "",
   "license": "ISC",
