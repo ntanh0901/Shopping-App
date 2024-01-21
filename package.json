@@ -4,12 +4,16 @@
   "description": "This project is a web based application for online shopping. This application contains two different systems:\r - Main system: this system is made for searching, viewing, selecting products.\r - Sub system: this system is made for payment feature.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "sass --watch --update --style=expanded src/scss:public/css",
+    "prod": "sass --no-source-map --style=compressed src/scss:public/css",
+    "start": "nodemon --inspect scr/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.2",
+    "dotenv": "^16.3.2",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "nodemon": "^3.0.3"
