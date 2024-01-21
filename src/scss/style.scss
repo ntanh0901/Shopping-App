@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+
+// fonts
+$font-family-sans-serif: 'Be Vietnam Pro', sans-serif;
+
+// colors
+$primary: #008F95;
+$secondary: #E9B000;
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'login';
+
+a {
+    text-decoration: none;
+}
+

@@ -1,1 +1,48 @@
-<h1>Hello from login</h1>
+<div class="p-4 d-flex bg-primary min-vh-100">
+    <section class="flex-grow-1 d-flex flex-column justify-content-center">
+        <h1 class="text-light">Chào mừng đến ShopUS</h1>
+        <h2 class="text-secondary">Vui lòng đăng nhập để tiếp tục</h2>
+    </section>
+    <section class="flex-grow-1 d-flex align-items-center justify-content-center p-3">
+        <form action="post" class="rounded bg-white shadow-lg p-3 w-100">
+            <div class="d-flex gap-1">
+                <p>Chưa có tài khoản? </p>
+                <a href="/signup">Đăng kí ngay</a>
+            </div>
+            <h2 class="text-primary text-center my-4">Đăng nhập</h2>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control border-0 shadow-none" id="username" placeholder="username">
+                <label for="username" class="form-label">username</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control border-0 shadow-none" id="password" placeholder="password">
+                <label for="password" class="form-label">Mật khẩu</label>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="remember-me">
+                <label for="remember-me" class="form-check-label">Ghi nhớ đăng nhập</label>
+            </div>
+            <div class="d-flex flex-column">
+                <button type="submit" class="btn btn-lg btn-primary rounded-pill text-light shadow">Đăng nhập</button>
+            </div>
+            <p class="text-center my-3">Hoặc</p>
+            <div class="d-flex flex-column gap-2">
+                <a href="/">
+                    <button type="button" class="btn border-primary d-flex align-items-center w-100 rounded-pill">
+                        <img src="/img/icons/facebook.svg" alt="facebook-icon" class="third-app-icon">
+                        <span class="flex-grow-1 text-center">Đăng nhập với Facebook</span>
+                    </button>
+                </a>
+
+                <a href="/">
+                    <button type="button" class="btn border-primary d-flex align-items-center w-100 rounded-pill">
+                        <img src="/img/icons/google.svg" alt="google-icon" class="third-app-icon">
+                        <span class="flex-grow-1 text-center">Đăng nhập với Google</span>
+                    </button>
+                    
+                </a>
+            </div>
+        </form>
+    </section>
+</div>
