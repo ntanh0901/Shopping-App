@@ -11865,6 +11865,14 @@ textarea.form-control-lg {
   font-size: 1.5rem;
 }
 
+#login-form {
+  min-width: 30rem;
+}
+
+.login-bg {
+  min-width: 30rem;
+}
+
 a {
   text-decoration: none;
 }

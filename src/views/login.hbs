@@ -1,10 +1,11 @@
 <div class="p-4 d-flex bg-primary min-vh-100">
-    <section class="flex-grow-1 d-flex flex-column justify-content-center">
+    <section class="col d-flex flex-column justify-content-center login-left">
         <h1 class="text-light">Chào mừng đến ShopUS</h1>
-        <h2 class="text-secondary my-3">Vui lòng đăng nhập để tiếp tục</h2>
+        {{!-- <p class="text-secondary">Vui lòng đăng nhập để tiếp tục</p> --}}
+        <img src="/img/login-bg.svg" alt="login-background-img" class="flex-grow-1 h-100 login-bg">
     </section>
-    <section class="flex-grow-1 d-flex align-items-center justify-content-center p-3">
-        <form novalidate action="post" class="rounded bg-white shadow-lg p-3 w-100" id="login-form">
+    <section class="col d-flex align-items-center justify-content-center p-3">
+        <form novalidate action="/" method="post" class="rounded bg-white shadow-lg p-3" id="login-form">
             <div class="d-flex gap-1">
                 <p>Chưa có tài khoản? </p>
                 <a href="/signup">Đăng kí ngay</a>
