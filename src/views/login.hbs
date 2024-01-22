@@ -1,24 +1,28 @@
 <div class="p-4 d-flex bg-primary min-vh-100">
     <section class="flex-grow-1 d-flex flex-column justify-content-center">
         <h1 class="text-light">Chào mừng đến ShopUS</h1>
-        <h2 class="text-secondary">Vui lòng đăng nhập để tiếp tục</h2>
+        <h2 class="text-secondary my-3">Vui lòng đăng nhập để tiếp tục</h2>
     </section>
     <section class="flex-grow-1 d-flex align-items-center justify-content-center p-3">
-        <form action="post" class="rounded bg-white shadow-lg p-3 w-100">
+        <form novalidate action="post" class="rounded bg-white shadow-lg p-3 w-100" id="login-form">
             <div class="d-flex gap-1">
                 <p>Chưa có tài khoản? </p>
                 <a href="/signup">Đăng kí ngay</a>
             </div>
             <h2 class="text-primary text-center my-4">Đăng nhập</h2>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control border-0 shadow-none" id="username" placeholder="username">
+            <div class="form-floating mb-3 border-bottom">
+                <input type="text" class="form-control border-0 shadow-none" id="username" placeholder="username" required>
                 <label for="username" class="form-label">username</label>
             </div>
-
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control border-0 shadow-none" id="password" placeholder="password">
-                <label for="password" class="form-label">Mật khẩu</label>
+            <div class="input-group mb-3 border-bottom">
+                <div class="form-floating">
+                    <input type="password" class="form-control border-0 shadow-none" id="password"
+                        placeholder="password" required>
+                    <label for="password" class="form-label">Mật khẩu</label>
+                </div>
+                <i class="bi bi-eye-slash input-group-text border-0 bg-transparent show-hide-pass"></i>
             </div>
+
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" id="remember-me">
                 <label for="remember-me" class="form-check-label">Ghi nhớ đăng nhập</label>
@@ -40,9 +44,11 @@
                         <img src="/img/icons/google.svg" alt="google-icon" class="third-app-icon">
                         <span class="flex-grow-1 text-center">Đăng nhập với Google</span>
                     </button>
-                    
+
                 </a>
             </div>
         </form>
     </section>
 </div>
+
+<script src="/js/login.js"></script>

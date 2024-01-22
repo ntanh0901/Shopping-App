@@ -5,6 +5,7 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -11858,6 +11859,10 @@ textarea.form-control-lg {
 }
 .third-app-icon {
   width: 2.25rem;
+}
+
+.show-hide-pass {
+  font-size: 1.5rem;
 }
 
 a {
