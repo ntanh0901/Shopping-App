@@ -1,4 +1,5 @@
 .sidebar {
+    height: 100vh;
     z-index: 2;
     background-color: $nav-bg;
     width: 15.5rem;
@@ -9,8 +10,12 @@
         white-space: nowrap;
         opacity: 1;
         transition: all 350ms;
+        margin-bottom: 0;
     }
     transition: all 350ms;
+    float: left;
+    position: fixed;
+    
 }
 
 .top-sidebar {
@@ -161,7 +166,7 @@ a.nav-item {
     }
 }
 
-.sidebar.collapse {
+.sidebar.collapse1 {
     width: 5.25rem;
     .logo-container {
         display: none;
