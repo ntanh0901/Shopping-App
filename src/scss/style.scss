@@ -1,16 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap");
 
 // fonts
-$font-family-sans-serif: 'Be Vietnam Pro', sans-serif;
+$font-family-sans-serif: "Be Vietnam Pro", sans-serif;
 
 // colors
-$primary: #008F95;
-$secondary: #E9B000;
-@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+$primary: #008f95;
+$secondary: #e9b000;
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
-@import 'login';
+@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
+@import "variables";
+@import "login";
+@import "sidebar";
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
-
