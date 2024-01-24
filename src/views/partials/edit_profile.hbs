@@ -15,36 +15,36 @@
     <div class="flex-fill personal-info">
 
 
-        <h3 class="mb-4">Personal info</h3>
+        <h3 class="mb-4 ">Personal info</h3>
 
         <form class="form-horizontal">
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Họ tên</label>
+            <div class="row form-group">
+                <label class="col-lg-3 control-label text-end">Họ tên</label>
                 <div class="col-lg-8">
                     <input class="form-control" type="text" value="{{HoTen}}">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Số điện thoại</label>
+            <div class="row form-group">
+                <label class="col-lg-3 control-label text-end ">Số điện thoại</label>
                 <div class="col-lg-8">
                     <input class="form-control" type="tel" value="{{SDT}}">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Ngày sinh</label>
+            <div class="row form-group">
+                <label class="col-lg-3 control-label text-end">Ngày sinh</label>
                 <div class="col-lg-8">
                     <input class="form-control" type="date" value="{{NgaySinh}}">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-3 control-label">Email</label>
+            <div class="row form-group">
+                <label class="col-lg-3 control-label text-end">Email</label>
                 <div class="col-lg-8">
                     <input class="form-control" type="email" value="{{Email}}">
                 </div>
             </div>
-            <div class="form-group w-2 d-flex">
-                <label class="col-lg-3 control-label">Giới tính</label>
-                <div class="  ">
+            <div class="row form-group w-2 d-flex">
+                <label class="col-lg-3 control-label text-end">Giới tính</label>
+                <div class=" col-md-8 ">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
                         <label class="form-check-label" for="male">Nam</label>
@@ -55,45 +55,41 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">Username</label>
+            <div class="row form-group">
+                <label class="col-md-3 control-label text-end">Username</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" value="{{UserName}}">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-md-3 control-label">Mật khẩu</label>
-                <div class="col-md-8 input-group">
-                    <input id="passwordInput" class="form-control" type="" value="{{MatKhau}}">
-
-                   
+            <div class="row form-group position-relative">
+                <label class="col-md-3 control-label text-end">Mật khẩu</label>
+                <div class="col-md-8 position-relative">
+                    <input id="passwordInput" class="form-control" value="{{MatKhau}}">
+                    <i class="bi bi-eye-slash position-absolute top-50 translate-middle-y" style="right: 2rem;"
+                        id="eyeIcon" onclick="toggleInputVisibility('passwordInput', 'eyeIcon')"></i>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-md-3 control-label">Xác nhận mật khẩu</label>
-                <div class="col-md-8 ">
+
+            <div class="row form-group position-relative">
+                <label class="col-md-3 control-label text-end">Xác nhận mật khẩu</label>
+                <div class="col-md-8 position-relative">
                     <input id="confirmPasswordInput" class="form-control" type="    " value="{{MatKhau}}">
-                    <div class="input-group-append">
-                        <i class="bi bi-eye-slash input-group-text border-0 bg-transparent" id="confirmEyeIcon"
-                            onclick="toggleInputVisibility('confirmPasswordInput', 'confirmEyeIcon')"></i>
-                    </div>
+                    <i class="bi bi-eye-slash position-absolute top-50 translate-middle-y" style="right: 2rem;"
+                        id="confirmEyeIcon"
+                        onclick="toggleInputVisibility('confirmPasswordInput', 'confirmEyeIcon')"></i>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-md-3 control-label">Địa chỉ</label>
+            <div class="row form-group">
+                <label class="col-md-3 control-label text-end">Địa chỉ</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" value="{{DiaChi}}">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-md-3 control-label"></label>
+            <div class="row form-group">
+                <label class="col-md-3 control-label text-end"></label>
                 <div class="col-md-8">
                     <button id="btn-confirm" type="button" class="btn btn-primary">Save Changes</button>
                     <button id="btn-cancel" type="reset" class="btn btn-default">Cancel</button>
