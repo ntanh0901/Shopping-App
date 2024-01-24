@@ -1,0 +1,121 @@
+<div class="edit-profile-container">
+    <div class="row">
+        <!-- Left column with profile image -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <!-- Profile image with click event -->
+                <img id="avatar-image" src="//placehold.it/100" style="width: 100px; height: 100px; object-fit: cover;"
+                    class="avatar rounded-circle " alt="avatar" onclick="openImageModal()">
+                <h6 class="mt-3">Upload a different photo...</h6>
+                <input type="file" class="form-control" accept="image/*" onchange="previewImage(event)">
+            </div>
+        </div>
+
+        <!-- Edit form column -->
+        <div class="col-md-9 personal-info">
+
+
+            <h3 class="mb-4">Personal info</h3>
+
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Họ tên:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" value="{{HoTen}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Số điện thoại:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="tel" value="{{SDT}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Ngày sinh:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="date" value="{{NgaySinh}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="email" value="{{Email}}">
+                    </div>
+                </div>
+                <div class="form-group d-flex">
+                    <label class="col-lg-3 control-label">Giới tính:</label>
+                    <div class="input-group col-lg-8 ">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
+                            <label class="form-check-label" for="male">Nam</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                            <label class="form-check-label" for="female">Nữ</label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Username:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" value="{{UserName}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Mật khẩu:</label>
+                    <div class="col-md-8 input-group">
+                        <input id="passwordInput" class="form-control" type="password" value="{{MatKhau}}">
+                        <div class="input-group-append">
+                            <i class="fa fa-eye-slash input-group-text toggle-password" id="eyeIcon"
+                                onclick="toggleInputVisibility('passwordInput', 'eyeIcon')"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Xác nhận mật khẩu:</label>
+                    <div class="col-md-8 input-group">
+                        <input id="confirmPasswordInput" class="form-control" type="password" value="{{MatKhau}}">
+                        <div class="input-group-append">
+                            <i class="fa fa-eye-slash input-group-text toggle-password" id="confirmEyeIcon"
+                                onclick="toggleInputVisibility('confirmPasswordInput', 'confirmEyeIcon')"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Địa chỉ:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" value="{{DiaChi}}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <button type="button" class="btn btn-primary">Save Changes</button>
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- Modal for displaying the larger image -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="largeImage" src="//placehold.it/300" class="img-fluid" alt="Large Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/edit_profile.js"></script>
