@@ -1,8 +1,8 @@
 .edit-profile-container {
-  background-color: $light-bg-color;
+  display: flex;
+   display: none;
   .form-group {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     width: 80%;
   }
-  // display: none;
 }

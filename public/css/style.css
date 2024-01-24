@@ -12191,10 +12191,11 @@ a.nav-item:hover i, a.nav-item.active i {
 }
 
 .edit-profile-container {
-  background-color: #f2f4f7;
+  display: flex;
+  display: none;
 }
 .edit-profile-container .form-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   width: 80%;
 }
 
