@@ -4,7 +4,7 @@ const path = require('path');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
 const hbs = require('express-handlebars');
-const route = require('./routes')
+const route = require('./routes');
 
 // set view engine 
 app.engine('.hbs', hbs.engine({
