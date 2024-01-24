@@ -107,6 +107,7 @@ router.post('/signup', passport.authenticate('passport-signup', {
     successRedirect: '/customer'
 }));
 
+
 router.post('/logout', (req, res) => {
     req.logout(function (err) {
         if (err) { return next(err); }
@@ -134,5 +135,27 @@ router.get('/fb/auth', passport.authenticate('facebook', {
     function (req, res) {
         res.redirect('/client');
     });
+
+router.get('/customer', async (req, res) => {
+    try {
+        const response = await fetch("http://localhost:3001/getBalance", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Id: req.user.MaND }),
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+
+    } catch (error) {
+        console.log('Get balance error: ' + error);
+    }
+});
+
+
+
 
 module.exports = router;

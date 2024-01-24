@@ -23,6 +23,7 @@ app.use(express.static('public'));
 
 //---
 app.use(flash());
+app.use(express.json());
 const https = require('https');
 const fs = require('fs');
 const secrect = 'mysecrectkey';
