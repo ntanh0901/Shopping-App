@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap");
 
 // fonts
-$font-family-sans-serif: 'Be Vietnam Pro', sans-serif;
+$font-family-sans-serif: "Be Vietnam Pro", sans-serif;
 
 // colors
 $primary: #008F95;
@@ -10,9 +10,20 @@ $light: #F5F5FA;
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
-@import 'login';
+@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
+@import "variables";
+@import "mixins";
+@import "login";
+@import "sidebar";
+@import "cashier_dashboard";
+@import "edit_profile";
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+#admin {
+  height: 100vh;
+  display: flex;
 }
 

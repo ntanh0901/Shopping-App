@@ -1,0 +1,74 @@
+<aside class="sidebar">
+
+    <section class="top-sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="/img/logo_hcmus.png" alt="hcmus logo" />
+            </div>
+            <div class="logo-title">
+                <h1>SHOPPING</h1>
+                <h1>APP</h1>
+            </div>
+
+        </div>
+        <button id="menu-btn">
+            <i class="bx bx-menu"></i>
+        </button>
+    </section>
+    <ul class="item-container">
+        <li>
+            <a href="/admin/dashboard" class="nav-item {{#if isDashboard}} active {{/if}}">
+                <i class="bx bx-home"></i>
+                <p class="open">Dashboard</p>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/bill" class="nav-item {{#if isBill}} active {{/if}}">
+                <i class="bx bxs-report"></i>
+                <p class="open">Hóa đơn</p>
+            </a>
+        </li>
+        <li>
+            <a href="/catogories" class="nav-item">
+                <i class="bx bx-category"></i>
+                <p class="open">Categories</p>
+            </a>
+        </li>
+        <li>
+            <a href="/menu" class="nav-item">
+                <i class="bx bx-dish"></i>
+                <p class="open">Sản phẩm</p>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/report" class="nav-item {{#if isReport}} active {{/if}}">
+                <i class="bx bxs-report"></i>
+                <p class="open">Báo cáo</p>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/users" class="nav-item">
+                <i class="bx bx-user"></i>
+                <p class="open">User</p>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/import" class="nav-item {{#if isImport}} active {{/if}}">
+                <i class="bx bx-import"></i>
+                <p class="open">Nhập kho</p>
+            </a>
+        </li>
+    </ul>
+    <section class="user-container">
+        <a class="user" href="/admin/profile">
+            <img src="/img/logo_hcmus.png" alt="" class="avatar" />
+            <p class="open">Admin</p>
+        </a>
+        <button class="logout-btn">
+            <i class="bx bx-log-out"></i>
+            <p class="open">Đăng xuất</p>
+        </button>
+    </section>
+
+</aside>
+<script src="/js/sidebar.js"></script>
