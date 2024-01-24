@@ -1,0 +1,68 @@
+<div class="left">
+  <div class="name-logo">
+    <h1 class="school">hcmus</h1>
+    <h1 class="cteen">canteen</h1>
+  </div>
+  <div class="image-container">
+    <img src="img/Signup_img.svg" alt="signup_img">
+
+  </div>
+</div>
+
+<div class="right">
+  <div class="cre-account">
+    <p>Đã có tài khoản?
+      <a href="/login">
+        Đăng nhập ngay
+      </a>
+    </p>
+  </div>
+  <form action="/signup" method="post" class="signup-form">
+    <h2 class="title">Đăng ký</h2>
+    {{#if existed}}
+    <div class="text-danger ms-2 mb-3" style="margin-top: 20px;">Tên đăng nhập đã tồn tại</div>
+    {{/if}}
+    <div class="input-field">
+      <input type="text" placeholder="Họ và tên" name="fullname" />
+    </div>
+    <div class="input-field">
+      <input type="text" placeholder="Tên đăng nhập" name="username" />
+    </div>
+    <div class="input-field">
+      <input type="email" placeholder="Email" name="email" />
+    </div>
+    <div class="input-field">
+      <input type="password" placeholder="Mật khẩu" id="password" name="password" />
+      <i class='show bx bx-show-alt' onclick="togglePasswordVisibility('password')"></i>
+      <i class='hide bx bx-hide' style="display: none;" onclick="togglePasswordVisibility('password')"></i>
+    </div>
+    <div class="input-field">
+      <input type="password" placeholder="Nhập lại mật khẩu" id="confirmpassword" />
+      <i class='show1 bx bx-show-alt' onclick="toggleConfirmPasswordVisibility('confirmpassword')"></i>
+      <i class='hide1 bx bx-hide' style="display: none;"
+        onclick="toggleConfirmPasswordVisibility('confirmpassword')"></i>
+    </div>
+    <div class="birthday">
+      <div>Ngày sinh: <input type="date" name="birth">
+      </div>
+    </div>
+    <div class="gender-checkbox">
+      <div>Giới Tính:</div>
+      <div>
+        <input type="radio" id="male" name="gender" value="Nam">
+        <label for="male">Nam</label>
+      </div>
+      <div>
+        <input type="radio" id="female" name="gender" value="Nữ">
+        <label for="female">Nữ</label>
+      </div>
+    </div>
+    <div class="input-field">
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Số điện thoại" />
+    </div>
+    <button type="submit" value="Đăng ký">Đăng ký ngay </button>
+
+  </form>
+</div>
+
+<script src="/js/login.js"></script>

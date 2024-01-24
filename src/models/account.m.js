@@ -2,7 +2,7 @@ const db = require('../utils/db');
 const tbName = "NguoiDung";
 
 module.exports = class User {
-    constructor(HoTen, SDT, NgaySinh, GioiTinh, Username, MatKhau, Email, Anh, LaKhachHang, LaAdmin, DiaChi) {
+    constructor(HoTen, SDT, NgaySinh, Email, Anh, GioiTinh, Username, MatKhau, LaKhachHang, LaAdmin, DiaChi) {
         this.HoTen = HoTen;
         this.SDT = SDT;
         this.NgaySinh = NgaySinh;
@@ -24,7 +24,7 @@ module.exports = class User {
     static async getUserByID(id) {
         return db.select(tbName, "MaND", id);
     }
-    static async getUserByUsername(username, cb) {
+    static async getUserByUsername2(username, cb) {
         const res = db.select(tbName, "UserName", username);
         cb(res);
         return res;
