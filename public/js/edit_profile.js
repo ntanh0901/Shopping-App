@@ -15,6 +15,7 @@ function toggleInputVisibility(inputId, iconId) {
     iconElement.classList.remove("bi-eye");
     iconElement.classList.add("bi-eye-slash");
   }
+  inputElement.focus();
 }
 
 function previewImage(event) {
