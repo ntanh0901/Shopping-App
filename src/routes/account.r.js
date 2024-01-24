@@ -17,11 +17,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    // const messages = req.flash('error');
-    // if (messages[0] == 'Invalid auth') {
-    //     res.render('login', { wrong: true });
-    //     return;
-    // }
+    const messages = req.flash('error');
+    if (messages[0] == 'Invalid auth') {
+        res.render('login', { wrong: true });
+        return;
+    }
     if (req.user) {
         if (req.user.LaAdmin === '1') {
             res.redirect('/admin');
@@ -48,7 +48,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('passport-login', {
     failureRedirect: '/',
-    //failureFlash: true
+    failureFlash: true
 }), (req, res) => {
     try {
         // Ghi đăng nhập cũ vào input
@@ -91,11 +91,11 @@ router.get('/signup', (req, res) => {
         }
         return;
     }
-    // const messages = req.flash('error');
-    // if (messages[0] == 'Invalid auth') {
-    //     res.render('signup', { existed: true });
-    //     return;
-    // }
+    const messages = req.flash('error');
+    if (messages[0] == 'Invalid auth') {
+        res.render('signup', { existed: true });
+        return;
+    }
     res.render('signup', {
         title: 'Signup page'
     });
@@ -103,7 +103,7 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', passport.authenticate('passport-signup', {
     failureRedirect: '/signup',
-    //failureFlash: true,
+    failureFlash: true,
     successRedirect: '/customer'
 }));
 
