@@ -1,6 +1,3 @@
-$("#btn-edit").on("click", function () {
-  $(".dashboard-container, .edit-profile-container").toggle();
-});
 
 function toggleInputVisibility(inputId, iconId) {
   const inputElement = document.getElementById(inputId);
@@ -44,10 +41,8 @@ function openImageModal() {
   $("#imageModal").modal("show");
 }
 
-$("#btn-cancel").on("click", function () {
+$("#btn-cancel,#btn-confirm").on("click", function () {
   $(".edit-profile-container, .dashboard-container").toggle();
-});
+  $(".edit-profile-container").toggleClass("d-flex");
 
-$("#btn-confirm").on("click", function () {
-  $(".edit-profile-container, .dashboard-container").toggle();
 });
