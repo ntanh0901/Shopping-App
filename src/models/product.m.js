@@ -31,4 +31,10 @@ module.exports = class Product {
     static async getType() {
         return db.selectAll("Loai");
     }
+    static async getSearch(input) {
+        return db.searchAll(tbName, input);
+    }
+    static async getByWithSearch(type, orderBy, isDesc, input) {
+        return db.joinTBSearch(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null, input);
+    }
 }
