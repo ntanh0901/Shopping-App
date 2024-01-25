@@ -16,17 +16,23 @@ module.exports = class User {
         this.DiaChi = DiaChi;
     }
     static async insert(user) {
-        return db.insertWithoutID(tbName, user);
+        return await db.insertWithoutID(tbName, user);
     }
     static async getUserByUsername(username) {
-        return db.select(tbName, "UserName", username);
+        return await db.select(tbName, "UserName", username);
     }
     static async getUserByID(id) {
-        return db.select(tbName, "MaND", id);
+        return await db.select(tbName, "MaND", id);
     }
     static async getUserByUsername2(username, cb) {
-        const res = db.select(tbName, "UserName", username);
+        const res = await db.select(tbName, "UserName", username);
         cb(res);
         return res;
+    }
+    static async getAll() {
+        return await db.selectAll(tbName);
+    }
+    static async update(col, colval, id) {
+        return db.update(tbName, col, colval, "MaND", id);
     }
 }
