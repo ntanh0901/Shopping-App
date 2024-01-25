@@ -14,6 +14,7 @@
             </div>
         </div>
     </div>
+
     <div class="position-relative  w-50 mx-auto">
         <table class="table table-hover mx-auto rounded-3 overflow-hidden" id="categoryTable">
             <thead class="my-auto">
@@ -27,6 +28,26 @@
             <tbody>
             </tbody>
         </table>
+
+        <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1"
+            aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Xóa danh mục "<span id="categoryToDelete"></span>"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="deleteCategoryBtn">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="ic-plus" id="btn_add">
             <i class='bx bxs-plus-square btn-plus position-absolute bottom-0 end-0 cursor-pointer'
                 data-toggle=" tooltip" data-placement="top" title="Thêm" onclick="showForm()"></i>
@@ -34,7 +55,7 @@
 
         <!-- Form container -->
         <section class="form-container mt-3 ms-auto">
-            <form id="categoryForm">
+            <form id="categoryForm"  onsubmit="event.preventDefault();">
                 <div class="mb-3">
                     <label for="tenDanhMuc" class="form-label">Tên danh mục</label>
                     <input type="text" class="form-control" id="tenDanhMuc" name="Tên danh mục" required>
@@ -46,25 +67,11 @@
                 </div>
             </form>
         </section>
+
+
     </div>
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   Xóa danh mục "<span id="categoryToDelete"></span>"?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-danger" id="deleteCategoryBtn">Xóa</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 
 
 </div>
