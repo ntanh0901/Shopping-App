@@ -15,4 +15,7 @@ module.exports = class TaiKhoan {
     static async getMainAccount() {
         return db.setlect(tbName, "ID", '-1');
     }
+    static async updateBalance(id, newBalance) {
+        return db.updateBalance(id, newBalance);
+        }
 }

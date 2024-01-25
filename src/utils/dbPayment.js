@@ -326,4 +326,15 @@ module.exports = {
             console.log('Select property by condition error: ', error);
         }
     },
+
+    updateBalance: async(id, newBalance) => {
+        try {
+            const query = 'UPDATE "ThanhToan" SET "SoDu" = $1 WHERE "ID" = $2';
+            const values = [newBalance, id];
+            const result = await db.result(query, values);
+            return result.rowCount;
+        } catch (error) {
+            console.log('Update balance error: ', error);
+        }
+    }
 }
