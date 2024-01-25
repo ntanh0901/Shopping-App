@@ -135,7 +135,7 @@ async function create() {
     try {
         const cols = [
             { name: 'MaSP', type: 'SERIAL', primaryKey: true },
-            { name: 'Ten', type: 'VARCHAR(25) NOT NULL UNIQUE' },
+            { name: 'Ten', type: 'TEXT NOT NULL UNIQUE' },
             { name: 'DonGia', type: 'FLOAT8 NOT NULL' },
             { name: 'SoLuongTon', type: 'INT NOT NULL' },
             { name: 'Anh', type: 'text[]' },
@@ -149,7 +149,7 @@ async function create() {
     try {
         const cols = [
             { name: 'MaLoai', type: 'SERIAL', primaryKey: true },
-            { name: 'TenLoai', type: 'VARCHAR(12) NOT NULL' }
+            { name: 'TenLoai', type: 'TEXT NOT NULL' }
         ];
         await createTB("Loai", cols);
     } catch (error) {
@@ -203,30 +203,66 @@ async function create() {
     await addForeignKey("ChiTietHoaDon", "FK_MaHD_MaHD", ["MaHD"], "HoaDon", ["MaHD"]);
     await addForeignKey("ChiTietHoaDon", "FK_MaSP_MaSP", ["MaSP"], "SanPham", ["MaSP"]);
     await addForeignKey("SanPham", "FK_MaLoai_MaLoai", ["MaLoai"], "Loai", ["MaLoai"]);
+
+    await insertData();
 }
+async function insertData() {
+    // Product
+    await insertWithoutID("Loai", {TenLoai: "Đồng hồ"});
+    await insertWithoutID("Loai", {TenLoai: "Bách hóa"});
+    await insertWithoutID("Loai", {TenLoai: "Thể thao"});
+    await insertWithoutID("Loai", {TenLoai: "Nhà cửa và đời sống "});
+    await insertWithoutID("Loai", {TenLoai: "Phụ kiện thời trang"});
 
-module.exports = {
-    insertWithoutID: async (tbName, entity) => {
-        try {
-            const query = {
-                text: `INSERT INTO "${tbName}" ("${Object.keys(entity).join('", "')}") VALUES(${Object.keys(entity).map((_, i) => `$${i + 1}`).join(', ')}) RETURNING *`,
-                values: Object.values(entity),
-            };
-            const result = await db.oneOrNone(query);
-            if (result) {
-                console.log(`1 row inserted to ${tbName}.`);
-                return result;
-            } else {
-                console.log('No data returned from the query.');
-                return null;
-            }
-        } catch (error) {
-            console.log('Insert error: ', error);
+    const link = "img/products/";
+    const ext = ".jpg";
+    await insertWithoutID("SanPham", {Ten: "Đồng hồ nam dây da Skmei 90TCK58", DonGia: "500", SoLuongTon: "100", Anh: [link + "Đồng hồ nam dây da Skmei 90TCK58" + ext], MaLoai: "1"})
+    await insertWithoutID("SanPham", {Ten: "Đồng hồ Nam thể thao SKMEI 1155B", DonGia: "340", SoLuongTon: "100", Anh: [link + "Đồng hồ Nam thể thao SKMEI 1155B" + ext], MaLoai: "1"})
+    await insertWithoutID("SanPham", {Ten: "Đồng hồ Nữ Daniel Klein", DonGia: "720", SoLuongTon: "100", Anh: [link + "Đồng hồ Nữ Daniel Klein" + ext], MaLoai: "1"})
+    await insertWithoutID("SanPham", {Ten: "Đồng Hồ Nữ JA-1017 Julius", DonGia: "475", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JA-1017 Julius" + ext], MaLoai: "1"})
+    await insertWithoutID("SanPham", {Ten: "Đồng Hồ Nữ JS-060 Julius", DonGia: "263", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JS-060 Julius" + ext], MaLoai: "1"})
+    await insertWithoutID("SanPham", {Ten: "Dầu Đậu Nành Simply", DonGia: "76.7", SoLuongTon: "100", Anh: [link + "Dầu Đậu Nành Simply" + ext], MaLoai: "2"})
+    await insertWithoutID("SanPham", {Ten: "Hộp quà Tết OREO 463.2g", DonGia: "50", SoLuongTon: "100", Anh: [link + "Hộp quà Tết OREO 463.2g" + ext], MaLoai: "2"})
+    await insertWithoutID("SanPham", {Ten: "Bình Giữ Nhiệt Lock&Lock", DonGia: "329", SoLuongTon: "100", Anh: [link + "Bình Giữ Nhiệt Lock&Lock" + ext], MaLoai: "2"})
+    await insertWithoutID("SanPham", {Ten: "Cà phê G7 3in1", DonGia: "129", SoLuongTon: "100", Anh: [link + "Cà phê G7 3in1" + ext], MaLoai: "2"})
+    await insertWithoutID("SanPham", {Ten: "Bánh ăn sáng C'est bon", DonGia: "129", SoLuongTon: "100", Anh: [link + "Bánh ăn sáng C'est bon" + ext], MaLoai: "2"})
+    await insertWithoutID("SanPham", {Ten: "Dụng cụ tập cơ tay điều chỉnh lực", DonGia: "39", SoLuongTon: "100", Anh: [link + "Dụng cụ tập cơ tay điều chỉnh lực" + ext], MaLoai: "3"})
+    await insertWithoutID("SanPham", {Ten: "Kính bơi HMK", DonGia: "109", SoLuongTon: "100", Anh: [link + "Kính bơi HMK" + ext], MaLoai: "3"})
+    await insertWithoutID("SanPham", {Ten: "Xà Đơn  Treo Tường", DonGia: "298", SoLuongTon: "100", Anh: [link + "Xà Đơn  Treo Tường" + ext], MaLoai: "3"})
+    await insertWithoutID("SanPham", {Ten: "Thảm Tập Yoga TPE", DonGia: "119", SoLuongTon: "100", Anh: [link + "Thảm Tập Yoga TPE" + ext], MaLoai: "3"})
+    await insertWithoutID("SanPham", {Ten: "Bảng Phóng Phi Tiêu", DonGia: "59", SoLuongTon: "100", Anh: [link + "Bảng Phóng Phi Tiêu" + ext], MaLoai: "3"})
+    await insertWithoutID("SanPham", {Ten: "Cây lăn bụi", DonGia: "27.5", SoLuongTon: "100", Anh: [link + "Cây lăn bụi" + ext], MaLoai: "4"})
+    await insertWithoutID("SanPham", {Ten: "Vợt Muỗi Sunhouse", DonGia: "72", SoLuongTon: "100", Anh: [link + "Vợt Muỗi Sunhouse" + ext], MaLoai: "4"})
+    await insertWithoutID("SanPham", {Ten: "Ủng Bọc Giày", DonGia: "39.9", SoLuongTon: "100", Anh: [link + "Ủng Bọc Giày" + ext], MaLoai: "4"})
+    await insertWithoutID("SanPham", {Ten: "Combo 10 Móc Dán Tường", DonGia: "25", SoLuongTon: "100", Anh: [link + "Combo 10 Móc Dán Tường" + ext], MaLoai: "4"})
+    await insertWithoutID("SanPham", {Ten: "Thảm nhà tắm", DonGia: "120", SoLuongTon: "100", Anh: [link + "Thảm nhà tắm" + ext], MaLoai: "4"})
+    await insertWithoutID("SanPham", {Ten: "Gọng kính SARIFA", DonGia: "130", SoLuongTon: "100", Anh: [link + "Gọng kính SARIFA" + ext], MaLoai: "5"})
+    await insertWithoutID("SanPham", {Ten: "Thắt lưng dây nịt nam da bò", DonGia: "126", SoLuongTon: "100", Anh: [link + "Thắt lưng dây nịt nam da bò" + ext], MaLoai: "5"})
+    await insertWithoutID("SanPham", {Ten: "Tất vớ nam", DonGia: "45", SoLuongTon: "100", Anh: [link + "Tất vớ nam" + ext], MaLoai: "5"})
+    await insertWithoutID("SanPham", {Ten: "Mắt Kính Râm Mát Nam", DonGia: "139", SoLuongTon: "100", Anh: [link + "Mắt Kính Râm Mát Nam" + ext], MaLoai: "5"})
+    await insertWithoutID("SanPham", {Ten: "Mũ lưỡi trai Ulzzang", DonGia: "55", SoLuongTon: "100", Anh: [link + "Mũ lưỡi trai Ulzzang" + ext], MaLoai: "5"})
+}
+async function insertWithoutID(tbName, entity) {
+    try {
+        const query = {
+            text: `INSERT INTO "${tbName}" ("${Object.keys(entity).join('", "')}") VALUES(${Object.keys(entity).map((_, i) => `$${i + 1}`).join(', ')}) RETURNING *`,
+            values: Object.values(entity),
+        };
+        const result = await db.oneOrNone(query);
+        if (result) {
+            console.log(`1 row inserted to ${tbName}.`);
+            return result;
+        } else {
+            console.log('No data returned from the query.');
+            return null;
         }
-        return null;
-    },
-
-
+    } catch (error) {
+        console.log('Insert error: ', error);
+    }
+    return null;
+}
+module.exports = {
+    insertWithoutID,
     insert: async (tbName, entity) => {
         try {
             const query = pgp.helpers.insert(entity, null, tbName);
