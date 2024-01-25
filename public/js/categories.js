@@ -1,4 +1,4 @@
-var categories = [
+let categories = [
   { maDanhMuc: "D100", tenDanhMuc: "Đồng hồ" },
   { maDanhMuc: "D101", tenDanhMuc: "Bách hóa" },
   { maDanhMuc: "D105", tenDanhMuc: "Thể thao" },
@@ -6,12 +6,12 @@ var categories = [
 ];
 
 function populateTable() {
-  var tableBody = $("#categoryTable tbody").html("");
+  let tableBody = $("#categoryTable tbody").html("");
 
   categories.sort((a, b) => a.maDanhMuc.localeCompare(b.maDanhMuc));
 
   categories.forEach((category, index) => {
-    var row = tableBody[0].insertRow(index);
+    let row = tableBody[0].insertRow(index);
     row.innerHTML = `<td>${index + 1}</td><td>${category.maDanhMuc}</td><td>${
       category.tenDanhMuc
     }</td>`;
@@ -19,8 +19,8 @@ function populateTable() {
 }
 
 function validateInput(inputId, errorId, errorMessage) {
-  var value = $(inputId).val().trim();
-  var errorElement = $(errorId);
+  let value = $(inputId).val().trim();
+  let errorElement = $(errorId);
 
   errorElement.text("");
 
@@ -32,17 +32,13 @@ function validateInput(inputId, errorId, errorMessage) {
   return true;
 }
 
-function validateTenDanhMuc() {
-  return validateInput("#tenDanhMuc", "#tenDanhMucError", "Tên danh mục trống");
-}
-
-$("#tenDanhMuc").blur(function () {
-  validateInput(`#${this.id}`, `#${this.id}Error`, `${this.name} trống`);
+$("#tenDanhMuc").focus(function () {
+  $("#tenDanhMucError").text("");
 });
 
 function submitForm() {
-  var tenDanhMuc = $("#tenDanhMuc").val().trim();
-  var maDanhMuc = "0";
+  let tenDanhMuc = $("#tenDanhMuc").val().trim();
+  let maDanhMuc = "0";
 
   $("#tenDanhMucError").text("");
   if (!tenDanhMuc) {
@@ -72,6 +68,7 @@ function showForm() {
 }
 
 function cancelForm() {
+  $("#tenDanhMucError").text("");
   $("#btn_add").show();
   $(".form-container").hide();
 }

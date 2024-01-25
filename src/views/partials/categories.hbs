@@ -32,15 +32,17 @@
         </div>
 
         <!-- Form container -->
-        <section class="form-container mt-3">
+        <section class="form-container mt-3 ms-auto">
             <form id="categoryForm">
                 <div class="mb-3">
                     <label for="tenDanhMuc" class="form-label">Tên danh mục</label>
                     <input type="text" class="form-control" id="tenDanhMuc" name="Tên danh mục" required>
                     <div class="error-message" id="tenDanhMucError"></div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="submitForm()">Xong</button>
-                <button type="button" class="btn btn-light" onclick="cancelForm()">Hủy</button>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary ms-2" onclick="submitForm()">Xong</button>
+                    <button type="button" class="btn btn-light ms-2" onclick="cancelForm()">Hủy</button>
+                </div>
             </form>
         </section>
     </div>
