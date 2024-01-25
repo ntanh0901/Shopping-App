@@ -12445,7 +12445,7 @@ a.nav-item:hover i, a.nav-item.active i {
 
 .main-header {
   margin-top: 1rem;
-  color: #1b2d57;
+  color: #008f95;
   font-weight: 800;
   font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1.5rem;
@@ -12466,6 +12466,7 @@ a.nav-item:hover i, a.nav-item.active i {
 }
 
 #categoryTable {
+  padding-bottom: 5rem;
   text-align: center;
   vertical-align: middle !important;
   padding-bottom: 5rem;
@@ -12479,8 +12480,11 @@ a.nav-item:hover i, a.nav-item.active i {
   color: #fff;
   height: 2rem;
 }
-#categoryTable tbody tr {
-  height: 3rem;
+#categoryTable tbody {
+  padding-bottom: 4rem;
+}
+#categoryTable tbody td {
+  height: 3rem !important;
 }
 #categoryTable thead {
   height: 4rem;

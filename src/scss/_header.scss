@@ -1,6 +1,6 @@
 .main-header {
     margin-top: 1rem;
-        @include textStyle($heading-color, 800, $base-font-family);
+        @include textStyle($primary, 800, $base-font-family);
         font-size: 1.5rem;
     }
     

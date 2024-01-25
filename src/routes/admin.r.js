@@ -19,7 +19,6 @@ router.get("/admin/dashboard", (req, res) => {
 router.get("/admin/report", (req, res) => {
   res.render("report", {
     title: "Admin dashboard page",
-    // isAdmin: true,
     isReport: true,
   });
 });
@@ -27,9 +26,16 @@ router.get("/admin/report", (req, res) => {
 router.get("/admin/categories", (req, res) => {
   res.render("categories", {
     title: "Admin categories",
-    // isAdmin: true,
     isCategories: true,
   });
 });
+
+router.get("/admin/products", (req, res) => {
+  res.render("products", {
+    title: "Admin products",
+    isProducts: true,
+  });
+});
+
 
 module.exports = router;
