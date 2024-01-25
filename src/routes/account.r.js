@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
             res.redirect('/admin');
         }
         else {
-            res.redirect('/customer');
+            res.redirect('/client');
         }
     }
     else {
@@ -27,7 +27,7 @@ router.get('/login', (req, res) => {
             res.redirect('/admin');
         }
         else {
-            res.redirect('/customer');
+            res.redirect('/client');
         }
         return;
     }
@@ -73,7 +73,7 @@ router.post('/login', passport.authenticate('passport-login', {
             res.redirect('/admin');
         }
         else {
-            res.redirect('/customer');
+            res.redirect('/client');
         }
     }
     else {
@@ -87,7 +87,7 @@ router.get('/signup', (req, res) => {
             res.redirect('/admin');
         }
         else {
-            res.redirect('/customer');
+            res.redirect('/client');
         }
         return;
     }
@@ -104,7 +104,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', passport.authenticate('passport-signup', {
     failureRedirect: '/signup',
     //failureFlash: true,
-    successRedirect: '/customer'
+    successRedirect: '/client'
 }));
 
 router.post('/logout', (req, res) => {
