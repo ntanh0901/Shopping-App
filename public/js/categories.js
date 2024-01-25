@@ -4,7 +4,6 @@ let categories = [
   { maDanhMuc: "D105", tenDanhMuc: "Thể thao" },
   { maDanhMuc: "D103", tenDanhMuc: "Nhà cửa và đời sống" },
 ];
-
 function populateTable() {
   let tableBody = $("#categoryTable tbody").html("");
 
@@ -12,12 +11,50 @@ function populateTable() {
 
   categories.forEach((category, index) => {
     let row = tableBody[0].insertRow(index);
-    row.innerHTML = `<td>${index + 1}</td><td>${category.maDanhMuc}</td><td>${
-      category.tenDanhMuc
-    }</td>`;
+    row.innerHTML = `<td>${index + 1}</td>
+                     <td>${category.maDanhMuc}</td>
+                     <td>${category.tenDanhMuc}</td>
+					 <td>
+					 <i class='bx bx-edit text-info cursor-pointer'role="button" onclick="editCategory(${index})" title="Edit"></i>
+					 <i class='bx bx-trash text-danger cursor-pointer' role="button"onclick="deleteCategory(${index})" title="Delete"></i>
+				 </td>`;
   });
 }
-
+function editCategory(index) {
+	let category = categories[index];
+  
+	$("#tenDanhMuc").val(category.tenDanhMuc);
+  
+	showForm();
+	
+	$("#categoryForm button[type='button']").attr('onclick', `submitEditForm(${index})`);
+  }
+  
+  function submitEditForm(index) {
+	let newTenDanhMuc = $("#tenDanhMuc").val().trim();
+  
+	if (newTenDanhMuc) {
+	  categories[index].tenDanhMuc = newTenDanhMuc;
+	  populateTable();
+	  cancelForm();
+	} else {
+	}
+  }
+  
+  function deleteCategory(index) {
+	let categoryName = categories[index].tenDanhMuc;
+	$("#categoryToDelete").text(categoryName);
+	$("#deleteCategoryBtn").data("index", index);
+	$("#deleteConfirmationModal").modal('show');
+  }
+  
+  $("#deleteCategoryBtn").click(function () {
+    let index = $("#deleteCategoryBtn").data("index");
+    categories.splice(index, 1);
+    populateTable();
+    $("#deleteConfirmationModal").modal('hide');
+  });  
+  
 function validateInput(inputId, errorId, errorMessage) {
   let value = $(inputId).val().trim();
   let errorElement = $(errorId);

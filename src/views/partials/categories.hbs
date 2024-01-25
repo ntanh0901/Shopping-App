@@ -21,6 +21,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Mã danh mục</th>
                     <th scope="col">Tên danh mục</th>
+                    <th scope="col">Chỉnh sửa/Xóa</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,24 @@
                 </div>
             </form>
         </section>
+    </div>
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   Xóa danh mục "<span id="categoryToDelete"></span>"?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="deleteCategoryBtn">Xóa</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
