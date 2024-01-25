@@ -1,0 +1,51 @@
+<div id="overlay">
+    {{>admin_new_import}}
+</div>
+
+<div class="main-content">
+    <div class="title_content">
+        <div>
+            <div class="main-header">
+                Danh mục
+            </div>
+
+            <div class="sub-header">
+                Quản lý danh mục các sản phẩm
+            </div>
+        </div>
+    </div>
+    <div class="position-relative  w-50 mx-auto">
+        <table class="table table-hover mx-auto" id="categoryTable">
+            <thead class="my-auto">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Mã danh mục</th>
+                    <th scope="col">Tên danh mục</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="ic-plus" id="btn_add">
+            <i class='bx bxs-plus-square btn-plus position-absolute bottom-0 end-0 cursor-pointer'
+                data-toggle=" tooltip" data-placement="top" title="Thêm" onclick="showForm()"></i>
+        </div>
+
+        <!-- Form container -->
+        <section class="form-container mt-3">
+            <form id="categoryForm">
+                <div class="mb-3">
+                    <label for="tenDanhMuc" class="form-label">Tên danh mục</label>
+                    <input type="text" class="form-control" id="tenDanhMuc" name="Tên danh mục" required>
+                    <div class="error-message" id="tenDanhMucError"></div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Xong</button>
+                <button type="button" class="btn btn-light" onclick="cancelForm()">Hủy</button>
+            </form>
+        </section>
+    </div>
+
+
+</div>
+
+<script src="/js/categories.js"></script>

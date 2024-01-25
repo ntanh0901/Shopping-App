@@ -13,7 +13,23 @@ router.get("/admin/dashboard", (req, res) => {
     title: "Admin dashboard page",
     // isAdmin: true,
     isDashboard: true,
-    GioiTinh: "male",
   });
 });
+
+router.get("/admin/report", (req, res) => {
+  res.render("report", {
+    title: "Admin dashboard page",
+    // isAdmin: true,
+    isReport: true,
+  });
+});
+
+router.get("/admin/categories", (req, res) => {
+  res.render("categories", {
+    title: "Admin categories",
+    // isAdmin: true,
+    isCategories: true,
+  });
+});
+
 module.exports = router;

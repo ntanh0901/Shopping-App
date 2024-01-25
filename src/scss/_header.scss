@@ -1,0 +1,17 @@
+.main-header {
+    margin-top: 1rem;
+        @include textStyle($heading-color, 800, $base-font-family);
+        font-size: 1.5rem;
+    }
+    
+    .sub-header {
+        @include textStyle($sub-color-dark, 400, $base-font-family);
+        margin-top: 0.75rem;
+        margin-bottom: 1.938rem;
+    }
+    
+    .ic-plus{
+        font-size: 1.95rem;
+        color: $base-color;
+        float: right;
+    }

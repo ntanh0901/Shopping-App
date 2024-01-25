@@ -29,7 +29,7 @@
             </a>
         </li>
         <li>
-            <a href="/catogories" class="nav-item">
+            <a href="/admin/categories" class="nav-item {{#if isCategories}} active {{/if}}">
                 <i class="bx bx-category"></i>
                 <p class="open">Categories</p>
             </a>
@@ -52,15 +52,9 @@
                 <p class="open">User</p>
             </a>
         </li>
-        <li>
-            <a href="/admin/import" class="nav-item {{#if isImport}} active {{/if}}">
-                <i class="bx bx-import"></i>
-                <p class="open">Nhập kho</p>
-            </a>
-        </li>
     </ul>
     <section class="user-container">
-        <a class="user" href="/admin/profile">
+        <a class="user" href="/admin/dashboard">
             <img src="/img/logo_hcmus.png" alt="" class="avatar" />
             <p class="open">Admin</p>
         </a>

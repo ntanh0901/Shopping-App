@@ -1,0 +1,206 @@
+.main-content {
+  padding: 0.5rem 1rem;
+  flex: 1;
+  background-color: $light-bg-color;
+  overflow: auto;
+}
+
+.content_pos {
+  position: relative;
+
+  .content_import {
+    position: relative;
+    background-color: $light-bg-color;
+    font-family: $base-font-family;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 70vw;
+    height: 85%;
+    margin: 7vh auto;
+
+    .head_import {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .import_title {
+        .id_import {
+          color: $normal-text-color;
+          font-size: 1.5rem;
+        }
+
+        .date_import {
+          color: $base-color;
+          font-size: 1.25rem;
+        }
+      }
+
+      .import_add {
+        button {
+          height: 2rem;
+          width: auto;
+          border: 0.125rem solid $base-color;
+          border-radius: 0.5rem;
+          font-size: 1rem;
+          color: $base-color;
+          cursor: pointer;
+
+          .icon {
+            font-weight: 600;
+          }
+
+          &:hover {
+            border: 0.25rem solid $heading-color;
+          }
+        }
+      }
+    }
+
+    .table_content {
+      font-size: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 3fr 6fr 3fr 3fr 1fr;
+      margin: 1rem 0;
+
+      div {
+        text-align: center;
+      }
+    }
+
+    .table_container {
+      height: 30vh;
+      overflow: auto;
+      .btn-trash {
+        color: $danger-color;
+        font-size: 1.5rem;
+      }
+    }
+
+    .thead {
+      color: $base-color;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.125rem solid $unactive-nav-color;
+    }
+
+    .sub {
+      color: $sub-color;
+      padding: 1rem 0;
+    }
+
+    .sum_import {
+      background-color: $green-active;
+      border-radius: 0.5rem;
+      margin: 2rem 0;
+      padding: 0.25rem 0.25rem;
+    }
+
+    .foot_import {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        background-color: $base-color;
+        height: 2.5rem;
+        width: 6.5rem;
+        border-radius: 0.25rem;
+        text-align: center;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        border: none;
+        color: $light-bg-color;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $heading-color;
+        }
+      }
+    }
+
+    .btn-close {
+      position: absolute;
+      background-color: $order-bg-color;
+      top: -1.5rem;
+      right: -1.5rem;
+      cursor: pointer;
+      i {
+        font-size: 2.5rem;
+      }
+      &:hover{
+
+      }
+    }
+  }
+}
+
+.admin_import_table {
+  border-radius: 5rem;
+}
+.admin_import_table table {
+  width: 90%;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  overflow: hidden; /* Ensure rounded corners are visible */
+  background-color: $nav-bg;
+  position: relative;
+  border-collapse: none;
+  text-align: left;
+  margin-top: 2.25rem;
+  padding-bottom: 3rem;
+
+  th,
+  td {
+    border-bottom: 1px solid $sub-color;
+    padding: 1.125rem;
+  }
+  thead {
+    background-color: $base-color;
+    @include textStyle($nav-bg, 600, $base-font-family);
+  }
+  tbody {
+    @include textStyle($normal-text-color, 300, $base-font-family);
+    font-size: 0.813rem;
+  }
+
+  .btn-detail {
+    @include textStyle($normal-text-color, 100, $base-font-family);
+    font-size: 1.5rem;
+  }
+
+  tbody tr:hover {
+    background-color: $light-bg-color !important;
+    border-color: $light-bg-color !important;
+  }
+  td {
+    &.paid {
+      color: $green-active;
+    }
+    &.pending {
+      color: $pending-color;
+    }
+    &.canceled {
+      color: $danger-color;
+    }
+  }
+  th,
+  td {
+    background-clip: padding-box;
+  }
+  .bxs-edit-alt {
+    color: $yellow-total-color;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .btn-delete-report {
+    color: $danger-color;
+    font-size: 1.5rem;
+  }
+}
+
+[class*="btn-"] {
+  &:hover {
+    transform: scale(1.05);
+  }
+  cursor: pointer;
+}

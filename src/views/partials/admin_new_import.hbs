@@ -1,0 +1,112 @@
+<div class="content_pos">
+    <div class="content_import">
+        <div class="head_import">
+            <div class="import_title">
+                <div class="id_import">{{id}}IN1234</div>
+                <div class="date_import"> {{date}}10/02/2023</div>
+            </div>
+            <div class="import_add">
+                <button>
+                    <i class="bx bx-plus icon"></i>
+                    Thêm hàng
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <div class="thead table_content">
+                <div>#</div>
+                <div>Mã hàng</div>
+                <div>Tên hàng</div>
+                <div>Số lượng</div>
+                <div>Giá</div>
+                <div></div>
+            </div>
+            <div class="table_container" id="new_import_table">
+
+                <div class="sub table_content">
+                    <div>{{stt}}</div>
+                    <div>{{id}}DR003</div>
+                    <div>{{name}}Nước đóng chai 7UP</div>
+                    <div>{{sl}}24</div>
+                    <div>{{price}}160000</div>
+                    <i class="bx bx-trash btn-trash" onclick="deleteRow(this)"></i>
+                </div>
+                <div class="sub table_content">
+                    <div>{{stt}}</div>
+                    <div>{{id}}DR003</div>
+                    <div>{{name}}Nước đóng chai 7UP</div>
+                    <div>{{sl}}24</div>
+                    <div>{{price}}160000</div>
+                    <i class="bx bx-trash btn-trash" onclick="deleteRow(this)"></i>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="sum_import">
+            <div class="table_content">
+                <div>Tổng</div>
+                <div></div>
+                <div></div>
+                <div>{{sum}}800</div>
+                <div>{{sum_price}}10000000</div>
+            </div>
+        </div>
+        <div class="foot_import">
+
+            <button class="btn-confirm" onclick="off()">Xác nhận</button>
+        </div>
+
+        <div class="btn-close" onclick="off()" data-toggle="tooltip" data-placement="top" title="Đóng">
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteRow(element) {
+        $(element).closest('.sub.table_content').remove();
+        updateImport();
+    }
+
+    function updateSttColumn() {
+        $('#new_import_table .sub.table_content').each(function (index) {
+            $(this).find(':first-child').text(index + 1);
+        });
+    }
+
+    function updateSum() {
+        var sum = 0;
+        $('#new_import_table .sub.table_content').each(function () {
+            var slValue = parseFloat($(this).find(':nth-child(4)').text());
+            sum += isNaN(slValue) ? 0 : slValue;
+        });
+
+        // Update the sum value in the HTML
+        $('.sum_import .table_content :nth-child(4)').text(sum);
+    }
+    function updateSumPrice() {
+        var sumPrice = 0;
+        $('#new_import_table .sub.table_content').each(function () {
+            var slValue = parseFloat($(this).find(':nth-child(4)').text());
+            var priceValue = parseFloat($(this).find(':nth-child(5)').text());
+            var product = isNaN(slValue) || isNaN(priceValue) ? 0 : slValue * priceValue;
+            sumPrice += product;
+        });
+
+        // Update the sum_price value in the HTML
+        $('.sum_import .table_content :nth-child(5)').text(sumPrice);
+    }
+
+    function updateImport() {
+        updateSttColumn();
+        updateSum();
+        updateSumPrice()
+    }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        updateSttColumn();
+        updateSum();
+        updateSumPrice()
+    });
+</script>
