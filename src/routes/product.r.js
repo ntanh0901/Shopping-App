@@ -7,5 +7,6 @@ const productController = require('../controllers/product.c');
 router.post('/getCategories', categoriesController.getCategories);
 router.get('/updateCategories', categoriesController.updateCategories);
 router.get('/deleteCategories', categoriesController.deleteCategories);
+router.get('/addCategory', categoriesController.addCategory);
 
 module.exports = router;

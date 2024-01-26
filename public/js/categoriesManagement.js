@@ -1,50 +1,50 @@
-function getCategories(callback) {
-    $.ajax({
-        url: `/productsmanagement/getCategories`,
-        method: 'POST',
-        success: function (data) {
-            if (data)
-                callback(null, data);
-            else
-                callback(null, null);
-        },
-        error: function (err) {
-            console.error('Error fetching data:', err);
-            callback(err, null);
-        }
-    });
+async function getCategories() {
+    try {
+        const response = await $.ajax({
+            url: `/admin/productsmanagement/getCategories`,
+            method: 'POST'
+        });
+        return response;
+    } catch (err) {
+        console.error('Error fetching data:', err);
+    }
 }
 
-function updateCategories(id, newval, callback) {
-    $.ajax({
-        url: `/productsmanagement/updateCategories?id=${id}&newval=${newval}`,
-        method: 'GET',
-        success: function (data) {
-            if (data)
-                callback(null, true);
-            else
-                callback(null, false);
-        },
-        error: function (err) {
-            console.error('Error fetching data:', err);
-            callback(err, null);
-        }
-    });
+async function updateCategories(id, newval) {
+    try {
+        const response = await $.ajax({
+            url: `/admin/productsmanagement/updateCategories?id=${id}&newval=${newval}`,
+            method: 'GET',
+        });
+        return response;
+    }
+    catch (err) {
+        console.error('Error fetching data:', err);
+    }
 }
 
-function deleteCategories(id, callback) {
-    $.ajax({
-        url: `/productsmanagement/deleteCategories?id=${id}`,
-        method: 'GET',
-        success: function (data) {
-            if (data)
-                callback(null, data);
-            else
-                callback(null, null);
-        },
-        error: function (err) {
-            console.error('Error fetching data:', err);
-            callback(err, null);
-        }
-    });
+async function deleteCategories(id) {
+    try {
+        const response = await $.ajax({
+            url: `/admin/productsmanagement/deleteCategories?id=${id}`,
+            method: 'GET',
+        });
+        return response;
+    }
+    catch (err) {
+        console.error('Error fetching data:', err);
+    }
+}
+
+async function addCategory(name) {
+    try {
+        const response = await $.ajax({
+            url: `/admin/productsmanagement/addCategory?name=${name}`,
+            method: 'GET',
+        });
+        return response;
+    }
+    catch (err) {
+        console.error('Error fetching data:', err);
+    }
 }

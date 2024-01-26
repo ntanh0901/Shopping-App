@@ -3,7 +3,7 @@ const Categories = require('../models/categories.m');
 module.exports = {
     getCategories: async (req, res) => {
         try {
-            const categories = await Categories.getType();
+            const categories = await Categories.getAll();
             res.json({ categories: categories });
         }
         catch (error) {
@@ -17,7 +17,7 @@ module.exports = {
             const id = req.query.id;
             const newval = req.query.newval;
             if (await Categories.update(["MaLoai", "TenLoai"], [id, newval], id))
-                res.json({ data: true });
+                res.json(true);
             else
                 res.json(false);
         }
@@ -31,7 +31,7 @@ module.exports = {
         try {
             const id = req.query.id;
             if (await Categories.delete(id))
-                res.json({data: true});
+                res.json(true);
             else
                 res.json(false);
         }
@@ -39,5 +39,12 @@ module.exports = {
             console.log("deleteCategories error: ", error);
             res.json(false);
         }
+    },
+
+    addCategory: async (req, res) => {
+        const name = req.query.name;
+        const result = await Categories.insert(new Categories(name));
+        if (result !== null)
+            res.json(result);
     }
 }

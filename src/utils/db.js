@@ -282,17 +282,20 @@ module.exports = {
     delete: async (tbName, col, val) => {
         try {
             const result = await db.result(
-                `DELETE FROM "${tbName}" WHERE ${col} = $1 RETURNING *`, [val]
+                `DELETE FROM "${tbName}" WHERE "${col}" = $1 RETURNING *`, [val]
             );
             if (result.rowCount > 0) {
                 console.log(`Deleted row with value ${val} in colmn ${col}`);
+                return true;
             }
             else {
                 console.log(`No rows deleted. Row not found`);
             }
         } catch (error) {
             console.log('Delete error: ', error);
+            return false;
         }
+        return false;
     },
 
     selectAll: async (tbName) => {

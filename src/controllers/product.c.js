@@ -1,5 +1,6 @@
 const Product = require('../models/product.m');
 const Account = require('../models/account.m');
+const Categories = require('../models/categories.m');
 
 module.exports = {
     // Add: async (req, res, next) => {
@@ -56,7 +57,7 @@ module.exports = {
             return;
         }
         try {
-            const data = await Product.getType();
+            const data = await Categories.getAll();
             res.render('client/home', {
                 title: 'Home',
                 type: data
