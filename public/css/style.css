@@ -12586,7 +12586,6 @@ a.nav-item:hover i, a.nav-item.active i {
 .main-content .error-message {
   color: red;
   font-size: 0.75rem;
-  margin-top: 5px;
   min-height: 0.75rem;
 }
 
