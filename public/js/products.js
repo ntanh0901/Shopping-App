@@ -259,6 +259,7 @@ function updateImagePreview(input) {
   const file = input.files[0];
 
   if (file) {
+    console.log('ne');
     const reader = new FileReader();
     reader.onload = function (e) {
       imagePreview.src = e.target.result;

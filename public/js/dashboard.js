@@ -12,7 +12,7 @@ let adminInfo = {
 updateDashboard();
 
 function updateDashboard() {
-  $("#adminImage").text(adminInfo.image);
+  $("#adminImage").attr("src", adminInfo.image);
   $("#adminUsername").text(adminInfo.username);
   $("#adminName").text(adminInfo.name);
   $("#adminAge").text(adminInfo.age);
@@ -27,7 +27,7 @@ $("#editProfileModal").on("show.bs.modal", function (event) {
 });
 
 function populateEditProfileModal() {
-  $("#editImage").val(adminInfo.image);
+  $("#editImage").attr("src", adminInfo.image);
   $("#editUsername").val(adminInfo.username);
   $("#editName").val(adminInfo.name);
   $("#editAge").val(adminInfo.age);
@@ -45,6 +45,7 @@ function populateEditProfileModal() {
 }
 function submitForm() {
   if (!validateForm()) return;
+  adminInfo.image = $("#editImage").attr("src");
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
   adminInfo.age = $("#editAge").val();
@@ -108,3 +109,19 @@ function validateForm() {
 $("#editUsername, #editName, #editAge, #editPhone, #editEmail, #editAddress").focus(function () {
 	$(`#error${$(this).attr("id").replace("edit", "")}`).text("");
 });
+
+
+function updateImagePreview(input) {
+	const imagePreview = document.getElementById("editImage");
+	const file = input.files[0];
+  
+	if (file) {
+	  const reader = new FileReader();
+	  reader.onload = function (e) {
+		imagePreview.src = e.target.result;
+	  };
+	  reader.readAsDataURL(file);
+	} else {
+	  imagePreview.src = ""; 
+	}
+  }
