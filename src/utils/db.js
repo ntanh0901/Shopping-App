@@ -214,7 +214,7 @@ async function insertData() {
     await insertWithoutID("Loai", {TenLoai: "Nhà cửa và đời sống "});
     await insertWithoutID("Loai", {TenLoai: "Phụ kiện thời trang"});
 
-    const link = "img/products/";
+    const link = "/img/products/";
     const ext = ".jpg";
     await insertWithoutID("SanPham", {Ten: "Đồng hồ nam dây da Skmei 90TCK58", DonGia: "500", SoLuongTon: "100", Anh: [link + "Đồng hồ nam dây da Skmei 90TCK58" + ext], MaLoai: "1"})
     await insertWithoutID("SanPham", {Ten: "Đồng hồ Nam thể thao SKMEI 1155B", DonGia: "340", SoLuongTon: "100", Anh: [link + "Đồng hồ Nam thể thao SKMEI 1155B" + ext], MaLoai: "1"})
@@ -411,9 +411,9 @@ module.exports = {
             `;
             if (colOrder) {
                 if (isDesc) {
-                    query += `ORDER BY ${colOrder} DESC `;
+                    query += `ORDER BY "${colOrder}" DESC `;
                 }
-                else query += `ORDER BY ${colOrder} ASC `;
+                else query += `ORDER BY "${colOrder}" ASC `;
             }
 
             if (limit) {
@@ -442,6 +442,29 @@ module.exports = {
             return result.rowCount;
         } catch (error) {
             console.log('Select property by condition error: ', error);
+        }
+    },
+
+    joinTBnGetAll: async (tb1, tb2, col1, col2, colOrder, isDesc, limit) => {
+        try {
+            let query = `
+                SELECT *
+                FROM "${tb1}"
+                JOIN "${tb2}" ON "${tb1}"."${col1}" = "${tb2}"."${col2}"
+            `;
+            if (colOrder) {
+                if (isDesc) {
+                    query += `ORDER BY "${colOrder}" DESC `;
+                }
+                else query += `ORDER BY "${colOrder}" ASC `;
+            }
+
+            if (limit) {
+                query += `LIMIT ${limit} `;
+            }
+            return db.manyOrNone(query);
+        } catch (error) {
+            console.log("Join table error: ", error);
         }
     },
 }

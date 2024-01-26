@@ -20,22 +20,23 @@ module.exports = {
     //     }
     // },
 
-    getPage: async (req, res, next) => {
+    getProducts: async (req, res, next) => {
         try {
             const type = req.query.type || 'Tất cả';
-            const orderBy = req.query.orderBy || null;
-            const isDesc = req.query.isDesc || null;
+            const orderBy = req.query.orderBy || "MaSP";
+            const isDesc = req.query.isDesc || false;
             let data = null;
             if (type === 'Tất cả') {
-                data = await Product.getAll(orderBy, isDesc);
+                data = await Product.getAllProductsWithType(orderBy, isDesc);
             } else {
                 data = await Product.getBy(type, orderBy, isDesc);
             }
+            // console.log(data);
             const total = data.length;
 
             const currentPage = req.query.page || 1;
             const itemsPerPage = 25;
-            
+
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             data = data.slice(startIndex, endIndex);
@@ -90,5 +91,43 @@ module.exports = {
         catch (err) {
             console.log('err type: ', err);
         }
+    },
+
+    //Product Management
+
+    updateProduct: async (req, res) => {
+        // try {
+        //     const id = req.query.id;
+        //     const newval = req.query.newval;
+        //     if (await Categories.update(["MaLoai", "TenLoai"], [id, newval], id))
+        //         res.json(true);
+        //     else
+        //         res.json(false);
+        // }
+        // catch (error) {
+        //     console.log("updateCategories error: ", error);
+        //     res.json(false);
+        // }
+    },
+
+    deleteProduct: async (req, res) => {
+        // try {
+        //     const id = req.query.id;
+        //     if (await Categories.delete(id))
+        //         res.json(true);
+        //     else
+        //         res.json(false);
+        // }
+        // catch (error) {
+        //     console.log("deleteCategories error: ", error);
+        //     res.json(false);
+        // }
+    },
+
+    addProduct: async (req, res) => {
+        // const name = req.query.name;
+        // const result = await Categories.insert(new Categories(name));
+        // if (result !== null)
+        //     res.json(result);
     }
 }

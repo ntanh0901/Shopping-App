@@ -28,4 +28,7 @@ module.exports = class Product {
     static async getBy(type, orderBy, isDesc) {
         return db.joinTB(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null);
     }
+    static async getAllProductsWithType(orderBy, isDesc) {
+        return db.joinTBnGetAll(tbName, "Loai", "MaLoai", "MaLoai", orderBy, isDesc, null);
+    }
 }
