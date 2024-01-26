@@ -1,1 +1,122 @@
-{{> cashier_dashboard}}
+<div id="overlay">
+    {{>admin_new_import}}
+</div>
+
+<div class="main-content">
+    <div class="title_content">
+        <div>
+            <div class="main-header">
+                Sản phẩm
+            </div>
+
+            <div class="sub-header">
+                Quản lý sản phẩm
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative  mx-auto" style="width: 95%">
+        <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="productTable">
+            <thead class="my-auto">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Mã sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Số lượng tồn</th>
+                    <th scope="col">Loại</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Chỉnh sửa/Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <!-- Confirm delete product -->
+        <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1"
+            aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Xóa sản phẩm "<span id="productToDelete"></span>"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="deleteProductBtn">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ic-plus" id="btn_add">
+            <i class='bx bxs-plus-square btn-plus position-absolute bottom-0 end-0 cursor-pointer'
+                data-toggle=" tooltip" data-placement="top" title="Thêm" onclick="showForm()"></i>
+        </div>
+
+        <!-- Form for edit/add product -->
+        <div class="modal" id="productFormModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="form-container mt-3 ms-auto">
+                            <form id="productForm" onsubmit="event.preventDefault();">
+                                <div class="mb-3">
+                                    <label for="productName" class="form-label">Tên sản phẩm</label>
+                                    <input type="text" class="form-control" id="productName" name="Tên sản phẩm"
+                                        required>
+                                    <div class="error-message" id="productNameError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productPrice" class="form-label">Giá</label>
+                                    <input type="number" class="form-control" id="productPrice" name="Giá" required>
+                                    <div class="error-message" id="productPriceError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productStock" class="form-label">Số lượng tồn</label>
+                                    <input type="number" class="form-control" id="productStock" name="Số lượng tồn"
+                                        required>
+                                    <div class="error-message" id="productStockError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productCategory" class="form-label">Loại</label>
+                                    <select class="form-select" id="productCategory" name="Loại" required>
+                                      
+                                    </select>
+                                    <div class="error-message" id="productCategoryError"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productImage" class="form-label">Ảnh</label>
+                                    <input type="file" class="form-control" id="productImage" name="Ảnh"
+                                        accept="image/*">
+                                    <div class="error-message" id="productImageError"></div>
+                                    <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;"
+                                        alt="Image Preview">
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-light ms-2 me-2"
+                                        onclick="cancelForm()">Hủy</button>
+                                    <button type="button" class="btn btn-primary text-white ms-2"
+                                        onclick="submitForm()">Xong</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+
+<script src="/js/products.js"></script>

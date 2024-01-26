@@ -12465,28 +12465,28 @@ a.nav-item:hover i, a.nav-item.active i {
   float: right;
 }
 
-#categoryTable {
+.manageTable {
   padding-bottom: 5rem;
   text-align: center;
   vertical-align: middle !important;
   padding-bottom: 5rem;
 }
-#categoryTable tr {
+.manageTable tr {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
 }
-#categoryTable th {
+.manageTable th {
   background-color: #008f95 !important;
   color: #fff;
   height: 2rem;
 }
-#categoryTable tbody {
+.manageTable tbody {
   padding-bottom: 4rem;
 }
-#categoryTable tbody td {
+.manageTable tbody td {
   height: 3rem !important;
 }
-#categoryTable thead {
+.manageTable thead {
   height: 4rem;
   vertical-align: middle;
 }
@@ -12498,6 +12498,11 @@ a.nav-item:hover i, a.nav-item.active i {
   color: red;
   font-size: 0.75rem;
   margin-top: 5px;
+}
+
+.product_img {
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 a {

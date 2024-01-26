@@ -11,7 +11,6 @@ router.get("/admin", (req, res) => {
 router.get("/admin/dashboard", (req, res) => {
   res.render("dashboard", {
     title: "Admin dashboard page",
-    // isAdmin: true,
     isDashboard: true,
   });
 });

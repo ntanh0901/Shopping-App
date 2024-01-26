@@ -10,13 +10,13 @@
             </div>
 
             <div class="sub-header">
-                Quản lý danh mục các sản phẩm
+                Quản lý danh mục sản phẩm
             </div>
         </div>
     </div>
 
-    <div class="position-relative  w-50 mx-auto">
-        <table class="table table-hover mx-auto rounded-3 overflow-hidden" id="categoryTable">
+    <div class="position-relative  w-75 mx-auto">
+        <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="categoryTable">
             <thead class="my-auto">
                 <tr>
                     <th scope="col">#</th>
@@ -25,6 +25,7 @@
                     <th scope="col">Chỉnh sửa/Xóa</th>
                 </tr>
             </thead>
+
             <tbody>
             </tbody>
         </table>
@@ -53,13 +54,13 @@
                 data-toggle=" tooltip" data-placement="top" title="Thêm" onclick="showForm()"></i>
         </div>
 
-        <!-- Form container -->
+        <!-- Form for edit/add category -->
         <section class="form-container mt-3 ms-auto">
-            <form id="categoryForm"  onsubmit="event.preventDefault();">
+            <form id="categoryForm" onsubmit="event.preventDefault();">
                 <div class="mb-3">
-                    <label for="tenDanhMuc" class="form-label">Tên danh mục</label>
-                    <input type="text" class="form-control" id="tenDanhMuc" name="Tên danh mục" required>
-                    <div class="error-message" id="tenDanhMucError"></div>
+                    <label for="newName" class="form-label">Tên danh mục</label>
+                    <input type="text" class="form-control" id="newName" name="Tên danh mục" required>
+                    <div class="error-message" id="newNameError"></div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-light ms-2 me-2" onclick="cancelForm()">Hủy</button>
