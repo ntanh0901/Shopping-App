@@ -17,6 +17,12 @@ app.set('views', path.join(__dirname, 'views'));
 // set static files
 app.use(express.static('public'));
 
+app.get('/products', (req, res) => {
+    res.render('client/product', {
+        title: 'Sản phẩm'
+    })
+});
+
 route(app);
 
 // http

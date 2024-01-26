@@ -1,0 +1,113 @@
+.product-main-body {
+    display: grid;
+    grid-template-columns: 1fr 22.5rem;
+    column-gap: 1.5rem;
+    align-items: start;
+
+    .left {
+        display: grid;
+        grid-template-columns: 100%;
+        gap: 1rem;
+        
+        .product-container {
+            display: grid;
+            grid-template-columns: 23rem 1fr;
+            gap: 1.5rem;
+            align-items: start;
+            .product-cover {
+                position: sticky;
+                top: 1rem;
+            }
+            .img-container {
+                padding-top: 100%;
+                position: relative;
+
+                img {
+                    position: absolute;
+                    right: 0;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    max-height: 100%;
+                    max-width: 100%;
+                    margin: auto;
+                }
+            }
+        }
+
+        .rating-comment {
+            .rate-bar {
+                width: 10rem;
+                height: 0.5rem;
+            }
+        }
+    }
+    .checkout-form {
+        position: sticky;
+        top: 1rem;
+        .product-small-container {
+            display: grid;
+            grid-template-columns: calc(20% - 1rem) 1fr;
+            column-gap: 0.5rem;
+            align-items: center;
+            .img-thumb {
+                padding-top: 100%;
+                position: relative;
+                img {
+                    position: absolute;
+                    right: 0;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    max-width: 100%;
+                    max-height: 100%;
+                    margin: auto;
+                }
+            }
+        }
+        #increase-btn:hover, #decrease-btn:hover {
+            background-color: $gray-200;
+        }
+    }
+}
+
+.card-container-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(calc(25% - 0.5rem), 1fr));
+    gap: 0.5rem;
+
+    .card-item {
+        transition: all 300ms;
+        .img-container {
+            padding-top: 100%;
+            position: relative;
+            img {
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                max-height: 100%;
+                max-width: 100%;
+                margin: auto;
+            }
+        }
+
+        .content {
+            padding: 0.75rem;
+            font-size: 1rem;
+
+            .subcontent {
+                p {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px;
+        }
+    }
+
+
+}
