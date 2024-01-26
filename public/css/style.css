@@ -12053,9 +12053,12 @@ textarea.form-control-lg {
   max-width: 100%;
   margin: auto;
 }
+.card-container-small .card-item .item-link {
+  font-size: 0.875rem;
+}
 .card-container-small .card-item .content {
   padding: 0.75rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
 .card-container-small .card-item .content .subcontent p {
   font-size: 0.75rem;
