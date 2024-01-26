@@ -11,7 +11,7 @@ let products = [
     name: "Đồng hồ sp",
     price: 100000,
     stock: 20,
-    image: " ",
+    image: "",
     categoryId: "C101",
   },
   {
@@ -19,7 +19,7 @@ let products = [
     name: "Bách hóa sp",
     price: 100000,
     stock: 20,
-    image: "  ",
+    image: "",
     categoryId: "C103",
   },
   {
@@ -27,7 +27,7 @@ let products = [
     name: "Thể thao sp",
     price: 100000,
     stock: 20,
-    image: "  ",
+    image: "",
     categoryId: "C101",
   },
   {
@@ -35,12 +35,12 @@ let products = [
     name: "Nhà cửa và đời sống sp",
     price: 100000,
     stock: 20,
-    image: "  ",
+    image: "",
     categoryId: "C104",
   },
 ];
 
-function populateTable() {
+function updateTable() {
   let tableBody = $("#productTable tbody").html("");
 
   products.sort((a, b) => a.id.localeCompare(b.id));
@@ -53,7 +53,7 @@ function populateTable() {
                      <td>${product.price}</td>
                      <td>${product.stock}</td>
                      <td>${getCategoryNameById(product.categoryId)}</td>
-                     <td><img src="/img/logo_hcmus.png" alt="" class = "product_img"></td>
+                     <td><img src="${product.image || '/img/logo_hcmus.png'}" alt="" class = "product_img"></td>
                      <td> 
                         <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editProduct(${index})" title="Edit"></i>
                         <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteProduct(${index})" title="Delete"></i>
@@ -66,12 +66,6 @@ function getCategoryNameById(categoryId) {
   return category ? category.name : "N/A";
 }
 
-function deleteProduct(index) {
-    let productName = products[index].name;
-    $("#productToDelete").text(productName);
-    $("#deleteProductBtn").data("index", index);
-    $("#deleteConfirmationModal").modal("show");
-}
 
 function populateCategoryOptions() {
 	let categorySelect = $("#productCategory");
@@ -82,7 +76,7 @@ function populateCategoryOptions() {
 }
 populateCategoryOptions();
 
-function addProduct() {
+function addNewProduct() {
 	$("#modalTitle").text("Thêm sản phẩm");
 	resetForm();
 	$("#editIndex").val("-1");
@@ -92,7 +86,6 @@ function addProduct() {
 function resetForm(){
 	$("#productForm")[0].reset();
 	$(".error-message").text("");
-
 }
 
 function editProduct(index) {
@@ -117,16 +110,25 @@ function submitEditForm(index) {
 
   if (newname) {
     categories[index].name = newname;
-    populateTable();
+    updateTable();
     hideForm();
   }
 }
 
+let deletionIndex;
+function deleteProduct(index) {
+	deletionIndex = index;
+    let productName = products[index].name;
+    $("#productToDelete").text(productName);
+    $("#deleteProductBtn").data("index", index);
+	console.log(index);
+    $("#deleteConfirmationModal").modal("show");
+}
+
 function confirmDeleteProduct() {
   let index = $("#deleteProductBtn").data("index");
-  products.splice(index, 1);
-  populateTable();
-  $("#deleteConfirmationModal").modal("hide");
+  products.splice(deletionIndex, 1);
+  updateTable();
 }
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -186,7 +188,7 @@ function submitForm() {
 	if (isValid) {
 		let index = $("#editIndex").val();
 		if (index === "-1") {
-			addNewProduct();
+			addProduct();
 		} else {
 			editExistingProduct(index);
 		}
@@ -195,7 +197,7 @@ function submitForm() {
 	}
 }
 
-function addNewProduct() {
+function addProduct() {
 	
 	let product = {
 		id: "0",
@@ -207,7 +209,7 @@ function addNewProduct() {
 	};
 
 	products.push(product);
-	populateTable();
+	updateTable();
 }
 
 function editExistingProduct(index) {
@@ -218,7 +220,7 @@ function editExistingProduct(index) {
 	product.stock = $("#productStock").val();
 	product.categoryId = $("#productCategory").val();
 	product.image = $("#imagePreview").attr("src") || ""; 
-	populateTable();
+	updateTable();
 }
 function showForm() {
   $("#productFormModal").modal("show");
@@ -243,4 +245,4 @@ function updateImagePreview(input) {
   }
 }
 
-populateTable();
+updateTable();
