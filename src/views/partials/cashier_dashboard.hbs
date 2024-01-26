@@ -1,127 +1,47 @@
-<div class="dashboard-container ">
+<div class="dashboard-container">
     <header>
         Dashboard
     </header>
 
-    <section class="cashier-infor">
-        <img src="" alt="" class="cashier-image" />
+    <section class="cashier-infor w-75 mx-auto">
+        <img id="adminImage" src="/img/logo_hcmus.png" alt="" class="cashier-image" />
         <div class="col1">
+             <div>
+                Username:
+                <span id="adminUsername"></span>
+            </div>
             <div>
-                {{name}}
-                Nguyễn Admin
+                Tên:
+                <span id="adminName"></span>
             </div>
             <div>
                 Tuổi:
-                {{age}}
-                24
+                <span id="adminAge"></span>
             </div>
             <div>
                 Giới tính:
-                {{sex}}
-                nữ
+                <span id="adminSex"></span>
             </div>
-            <div>
-                Chức vụ:
-                {{role}}
-                Admin
-            </div>
-
+           
         </div>
         <div class="col2">
             <div><i class="bx bx-phone"></i>Điện thoại:
-                {{phone}}</div>
+                <span id="adminPhone"></span>
+            </div>
             <div><i class="bx bx-envelope"></i>Email:
-                {{email}}</div>
+                <span id="adminEmail"></span>
+            </div>
             <div><i class="bx bx-target-lock"></i>Địa chỉ:
-                {{address}}</div>
+                <span id="adminAddress"></span>
+            </div>
         </div>
-        <button class="btn-edit" id="btn-edit">
+        <button class="btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">
             Chỉnh sửa
         </button>
     </section>
 
-    <div class="state-container">
-        <div class="newest-order">
-            <div class="dashboard-sub-header">
-                Hóa đơn mới nhất
-            </div>
+   {{> edit_profile}}
 
-            <section>
-                <table class="newest-order-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Mã hóa đơn</th>
-                            <th>Phương thức</th>
-                            <th>Tình trạng</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> {{no}}1</td>
-                            <td>{{id}}HD001</td>
-                            <td>{{method}}Card</td>
-                            <td>{{state}}Đã thanh toán</td>
-                            <td><i class="bi bi-search btn-detail" data-toggle=" tooltip" data-placement="top"
-                                    title="Xem chi tiết"></i></td>
-
-                        </tr>
-                        <tr>
-                            <td> {{no}}1</td>
-                            <td>{{id}}HD001</td>
-                            <td>{{method}}Card</td>
-                            <td>{{state}}Hủy</td>
-                            <td><i class=" bi bi-search btn-detail data-toggle=" tooltip" data-placement="top"
-                                    title="Xem chi tiết""></i></td>
-
-                        </tr>
-                    </tbody>
-                </table>
-                <i class=" bx bx-expand-alt btn-expand"></i>
-            </section>
-        </div>
-
-        <div class="newest-customer">
-            <div class="dashboard-sub-header">
-                Khách hàng đặt hàng gần nhất
-
-            </div>
-
-            <section>
-                <div class="client">
-                    <div class="no">{{no_client}}1</div>
-                    <div> <img src="/img/logo_hcmus.png" alt="" class="img-client" /></div>
-                    <div class="name-time">
-                        <div class="_name">
-                            {{name_client}}
-                            Nguyễn Văn A
-                        </div>
-                        <div class="_time">
-                            {{time}}2 phút trước
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="client">
-                    <div class="no">{{no_client}}1</div>
-                    <div> <img src="/img/logo_hcmus.png" alt="" class="img-client" /></div>
-                    <div class="name-time">
-                        <div class="_name">
-                            {{name_client}}
-                            Nguyễn Văn A
-                        </div>
-                        <div class="_time">
-                            {{time}}2 phút trước
-                        </div>
-
-                    </div>
-
-                </div>
-        </div>
-        </section>
-    </div>
 </div>
 
 <script src="/js/dashboard.js"></script>

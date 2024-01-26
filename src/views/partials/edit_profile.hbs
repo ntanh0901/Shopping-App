@@ -1,112 +1,56 @@
-<div class="edit-profile-container flex-fill pt-3">
-    <!-- Left column with profile image -->
-    <div class="w-25 mx-4 mt-5">
-        <div class="text-center">
-            <!-- Profile image with click event -->
-            <img id="avatar-image" src="//placehold.it/100" style="width: 200px; height: 200px; object-fit: cover;"
-                class="avatar rounded-circle mb-2 " alt="avatar" onclick="openImageModal()">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input d-none" id="customFile" accept="image/*"
-                    onchange="previewImage(event)">
-                <div class="btn btn-light">
-                    <label class="custom-file-label" for="customFile">Upload ảnh</label>
-                </div>
+<div class="modal fade  "  id="editProfileModal" tabindex="-1" role="dialog" data-bs-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title start-0" id="editProfileModalLabel">Chỉnh sửa
+                    thông tin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
 
-    <!-- Edit form column -->
-    <div class="flex-fill personal-info">
-        <form class="form-horizontal mt-5">
-            <div class="row form-group">
-                <label class="col-lg-3 control-label text-end">Họ tên</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" value="{{HoTen}}">
-                </div>
-            </div>
-            <div class="row form-group">
-                <label class="col-lg-3 control-label text-end ">Số điện thoại</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="tel" value="{{SDT}}">
-                </div>
-            </div>
-            <div class="row form-group">
-                <label class="col-lg-3 control-label text-end">Ngày sinh</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="date" value="{{NgaySinh}}">
-                </div>
-            </div>
-            <div class="row form-group">
-                <label class="col-lg-3 control-label text-end">Email</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="email" value="{{Email}}">
-                </div>
-            </div>
-            <div class="row form-group w-2 d-flex">
-                <label class="col-lg-3 control-label text-end">Giới tính</label>
-                <div class=" col-md-8 ">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
-                        <label class="form-check-label" for="male">Nam</label>
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" name="editUsername" class="form-control" />
+                    <span id="errorUsername" class="text-danger"></span>
+
+                    <label for="editName">Họ và tên</label>
+                    <input type="text" id="editName" name="editName" class="form-control" />
+                    <span id="errorName" class="text-danger"></span>
+
+                    <label for="editAge">Tuổi</label>
+                    <input type="number" min="0" oninput="this.value = Math.abs(this.value)" id="editAge" name="editAge"
+                        class="form-control" />
+                    <span id="errorAge" class="text-danger"></span>
+
+                    <label class="d-block ">Giới tính</label>
+                    <div class="form-check form-check-inline ms-5">
+                        <input class="form-check-input" type="radio" name="editGender" id="editNam" value="Nam">
+                        <label class="form-check-label" for="editNam">Nam</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                        <label class="form-check-label" for="female">Nữ</label>
+                    
+                    <div class="form-check form-check-inline ">
+                        <input class="form-check-input" type="radio" name="editGender" id="editNu" value="Nữ">
+                        <label class="form-check-label" for="editNu">Nữ</label>
                     </div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <label class="col-md-3 control-label text-end">Username</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text" value="{{UserName}}">
-                </div>
-            </div>
+                    <br/>
 
-            <div class="row form-group position-relative">
-                <label class="col-md-3 control-label text-end">Mật khẩu</label>
-                <div class="col-md-8 position-relative">
-                    <input id="passwordInput" class="form-control" value="{{MatKhau}}">
-                    <i class="bi bi-eye-slash position-absolute top-50 translate-middle-y" style="right: 2rem;"
-                        id="eyeIcon" onclick="toggleInputVisibility('passwordInput', 'eyeIcon')"></i>
-                </div>
-            </div>
+                    <label for="editPhone">Điện thoại</label>
+                    <input type="tel" id="editPhone" name="editPhone" class="form-control" />
+                    <span id="errorPhone" class="text-danger"></span>
 
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="editEmail" class="form-control" />
+                    <span id="errorEmail" class="text-danger"></span>
 
-            <div class="row form-group position-relative">
-                <label class="col-md-3 control-label text-end">Xác nhận mật khẩu</label>
-                <div class="col-md-8 position-relative">
-                    <input id="confirmPasswordInput" class="form-control" value="{{MatKhau}}">
-                    <i class="bi bi-eye-slash position-absolute top-50 translate-middle-y" style="right: 2rem;"
-                        id="confirmEyeIcon"
-                        onclick="toggleInputVisibility('confirmPasswordInput', 'confirmEyeIcon')"></i>
-                </div>
+                    <label for="editAddress">Địa chỉ</label>
+                    <input type="text" id="editAddress" name="editAddress" class="form-control" />
+                    <span id="errorAddress" class="text-danger"></span>
+                </form>
             </div>
-            <div class="row form-group">
-                <label class="col-md-3 control-label text-end">Địa chỉ</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text" value="{{DiaChi}}">
-                </div>
-            </div>
-
-            <div class="row form-group mt-5">
-                <label class="col-md-3 control-label text-end"></label>
-                <div class="col-md-8 d-flex justify-content-end">
-                    <button id="btn-confirm" type="button" class="btn btn-primary text-white me-2">Lưu</button>
-                    <button id="btn-cancel" type="reset" class="btn btn-light">Hủy</button>
-                </div>
-            </div>
-    </div>
-
-    <!-- Modal for displaying the larger image -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <img id="largeImage" src="//placehold.it/300" class="img-fluid" alt="Large Image">
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary text-white" onclick="submitForm()">Lưu</button>
             </div>
         </div>
     </div>
 </div>
-<script src="/js/edit_profile.js"></script>
