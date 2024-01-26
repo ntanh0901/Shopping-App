@@ -4,17 +4,16 @@
 $font-family-sans-serif: "Be Vietnam Pro", sans-serif;
 
 // colors
-$primary: #008f95;
-$secondary: #e9b000;
-$base-color: #243c74;
-$sub-color: #7c8cac;
-
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+$primary: #008F95;
+$secondary: #E9B000;
+$light: #F5F5FA;
 @import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
 @import "variables";
 @import "mixins";
 @import "login";
+@import "home";
 @import "sidebar";
 @import "cashier_dashboard";
 @import "edit_profile";

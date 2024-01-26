@@ -1,0 +1,36 @@
+{{> topbar }}
+<div class="main-body d-flex py-3 px-4 bg-light gap-3">
+    <section class="bg-white py-3 px-2 rounded">
+        <p class="fw-bold mx-2 my-0">Danh mục sản phẩm</p>
+        <div class="d-flex flex-column gap-0 align-items-stretch categories">
+            <div class="filter-btn">
+                <input type="radio" name="categories" id="all" value="Tất cả" checked>
+                <label for="all" class="fw-normal rounded">Tất cả</label>
+            </div>
+            {{#each type}}
+            <div class="filter-btn">
+                <input type="radio" name="categories" id="{{this.MaLoai}}" value="{{this.TenLoai}}">
+                <label for="{{this.MaLoai}}" class="fw-normal rounded">{{this.TenLoai}}</label>
+            </div>
+            {{/each}}
+        </div>
+    </section>
+    <section class="bg-white flex-grow-1 rounded p-0">
+        <section class="row bg-intro">
+            <div class="col"></div>
+            <div class="col"></div>
+        </section>
+        <section class="products my-4 px-3">
+            <h4>Sản phẩm</h4>
+            <div class="card-container mt-4" id="card-container">
+
+                {{!-- homme.js --}}
+
+            </div>
+        </section>
+        {{> footer }}
+        
+    </section>
+</div>
+
+<script src="/js/home.js"></script>

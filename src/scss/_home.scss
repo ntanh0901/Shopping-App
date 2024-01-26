@@ -1,0 +1,107 @@
+.categories {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.filter-btn {
+    float: left;
+    height: 2.5rem;
+    position: relative;
+
+    label,
+    input {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        color: black;
+        transition: all 350ms;
+    }
+
+    input[type="radio"] {
+        opacity: 0;
+    }
+
+    input[type="radio"]:checked+label {
+        color: $primary;
+    }
+
+    &:hover {
+        label {
+            background-color: $gray-200;
+        }
+    }
+}
+
+.bg-intro {
+    height: 15rem;
+
+    &>div:nth-of-type(1) {
+        background-image: url("/img/home-bg.svg");
+        background-size: cover;
+        background-position: center;
+    }
+
+    &>div:nth-of-type(2) {
+        background-image: url("/img/login-bg.svg");
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-gap: 0.5rem;
+    
+
+    .card-item {
+        .img-container {
+            padding-top: 100%;
+            position: relative;
+            border-radius: 0.5rem 0.5rem 0 0;
+            transition: all 350ms;
+            img {
+                position: absolute;
+                right: 0;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                max-height: 100%;
+                max-width: 100%;
+                margin: auto;
+            }
+        }
+
+        .content {
+            padding: 0.75rem;
+            font-size: 1rem;
+            .subcontent {
+                p {
+                    font-size: 0.75rem;
+                }
+
+                i {
+                    color: yellow
+                }
+            }
+        }
+
+        &:hover {
+            outline: 1px $primary solid;
+            transform: translateY(-3px);
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+        }
+    }
+}
