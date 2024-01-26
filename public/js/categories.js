@@ -11,6 +11,7 @@
   thêm hàm showEditForm để tránh sự kiện submitEditForm(index) bị kẹt
   đem sự kiện sửa submitForm() thành submitEditForm(index) vào hàm show showEditForm
   thêm isTaskInProgress vào submit form
+  thêm bảng thông báo lỗi ràng buộc khóa ngoại khi xóa
 */
 
 let isTaskInProgress = false;
@@ -72,7 +73,7 @@ $("#deleteCategoryBtn").click(async function () {//
     await populateTable();//
   }//
   else {//
-    console.log('vi pham khoa ngoai :(');//
+    $("#errorDeleteModal").modal('show');
   }//
   $("#deleteConfirmationModal").modal('hide');
   isTaskInProgress = false;
