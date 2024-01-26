@@ -12228,10 +12228,6 @@ a.nav-item:hover i, a.nav-item.active i {
   transform: scale(1.05);
 }
 
-#editProfileModal input {
-  margin-bottom: 1rem;
-}
-
 .main-content {
   padding: 0.5rem 1rem;
   flex: 1;
@@ -12491,7 +12487,8 @@ a.nav-item:hover i, a.nav-item.active i {
 .main-content .form-container {
   display: none;
 }
-.main-content .error-message {
+
+.error-message {
   color: red;
   font-size: 0.75rem;
   min-height: 0.75rem;
@@ -12500,10 +12497,6 @@ a.nav-item:hover i, a.nav-item.active i {
 .product_img {
   max-width: 3rem;
   max-height: 3rem;
-}
-
-#editProfileModal input {
-  margin-bottom: 1rem;
 }
 
 a {

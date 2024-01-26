@@ -11,33 +11,40 @@ let adminInfo = {
 
 updateDashboard();
 
-function updateDashboard(){
-	$("#adminImage").text(adminInfo.image);
-	$("#adminUsername").text(adminInfo.username);
-	$("#adminName").text(adminInfo.name);
-	$("#adminAge").text(adminInfo.age);
-	$("#adminSex").text(adminInfo.sex);
-	$("#adminPhone").text(adminInfo.phone);
-	$("#adminEmail").text(adminInfo.email);
-	$("#adminAddress").text(adminInfo.address);
+function updateDashboard() {
+  $("#adminImage").text(adminInfo.image);
+  $("#adminUsername").text(adminInfo.username);
+  $("#adminName").text(adminInfo.name);
+  $("#adminAge").text(adminInfo.age);
+  $("#adminSex").text(adminInfo.sex);
+  $("#adminPhone").text(adminInfo.phone);
+  $("#adminEmail").text(adminInfo.email);
+  $("#adminAddress").text(adminInfo.address);
 }
 
 $("#editProfileModal").on("show.bs.modal", function (event) {
-	populateEditProfileModal();
-  });
+  populateEditProfileModal();
+});
 
 function populateEditProfileModal() {
   $("#editImage").val(adminInfo.image);
   $("#editUsername").val(adminInfo.username);
   $("#editName").val(adminInfo.name);
   $("#editAge").val(adminInfo.age);
-  $("#editNam").prop("checked",adminInfo.sex.toLowerCase() === "nam" ? true : false);
-  $("#editNu").prop("checked", adminInfo.sex.toLowerCase() === "nữ" ? true : false);
+  $("#editNam").prop(
+    "checked",
+    adminInfo.sex.toLowerCase() === "nam" ? true : false
+  );
+  $("#editNu").prop(
+    "checked",
+    adminInfo.sex.toLowerCase() === "nữ" ? true : false
+  );
   $("#editPhone").val(adminInfo.phone);
   $("#editEmail").val(adminInfo.email);
   $("#editAddress").val(adminInfo.address);
 }
 function submitForm() {
+  if (!validateForm()) return;
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
   adminInfo.age = $("#editAge").val();
@@ -50,3 +57,54 @@ function submitForm() {
   $("#editProfileModal").modal("hide");
 }
 
+function validateForm() {
+  $(".error-mesage").text("");
+
+  let isValid = true;
+
+  if ($("#editUsername").val() === "") {
+    $("#errorUsername").text("Username trống");
+    isValid = false;
+  }
+
+  if ($("#editName").val() === "") {
+    $("#errorName").text("Họ và tên trống");
+    isValid = false;
+  }
+
+  if ($("#editAge").val() === "") {
+    $("#errorAge").text("Tuổi trống");
+    isValid = false;
+  }
+
+  if ($("#editPhone").val() === "") {
+    $("#errorPhone").text("Số điện thoại trống");
+    isValid = false;
+  }
+
+  if (!/^\d{10}$/.test($("#editPhone").val())) {
+    $("#errorPhone").text("Số điện thoại không hợp lệ");
+    isValid = false;
+  }
+
+  if ($("#editEmail").val() === "") {
+    $("#errorEmail").text("Email trống");
+    isValid = false;
+  }
+
+  if (!/\S+@\S+\.\S+/.test($("#editEmail").val())) {
+    $("#errorEmail").text("Email không hợp lệ");
+    isValid = false;
+  }
+
+  if ($("#editAddress").val() === "") {
+    $("#errorAddress").text("Địa chỉ trống");
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+$("#editUsername, #editName, #editAge, #editPhone, #editEmail, #editAddress").focus(function () {
+	$(`#error${$(this).attr("id").replace("edit", "")}`).text("");
+});
