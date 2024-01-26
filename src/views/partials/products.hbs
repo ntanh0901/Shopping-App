@@ -31,11 +31,17 @@
             </thead>
             <tbody>
             </tbody>
+
+            <div class="ic-plus" id="btn_add">
+                <i class='btn bx bxs-plus-square btn-plus position-absolute cursor-pointer end-0 bottom-0'
+                    style="font-size:1.5rem; margin-bottom:-2rem"
+                   data-placement="top" title="Thêm" onclick="addProduct() "></i>
+            </div>
         </table>
 
         <!-- Confirm delete product -->
         <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1"
-            aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+           data-bs-backdrop="static">
             <div class="modal-dialog ">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -47,72 +53,68 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-danger" id="deleteProductBtn">Xóa</button>
+                        <button type="button" class="btn btn-danger" id="comfirmDeleteProductBtn" onclick="confirmDeleteProduct()" >Xóa</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="ic-plus" id="btn_add">
-            <i class='bx bxs-plus-square btn-plus position-absolute bottom-0 end-0 cursor-pointer'
-                data-toggle=" tooltip" data-placement="top" title="Thêm" onclick="showForm()"></i>
-        </div>
+        <!-- Form  edit/add product -->
+      <div class="modal fade" id="productFormModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Thêm sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-        <!-- Form for edit/add product -->
-        <div class="modal" id="productFormModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="form-container mt-3 ms-auto">
-                            <form id="productForm" onsubmit="event.preventDefault();">
-                                <div class="mb-3">
-                                    <label for="productName" class="form-label">Tên sản phẩm</label>
-                                    <input type="text" class="form-control" id="productName" name="Tên sản phẩm"
-                                        required>
-                                    <div class="error-message" id="productNameError"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productPrice" class="form-label">Giá</label>
-                                    <input type="number" class="form-control" id="productPrice" name="Giá" required>
-                                    <div class="error-message" id="productPriceError"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productStock" class="form-label">Số lượng tồn</label>
-                                    <input type="number" class="form-control" id="productStock" name="Số lượng tồn"
-                                        required>
-                                    <div class="error-message" id="productStockError"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productCategory" class="form-label">Loại</label>
-                                    <select class="form-select" id="productCategory" name="Loại" required>
-                                      
-                                    </select>
-                                    <div class="error-message" id="productCategoryError"></div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="productImage" class="form-label">Ảnh</label>
-                                    <input type="file" class="form-control" id="productImage" name="Ảnh"
-                                        accept="image/*">
-                                    <div class="error-message" id="productImageError"></div>
-                                    <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;"
-                                        alt="Image Preview">
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-light ms-2 me-2"
-                                        onclick="cancelForm()">Hủy</button>
-                                    <button type="button" class="btn btn-primary text-white ms-2"
-                                        onclick="submitForm()">Xong</button>
-                                </div>
-                            </form>
-                        </div>
+                <form class="" id="productForm" onsubmit="event.preventDefault();" method="post">
+                    <input type="hidden" id="editIndex" value="-1"> 
+
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="productName" name="Tên sản phẩm" required>
+                        <div class="error-message" id="productNameError"></div>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="productPrice" name="Giá" required>
+                        <div class="error-message" id="productPriceError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productStock" class="form-label">Số lượng tồn</label>
+                        <input type="number" class="form-control" id="productStock" name="Số lượng tồn" required>
+                        <div class="error-message" id="productStockError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productCategory" class="form-label">Loại</label>
+                        <select class="form-select" id="productCategory" name="Loại" required>
+                        </select>
+                        <div class="error-message" id="productCategoryError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productImage" class="form-label">Ảnh</label>
+                        <input type="file" class="form-control" id="productImage" name="Ảnh" accept="image/*" onchange="updateImagePreview(this)">
+                        <div class="error-message" id="productImageError"></div>
+                        <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;" alt="Image Preview">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary text-white" id="confirmBtn" onclick="submitForm()">Xong</button>
             </div>
         </div>
-
-
+    </div>
+</div>
 
     </div>
+
+
+
+</div>
 
 
 

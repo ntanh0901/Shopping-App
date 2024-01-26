@@ -28,7 +28,7 @@ function populateTable() {
 function editCategory(index) {
   if (!isTaskInProgress) {
     let category = categories[index];
-    $("#name").val(category.name);
+    $("#newName").val(category.name);
     showForm();
     $("#categoryForm button[type='button']").attr('onclick', `submitEditForm(${index})`);
     isTaskInProgress = true;
