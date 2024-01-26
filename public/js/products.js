@@ -46,6 +46,9 @@ function updateTable() {
   products.sort((a, b) => a.id.localeCompare(b.id));
 
   products.forEach((product, index) => {
+    if (!product.image) {
+      product.image = '/img/logo_hcmus.png';
+  }
     let row = tableBody[0].insertRow(index);
     row.innerHTML = `<td>${index + 1}</td>
                      <td>${product.id}</td>
@@ -53,7 +56,7 @@ function updateTable() {
                      <td>${product.price}</td>
                      <td>${product.stock}</td>
                      <td>${getCategoryNameById(product.categoryId)}</td>
-                     <td><img src="${product.image || '/img/logo_hcmus.png'}" alt="" class = "product_img"></td>
+                     <td><img src="${product.image}" alt="" class = "product_img"></td>
                      <td> 
                         <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editProduct(${index})" title="Edit"></i>
                         <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteProduct(${index})" title="Delete"></i>
@@ -86,6 +89,8 @@ function addNewProduct() {
 function resetForm(){
 	$("#productForm")[0].reset();
 	$(".error-message").text("");
+  $("#imagePreview").attr("src", "");
+
 }
 
 function editProduct(index) {
@@ -97,6 +102,7 @@ function editProduct(index) {
 	$("#productPrice").val(product.price);
 	$("#productStock").val(product.stock);
 	$("#productCategory").val(product.categoryId);
+	console.log(product.image);
 	if (product.image) {
 		$("#imagePreview").attr("src", product.image);
 	} else {
@@ -153,25 +159,29 @@ function validateInput(inputId, errorId, errorMessage) {
   }
   
   $("#productName").on("blur", function() {
-    validateInput("#productName", "#productNameError", "Tên sản phẩm không được trống!");
+    validateInput("#productName", "#productNameError", "Tên sản phẩm trống!");
+	hideError("#productNameError");
   }).on("focus", function() {
     hideError("#productNameError");
   });
 
   $("#productPrice").on("blur", function() {
-    validateInput("#productPrice", "#productPriceError", "Giá không được trống!");
+    validateInput("#productPrice", "#productPriceError", "Giá trống!");
+	hideError("#productPriceError");
   }).on("focus", function() {
     hideError("#productPriceError");
   });
 
   $("#productStock").on("blur", function() {
-    validateInput("#productStock", "#productStockError", "Số lượng tồn không được trống!");
+    validateInput("#productStock", "#productStockError", "Số lượng tồn trống!");
+	hideError("#productStockError");
   }).on("focus", function() {
     hideError("#productStockError");
   });
 
   $("#productCategory").on("blur", function() {
-    validateInput("#productCategory", "#productCategoryError", "Loại không được trống!");
+    validateInput("#productCategory", "#productCategoryError", "Loại trống!");
+	hideError("#productCategoryError");
   }).on("focus", function() {
     hideError("#productCategoryError");
   });
@@ -180,13 +190,21 @@ function validateInput(inputId, errorId, errorMessage) {
 function submitForm() {
 	let isValid = true;
 
-	isValid = validateInput("#productName", "#productNameError", "Tên sản phẩm không được trống!") && isValid;
-	isValid = validateInput("#productPrice", "#productPriceError", "Giá không được trống!") && isValid;
-	isValid = validateInput("#productStock", "#productStockError", "Số lượng tồn không được trống!") && isValid;
-	isValid = validateInput("#productCategory", "#productCategoryError", "Loại không được trống!") && isValid;
+	isValid = validateInput("#productName", "#productNameError", "Tên sản phẩm trống!") && isValid;
+	isValid = validateInput("#productPrice", "#productPriceError", "Giá trống!") && isValid;
+	isValid = validateInput("#productStock", "#productStockError", "Số lượng tồn trống!") && isValid;
+	isValid = validateInput("#productCategory", "#productCategoryError", "Loại trống!") && isValid;
 
 	if (isValid) {
 		let index = $("#editIndex").val();
+    let newName = $("#productName").val().trim();
+
+    if (isProductNameExist(newName, index)) {
+      displayError($("#productNameError"), "Sản phẩm đã tồn tại!");
+      return;
+  } else {
+      hideError("#productNameError");
+  }
 		if (index === "-1") {
 			addProduct();
 		} else {
@@ -195,6 +213,12 @@ function submitForm() {
 
 		$("#productFormModal").modal("hide");
 	}
+}
+
+function isProductNameExist(newName, currentIndex) {
+  return products.some((product, index) => 
+     index != currentIndex && product.name.trim() === newName ); 
+   ;
 }
 
 function addProduct() {

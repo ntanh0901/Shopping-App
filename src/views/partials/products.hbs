@@ -79,12 +79,12 @@
                     </div>
                     <div class="mb-2">
                         <label for="productPrice" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="productPrice" name="Giá" required>
+                        <input type="number" class="form-control" id="productPrice" name="Giá" min="0" oninput="this.value = Math.abs(this.value)" required>
                         <div class="error-message" id="productPriceError"></div>
                     </div>
                     <div class="mb-2">
                         <label for="productStock" class="form-label">Số lượng tồn</label>
-                        <input type="number" class="form-control" id="productStock" name="Số lượng tồn" required>
+                        <input type="number" class="form-control" id="productStock" name="Số lượng tồn" min="0" oninput="this.value = Math.abs(this.value)" required>
                         <div class="error-message" id="productStockError"></div>
                     </div>
                     <div class="mb-2">
@@ -97,7 +97,7 @@
                         <label for="productImage" class="form-label">Ảnh</label>
                         <input type="file" class="form-control" id="productImage" name="Ảnh" accept="image/*" onchange="updateImagePreview(this)">
                         <div class="error-message" id="productImageError"></div>
-                        <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;" alt="Image Preview">
+                        <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;" >
                     </div>
 
                 </form>
