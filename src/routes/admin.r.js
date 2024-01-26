@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const productRouter = require('./product.r');
 
 router.get("/", (req, res) => {
   res.render("admin", {
@@ -15,26 +16,27 @@ router.get("/dashboard", (req, res) => {
   });
 });
 
-router.get("/admin/report", (req, res) => {
+router.get("/report", (req, res) => {
   res.render("report", {
     title: "Admin dashboard page",
     isReport: true,
   });
 });
 
-router.get("/admin/categories", (req, res) => {
+router.get("/categories", (req, res) => {
   res.render("categories", {
     title: "Admin categories",
     isCategories: true,
   });
 });
 
-router.get("/admin/products", (req, res) => {
+router.get("/products", (req, res) => {
   res.render("products", {
     title: "Admin products",
     isProducts: true,
   });
 });
 
+router.use('/productsmanagement', productRouter);
 
 module.exports = router;
