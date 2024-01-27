@@ -7,6 +7,11 @@ if(value >= maxValue) {
     $('#increase-btn').prop('disabled', true)
 }
 
+$('#input-value').on('blur', function() {
+    value = $(this).val();
+    showTotalPrice();
+})
+
 $('#increase-btn').on('click', function() {
     value = $('#input-value').val();
     value++;
