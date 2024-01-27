@@ -65,6 +65,17 @@ function resetForm() {
   $(".modal-footer").show();
 }
 
+
+function addNewUser() {
+  resetForm();
+  $("#modalTitle").text("Thêm người dùng");
+  $("#confirmBtn").text("Thêm");
+  $("#editIndex").val("-1");
+  makeReadonly(false);
+  showForm();
+}
+
+
 function viewUser(index) {
   resetForm();
   $("#modalTitle").text(users[index].name);
@@ -114,14 +125,6 @@ function populateForm(user) {
   $("#userEmail").val(user.email);
   $("#userAddress").val(user.address);
   $("#userImage").attr("src", user.image);
-}
-
-function addNewUser() {
-  $("#modalTitle").text("Thêm người dùng");
-  $("#confirmBtn").text("Thêm");
-  resetForm();
-  $("#editIndex").val("-1");
-  showForm();
 }
 
 let deletionIndex;
@@ -267,7 +270,7 @@ function submitForm() {
   validationResults.push(validteDob());
 
   if (!/^\d{10}$/.test($("#userPhone").val())) {
-    $("#errorPhone").text("Số điện thoại không hợp lệ");
+    $("#errorPhone").text("Số điện thoại không hợp lệ!");
     validationResults.push(false);
   }
 
@@ -302,17 +305,21 @@ function submitForm() {
 }
 
 function validateImage() {
-  const imagePreview = document.getElementById("userImage");
-  const imageSrc = imagePreview.src;
+  const input = $("#uploadUserImage")[0];
+  const imagePreview = $("#userImage")[0];
+  const errorElement = $("#userImageError");
 
-  if (!imageSrc || imageSrc === "") {
-    $("#userImageError").text("Vui lòng chọn ảnh!");
-    return false;
+  const isValid = input.files.length > 0;
+
+  if (!isValid) {
+    errorElement.text("Vui lòng chọn ảnh!");
   } else {
-    hideError("#userImageError");
-    return true;
+    hideError(errorElement);
   }
+
+  return isValid;
 }
+
 
 
 function validateUsername(newUsername, currentIndex) {
@@ -332,6 +339,7 @@ function addUser() {
     username: $("#userUsername").val().trim(),
     gender: $('input[name="userGender"]:checked').val(),
     phone: $("#userPhone").val().trim(),
+    dob: $("#userDob").val().trim(),
     email: $("#userEmail").val().trim(),
     address: $("#userAddress").val().trim(),
     image: $("#userImage").attr("src") || "",
