@@ -35,4 +35,16 @@ module.exports = class User {
     static async update(col, colval, id) {
         return db.update(tbName, col, colval, "MaND", id);
     }
+    static async getAllBy(orderBy, isDesc) {
+        return db.selectAllBy(tbName, orderBy, isDesc);
+    }
+    static async getSearch(input, col) {
+        return db.searchAll(tbName, input, col);
+    }
+    static async getByWithSearch(type, orderBy, isDesc, input) {
+        return db.joinTBSearch(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null, input);
+    }
+    static async delete(id) {
+        return db.delete(tbName, "MaND", id);
+    }
 }

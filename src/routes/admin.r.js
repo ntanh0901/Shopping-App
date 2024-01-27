@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const productRouter = require('./product.r');
+const accountRouter = require('./accountmanagement.r');
 
 router.get("/", (req, res) => {
   res.render("admin", {
@@ -51,5 +52,6 @@ router.get("/users", (req, res) => {
   });
 });
 router.use('/productsmanagement', productRouter);
+router.use('/accountsmanagement', accountRouter);
 
 module.exports = router;

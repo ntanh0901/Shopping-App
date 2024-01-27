@@ -515,4 +515,15 @@ module.exports = {
             console.log("Join table error: ", error);
         }
     },
+    searchAll: async (tbName, searchTerm, col) => {
+        try {
+            const query = `
+            SELECT * FROM "${tbName}"
+            WHERE LOWER("${col}") ILIKE LOWER($1)`;
+            const data = await db.any(query, [`%${searchTerm}%`]);
+            return data;
+        } catch (error) {
+            console.log('searchAll error: ', error);
+        }
+    },
 }
