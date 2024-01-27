@@ -351,12 +351,82 @@ function changeState() {
 async function main() {
   data = await getProducts("Tất cả", 1);
   products = data.data;
+  await updateTable();
   categories = (await getCategories()).categories;
   populateCategoryOptions();
-  await updateTable();
+
+  totalPages = data.totalPages;
+  showedPages = (totalPages < showedPages) ? totalPages : showedPages;
+  lastPage = showedPages;
+  loadPageContainer(firstPage, lastPage);
 }
+
 let data;
 let products;
 let categories;
 let onImageChangeFlag = false;
+
 main();
+
+// Pagination
+let currentPage = 1;
+let totalPages = null;
+let showedPages = 3;
+let firstPage = 1;
+let lastPage = null;
+let currentType = 'Tất cả';
+
+function loadPageContainer(first, last) {
+  // console.log(first, last);
+  for (let i = first; i <= last; i++) {
+    $('#page-container').append(`<button class="page-click ${i == currentPage ? "active" : ""}">${i}</button>`);
+  }
+  $('.page-click').on('click', function () {
+    if ($('.page-active').length) {
+      $('.page-active').removeClass('page-active');
+    }
+    $(this).addClass('page-active');
+    currentPage = parseInt($(this).text());
+    loadPage(currentType, currentPage);
+  });
+}
+
+// next page button click event
+$('#next-page').on('click', function () {
+  if (currentPage < totalPages) {
+    ++currentPage;
+    loadPage(currentType, currentPage);
+    if (currentPage > lastPage) {
+      firstPage++;
+      lastPage++;
+    }
+    $('#page-container').empty();
+  }
+});
+
+// previous page button click event
+$('#previous-page').on('click', function () {
+
+  if (currentPage > 1) {
+    --currentPage;
+    loadPage(currentType, currentPage);
+    if (currentPage < firstPage) {
+      firstPage--;
+      lastPage--;
+    }
+    $('#page-container').empty();
+  }
+})
+
+async function loadPage(type, page) {
+  console.log(page);
+  data = await getProducts(type, page);
+  products = data.data;
+  await updateTable();
+
+  currentPage = page;
+  currentType = type;
+
+  $('#page-container').empty();
+  loadPageContainer(firstPage, lastPage);
+}

@@ -37,17 +37,19 @@ module.exports = {
             const total = data.length;
 
             const currentPage = req.query.page || 1;
-            const itemsPerPage = 30;
+            const itemsPerPage = 5;
 
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             data = data.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(total / itemsPerPage);
 
             res.json({
                 data: data,
                 perpage: itemsPerPage,
                 total: total,
-                type: type
+                type: type,
+                totalPages: totalPages
             });
         } catch (error) {
             console.log('Product page error: ', error);
