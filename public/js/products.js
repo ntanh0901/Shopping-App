@@ -151,6 +151,10 @@ async function confirmDeleteProduct(index) {
   const result = await deleteProducts(products[index].MaSP, products[index].Anh);
   if (result) {
     products.splice(deletionIndex, 1);
+    if (products.length === 0 && currentPage > 1) {
+      lastPage--;firstPage--;
+      loadPage(currentType, --currentPage);
+    }
     await updateTable();
   }
   else {
@@ -272,7 +276,12 @@ async function addProduct() {
     // Handle insert error here
   }
   else product.MaSP = resutl.MaSP;
-  products.push(product);
+  if (products.length < perpage) {
+    products.push(product);
+  }
+  else if (lastPage === totalPages) {
+    loadPage(currentType, currentPage);
+  }
   await updateTable();
   onImageChangeFlag = false;
 }
@@ -355,6 +364,7 @@ async function main() {
   categories = (await getCategories()).categories;
   populateCategoryOptions();
 
+  perpage = data.perpage;
   totalPages = data.totalPages;
   showedPages = (totalPages < showedPages) ? totalPages : showedPages;
   lastPage = showedPages;
@@ -371,13 +381,16 @@ main();
 // Pagination
 let currentPage = 1;
 let totalPages = null;
-let showedPages = 3;
+let showedPages = 5;
 let firstPage = 1;
 let lastPage = null;
 let currentType = 'Tất cả';
+let perpage = null;
 
 function loadPageContainer(first, last) {
   // console.log(first, last);
+  if (first < 1) first = 1;
+  if (last < first) last = first;
   for (let i = first; i <= last; i++) {
     $('#page-container').append(`<button class="page-click ${i == currentPage ? "active" : ""}">${i}</button>`);
   }
@@ -419,13 +432,15 @@ $('#previous-page').on('click', function () {
 })
 
 async function loadPage(type, page) {
-  console.log(page);
+  // console.log(page);
   data = await getProducts(type, page);
   products = data.data;
   await updateTable();
 
   currentPage = page;
   currentType = type;
+  perpage = data.perpage;
+  totalPages = data.totalPages;
 
   $('#page-container').empty();
   loadPageContainer(firstPage, lastPage);
