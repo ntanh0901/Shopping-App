@@ -1,0 +1,81 @@
+<div class="p-4 d-flex bg-primary min-vh-100">
+  <section class="col d-flex flex-column justify-content-center login-left">
+    <h1 class="text-light">Chào mừng đến ShopUS</h1>
+    {{!-- <p class="text-secondary">Vui lòng đăng nhập để tiếp tục</p> --}}
+    <img src="/img/login-bg.svg" alt="login-background-img" class="flex-grow-1 h-100 login-bg">
+  </section>
+  <section class="col d-flex align-items-center justify-content-center p-3">
+    <form novalidate action="/signup" method="post" class="rounded bg-white shadow-lg p-3" id="login-form">
+      <div class="d-flex gap-1">
+        <p>Đã có tài khoản?</p>
+        <a href="/login">Đăng nhập</a>
+      </div>
+      <h2 class="text-primary text-center">Đăng ký</h2>
+      <div class="form-floating mb-1 border-bottom">
+        <input type="text" class="form-control border-0 shadow-none" id="fullname" placeholder="Họ và tên"
+          name="fullname" required>
+        <label for="fullname" class="form-label">Họ và tên</label>
+      </div>
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="text" class="form-control border-0 shadow-none" id="username" placeholder="Tên đăng nhập"
+            name="username" required>
+          <label for="password" class="form-label">Tên đăng nhập</label>
+        </div>
+      </div>
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="email" class="form-control border-0 shadow-none" id="email" placeholder="Email" name="email"
+            required>
+          <label for="email" class="form-label">Email</label>
+        </div>
+      </div>
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="password" class="form-control border-0 shadow-none" id="password" placeholder="password"
+            name="password">
+          <label for="password" class="form-label">Mật khẩu</label>
+        </div>
+        <i class="bi bi-eye-slash input-group-text border-0 bg-transparent show-hide-pass"></i>
+      </div>
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="password" class="form-control border-0 shadow-none" id="confirmpassword"
+            placeholder="confirmpassword" name="confirmpassword" required>
+          <label for="confirmpassword" class="form-label">Nhập lại mật khẩu</label>
+        </div>
+        <i class="bi bi-eye-slash input-group-text border-0 bg-transparent show-hide-pass"></i>
+      </div>
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="date" class="form-control border-0 shadow-none" id="birth" placeholder="Ngày sinh" name="birth"
+            required>
+          <label for="birth" class="form-label">Ngày sinh</label>
+        </div>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="male" value="Nam">
+        <label class="form-check-label" for="male">Nam</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="gender" id="female" value="Nữ">
+        <label class="form-check-label" for="male">Nữ</label>
+      </div>
+
+      <div class="input-group mb-1 border-bottom">
+        <div class="form-floating">
+          <input type="tel" class="form-control border-0 shadow-none" pattern="^0\d{9}$" id="phone" placeholder="Số điện thoại" name="phone"
+            required>
+          <label for="phone" class="form-label">Số điện thoại</label>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column mt-4">
+        <button type="submit" class="btn btn-lg btn-primary rounded-pill text-light shadow">Đăng ký</button>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script src="/js/login.js"></script>

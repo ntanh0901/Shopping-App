@@ -11,16 +11,12 @@
                 <input type="radio" name="categories" id="all" value="Tất cả" checked>
                 <label for="all" class="fw-normal rounded">Tất cả</label>
             </div>
-
+            {{#each type}}
             <div class="filter-btn">
-                <input type="radio" name="categories" id="watch" value="watch">
-                <label for="watch" class="fw-normal rounded">Đồng hồ</label>
+                <input type="radio" name="categories" id="{{this.MaLoai}}" value="{{this.TenLoai}}">
+                <label for="{{this.MaLoai}}" class="fw-normal rounded">{{this.TenLoai}}</label>
             </div>
-
-            <div class="filter-btn">
-                <input type="radio" name="categories" id="household" value="household">
-                <label for="household" class="fw-normal rounded">Đồ gia dụng</label>
-            </div>
+            {{/each}}
         </div>
     </section>
     <section class="bg-white flex-grow-1 rounded p-0" style="overflow: hidden;">
@@ -30,135 +26,20 @@
         </section>
         <section class="products my-4 px-3">
             <h4>Sản phẩm</h4>
-            <div class="card-container mt-4">
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Bảng Phóng Phi Tiêu.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Bảng phóng phi tiêu
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-container mt-4" id="card-container">
 
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Bánh ăn sáng C'est bon.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Bánh ăn sáng C'est bon
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{!-- homme.js --}}
 
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Cà phê G7 3in1.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Cà phê G7 3in1
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Gọng kính SARIFA.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Gọng kính SARIFA
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Gọng kính SARIFA.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Gọng kính SARIFA
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-item rounded border">
-                    <a href="/products/" class="item-link">
-                        <div class="img-container">
-                            <img class="rounded" src="/img/products/Gọng kính SARIFA.jpg" alt="rice">
-                        </div>
-                    </a>
-                    <div class="content">
-                        <a href="/products/" class="item-link">
-                            Gọng kính SARIFA
-                        </a>
-                        <p class="fw-bold">25.000Đ</p>
-                        <div class="subcontent">
-                            <p>Số lượng còn: 10</p>
-                            <div class="star-rating">
-                                <i class='bx bxs-star'></i>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
+        <div class="m-3 pagination d-flex gap-2 justify-content-center">
+            <button id="previous-page" class="btn"><i class='bx bxs-chevrons-left'></i></button>
+            <div id="pagination" class="d-flex gap-2"></div>
+            <button id="next-page" class="btn"><i class='bx bxs-chevrons-right'></i></button>
+        </div>
         {{> footer }}
-        
+
     </section>
 </div>
+
+<script src="/js/home.js"></script>

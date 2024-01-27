@@ -4,12 +4,12 @@
         <section class="product-container">
             <div class="product-cover rounded p-3 bg-white">
                 <div class="img-container rounded border">
-                    <img src="/img/products/Bánh ăn sáng C'est bon.jpg" class="rounded" alt="">
+                    <img src="/{{product.Anh.[0]}}" class="rounded" alt="{{product.Ten}}">
                 </div>
             </div>
             <div class="product-info d-flex flex-column gap-3">
                 <section class="bg-white rounded p-3">
-                    <p class="fs-4">Bánh ăn sáng C'est bon</p>
+                    <p class="fs-4">{{product.Ten}}</p>
                     <div class="rating mb-3">
                         <span>4.8</span>
                         <i class='bx bxs-star'></i>
@@ -19,9 +19,9 @@
                         <i class='bx bxs-star'></i>
                         <span class="text-muted">(145)</span>
                         <span class="text-muted">|</span>
-                        <span class="text-muted">Số lượng còn 250</span>
+                        <span class="text-muted">Số lượng còn {{product.SoLuongTon}}</span>
                     </div>
-                    <p class="fs-3 fw-bold">20.000Đ</p>
+                    <p class="fs-3 fw-bold">{{product.DonGia}}.000Đ</p>
                 </section>
 
                 <section class="bg-white rounded p-3">
@@ -181,11 +181,11 @@
         <div class="product-small-container">
             <div class="img-thumb-container border rounded">
                 <div class="img-thumb">
-                    <img src="/img/products/Bánh ăn sáng C'est bon.jpg" alt="" class="rounded">
+                    <img src="/{{product.Anh.[0]}}" alt="{{product.Ten}}" class="rounded">
                 </div>
 
             </div>
-            <span>Bánh ăn sáng C'est bon</span>
+            <span>{{product.Ten}}</span>
         </div>
         <hr class="text-muted">
         <form>

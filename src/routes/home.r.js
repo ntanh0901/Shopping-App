@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const productController = require('../controllers/product.c');
 
-router.get('/', (req, res) => {
-    res.render('client/home', {
-        title: 'Home'
-    });
-})
+router.get('/', productController.index);
+router.get('/page', productController.getPage);
+router.get('/search', productController.getSearch);
+router.get('/products/:slug', productController.show);
+
 
 module.exports = router;
