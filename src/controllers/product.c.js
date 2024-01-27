@@ -1,6 +1,8 @@
 const Product = require('../models/product.m');
 const Account = require('../models/account.m');
 const Categories = require('../models/categories.m');
+const fs = require('fs').promises;
+const path = require('path');
 
 module.exports = {
     // Add: async (req, res, next) => {
@@ -35,7 +37,7 @@ module.exports = {
             const total = data.length;
 
             const currentPage = req.query.page || 1;
-            const itemsPerPage = 25;
+            const itemsPerPage = 30;
 
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
@@ -96,38 +98,51 @@ module.exports = {
     //Product Management
 
     updateProduct: async (req, res) => {
-        // try {
-        //     const id = req.query.id;
-        //     const newval = req.query.newval;
-        //     if (await Categories.update(["MaLoai", "TenLoai"], [id, newval], id))
-        //         res.json(true);
-        //     else
-        //         res.json(false);
-        // }
-        // catch (error) {
-        //     console.log("updateCategories error: ", error);
-        //     res.json(false);
-        // }
+        try {
+            const id = req.body.id;
+            const newval = req.body.newval;
+            if (await Product.update(
+                ["MaSP", "Ten", "DonGia", "SoLuongTon", "Anh", "MaLoai"], 
+                [id, newval.Ten, newval.DonGia, newval.SoLuongTon, newval.Anh, newval.MaLoai],
+                id))
+                res.json(true);
+            else
+                res.json(false);
+        }
+        catch (error) {
+            console.log("updateCategories error: ", error);
+            res.json(false);
+        }
     },
 
     deleteProduct: async (req, res) => {
-        // try {
-        //     const id = req.query.id;
-        //     if (await Categories.delete(id))
-        //         res.json(true);
-        //     else
-        //         res.json(false);
-        // }
-        // catch (error) {
-        //     console.log("deleteCategories error: ", error);
-        //     res.json(false);
-        // }
+        try {
+            const id = req.body.id;
+            const deleteImgPath = req.body.imgs;
+            const baseDirectory = path.join(__dirname, '../../public');
+            for (let i = 0; i < deleteImgPath.length; i++) {
+                const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
+                // console.log(absolutePath);
+                await fs.unlink(absolutePath);
+            }
+            if (await Product.delete(id))
+                res.json(true);
+            else
+                res.json(false);
+        }
+        catch (error) {
+            console.log("deleteProduct error: ", error);
+            res.json(false);
+        }
     },
 
     addProduct: async (req, res) => {
-        // const name = req.query.name;
-        // const result = await Categories.insert(new Categories(name));
-        // if (result !== null)
-        //     res.json(result);
+        const name = req.body.name;
+        const price = req.body.price;
+        const stock = req.body.stock;
+        const images = req.body.images;
+        const type = req.body.type;
+        const result = await Product.insert(new Product(name, price, stock, images, type));
+        res.json(result);
     }
 }

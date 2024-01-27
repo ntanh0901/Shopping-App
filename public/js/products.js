@@ -47,9 +47,10 @@ Fix:
 .price -> .DonGia
 .stock -> .SoLuongTon
 chuyển populateCategoryOptions, updateTable vào main
+các hàm updateImagePreview, confirmDeleteProduct, addProduct
 */
 
-function updateTable() {
+async function updateTable() {
   let tableBody = $("#productTable tbody").html("");
 
   // products.sort((a, b) => a.MaSP.localeCompare(b.MaSP));
@@ -98,8 +99,8 @@ function addNewProduct() {
 function resetForm() {
   $("#productForm")[0].reset();
   $(".error-message").text("");
-  $("#imagePreview").attr("src", "");
-
+  // $("#imagePreview").attr("src", "");
+  $("#imagePreview").html("");
 }
 
 function editProduct(index) {
@@ -112,10 +113,14 @@ function editProduct(index) {
   $("#productStock").val(product.SoLuongTon);
   $("#productCategory").val(product.MaLoai);
   // console.log(product.Anh[0]);
-  if (product.Anh[0]) {
-    $("#imagePreview").attr("src", product.Anh[0]);
+  // $("#imagePreview").attr("src", product.Anh[0]);
+  const imagePreview = $('#imagePreview').html("");
+  if (product.Anh.length !== 0) {
+    for (let i = 0; i < product.Anh.length; i++) {
+      imagePreview.append(`<img class="mt-2" style="max-width: 100px; max-height: 100px;" src="${product.Anh[i]}" >`)
+    }
   } else {
-    $("#imagePreview").attr("src", "");
+    $("#imagePreview").html("");
   }
   showForm();
 }
@@ -136,14 +141,21 @@ function deleteProduct(index) {
   let productName = products[index].Ten;
   $("#productToDelete").text(productName);
   $("#deleteProductBtn").data("index", index);
-  console.log(index);
+  // console.log(index);
   $("#deleteConfirmationModal").modal("show");
+  $("#comfirmDeleteProductBtn").attr('onclick', `confirmDeleteProduct(${index})`);
 }
 
-function confirmDeleteProduct() {
-  let index = $("#deleteProductBtn").data("index");
-  products.splice(deletionIndex, 1);
-  updateTable();
+async function confirmDeleteProduct(index) {
+  // let index = $("#deleteProductBtn").data("index");
+  const result = await deleteProducts(products[index].MaSP, products[index].Anh);
+  if (result) {
+    products.splice(deletionIndex, 1);
+    await updateTable();
+  }
+  else {
+    // Handle delete error
+  }
 }
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -230,30 +242,72 @@ function isProductNameExist(newName, currentIndex) {
   ;
 }
 
-function addProduct() {
+async function addProduct() {
+  // Upload
+  const files = $("#productImage")[0].files;
+  let filenames = (await uploadImages(files)).filenames;
+  const path = "/img/products/";
+  for (let i = 0; i < filenames.length; i++) {
+    filenames[i] = path + filenames[i];
+  }
+
+  let MaLoai = parseInt($("#productCategory").val());
+  let TenLoai = categories[0].TenLoai;
+  categories.forEach(categories => {
+    if (categories.MaLoai === MaLoai) TenLoai = categories.TenLoai;
+  });
 
   let product = {
-    id: "0",
-    name: $("#productName").val().trim(),
-    price: $("#productPrice").val(),
-    stock: $("#productStock").val(),
-    categoryId: $("#productCategory").val(),
-    image: $("#imagePreview").attr("src") || "",
+    MaSP: "0",
+    Ten: $("#productName").val().trim(),
+    DonGia: parseInt($("#productPrice").val()),
+    SoLuongTon: parseInt($("#productStock").val()),
+    MaLoai: MaLoai,
+    TenLoai: TenLoai,
+    // Anh: $("#imagePreview").attr("src") || "",
+    Anh: filenames,
   };
-
+  const resutl = await addProducts(product.Ten, product.DonGia, product.SoLuongTon, product.Anh, product.MaLoai);
+  if (!resutl) {
+    // Handle insert error here
+  }
+  else product.MaSP = resutl.MaSP;
   products.push(product);
-  updateTable();
+  await updateTable();
+  onImageChangeFlag = false;
 }
 
-function editExistingProduct(index) {
+async function editExistingProduct(index) {
   let product = products[index];
+  // Get old srcs
+  let srcArray = product.Anh;
+
+  if (onImageChangeFlag) {   // Romove old images
+    await removeImages(srcArray);
+    const files = $("#productImage")[0].files;
+    let filenames = (await uploadImages(files)).filenames;
+    const path = "/img/products/";
+    for (let i = 0; i < filenames.length; i++) {
+      filenames[i] = path + filenames[i];
+    }
+    srcArray = filenames;
+  }
+  else {
+    srcArray = $('#imagePreview img').map(function () {
+      return $(this).attr('src');
+    }).get();
+  }
 
   product.Ten = $("#productName").val().trim();
-  product.DonGia = $("#productPrice").val();
-  product.SoLuongTon = $("#productStock").val();
-  product.MaLoai = $("#productCategory").val();
-  product.Anh[0] = $("#imagePreview").attr("src") || "";
-  updateTable();
+  product.DonGia = parseInt($("#productPrice").val());
+  product.SoLuongTon = parseInt($("#productStock").val());
+  product.MaLoai = parseInt($("#productCategory").val());
+  // product.Anh = $("#imagePreview").attr("src") || "";
+  product.Anh = srcArray || "";
+
+  await updateProducts(products[index].MaSP, product);
+  await updateTable();
+  onImageChangeFlag = false;
 }
 function showForm() {
   $("#productFormModal").modal("show");
@@ -264,21 +318,35 @@ function hideForm() {
 }
 
 function updateImagePreview(input) {
-  const imagePreview = document.getElementById("imagePreview");
-  const file = input.files[0];
+  // const imagePreview = document.getElementById("imagePreview");
+  // const file = input.files[0];
+  const imagePreview = $('#imagePreview').html("");
+  const file = input.files;
 
+  // if (file) {
+  //   const reader = new FileReader();
+  //   reader.onload = function (e) {
+  //     imagePreview.src = e.target.result;
+  //   };
+  //   reader.readAsDataURL(file);
+  // } else {
+  //   imagePreview.src = "";
+  // }
   if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      imagePreview.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    imagePreview.src = "";
+    for (let i = 0; i < file.length; i++) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.append(`<img class="mt-2" style="max-width: 100px; max-height: 100px;" src="${e.target.result}" >`)
+      }
+      reader.readAsDataURL(file[i]);
+    }
   }
+  onImageChangeFlag = true;
 }
 
-
+function changeState() {
+  onImageChangeFlag = false;
+}
 
 async function main() {
   data = await getProducts("Tất cả", 1);
@@ -290,4 +358,5 @@ async function main() {
 let data;
 let products;
 let categories;
+let onImageChangeFlag = false;
 main();

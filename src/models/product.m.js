@@ -2,8 +2,7 @@ const db = require('../utils/db');
 const tbName = "SanPham";
 
 module.exports = class Product {
-    constructor(MaSP, Ten, DonGia, SoLuongTon, Anh, MaLoai) {
-        this.MaSP = MaSP;
+    constructor(Ten, DonGia, SoLuongTon, Anh, MaLoai) {
         this.Ten = Ten;
         this.DonGia = DonGia;
         this.SoLuongTon = SoLuongTon;
@@ -30,5 +29,11 @@ module.exports = class Product {
     }
     static async getAllProductsWithType(orderBy, isDesc) {
         return db.joinTBnGetAll(tbName, "Loai", "MaLoai", "MaLoai", orderBy, isDesc, null);
+    }
+    static async delete(id) {
+        return db.delete(tbName, "MaSP", id);
+    }
+    static async update(col, colval, id) {
+        return db.update(tbName, col, colval, "MaSP", id);
     }
 }
