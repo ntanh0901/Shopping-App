@@ -5,9 +5,6 @@ let categories = [
   { id: "C103", name: "Nhà cửa và đời sống" },
 ];
 
-
-let isTaskInProgress = false;
-
 function populateTable() {
   let tableBody = $("#categoryTable tbody").html("");
 
@@ -26,13 +23,13 @@ function populateTable() {
 }
 
 function editCategory(index) {
-  if (!isTaskInProgress) {
-    let category = categories[index];
-    $("#newName").val(category.name);
-    showForm();
-    $("#categoryForm button[type='button']").attr('onclick', `submitEditForm(${index})`);
-    isTaskInProgress = true;
-  }
+  let category = categories[index];
+  $("#newName").val(category.name);
+  showForm();
+  $("#categoryForm button[type='button']").attr(
+    "onclick",
+    `submitEditForm(${index})`
+  );
 }
 
 function submitEditForm(index) {
@@ -41,27 +38,21 @@ function submitEditForm(index) {
   if (newname) {
     categories[index].name = newname;
     populateTable();
-    cancelForm();
-    isTaskInProgress = false;
   }
 }
 
 function deleteCategory(index) {
-  if (!isTaskInProgress) {
-    let categoryName = categories[index].name;
-    $("#categoryToDelete").text(categoryName);
-    $("#deleteCategoryBtn").data("index", index);
-    $("#deleteConfirmationModal").modal('show');
-    isTaskInProgress = false;
-  }
+  let categoryName = categories[index].name;
+  $("#categoryToDelete").text(categoryName);
+  $("#deleteCategoryBtn").data("index", index);
+  $("#deleteConfirmationModal").modal("show");
 }
 
 $("#deleteCategoryBtn").click(function () {
   let index = $("#deleteCategoryBtn").data("index");
   categories.splice(index, 1);
   populateTable();
-  $("#deleteConfirmationModal").modal('hide');
-  isTaskInProgress = false;
+  $("#deleteConfirmationModal").modal("hide");
 });
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -95,7 +86,6 @@ function submitForm() {
   if (categories.some((category) => category.name === name)) {
     $("#newNameError").text("Tên danh mục đã tồn tại!");
     isValid = false;
-    return;
   }
 
   categories.push({ id: id, name: name });
@@ -103,22 +93,7 @@ function submitForm() {
   populateTable();
 
   $("#newName").val("");
-
-  $("#btn_add").show();
-  $(".form-container").hide();
-}
-
-function showForm() {
-  isTaskInProgress = true;
-  $("#btn_add").hide();
-  $(".form-container").show();
-}
-
-function cancelForm() {
-  $("#newNameError").text("");
-  $("#btn_add").show();
-  $(".form-container").hide();
-  isTaskInProgress = false;
+  $("#categoryModal").modal('hide');
 }
 
 populateTable();
