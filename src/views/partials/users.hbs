@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="position-relative  mx-auto w-50" >
+    <div class="position-relative  mx-auto w-50">
         <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="userTable">
             <thead class="my-auto">
                 <tr>
@@ -32,7 +32,7 @@
         </table>
 
         {{!-- Modal delete confirm --}}
-        <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
             <div class="modal-dialog ">
                 <div class="modal-content">
                     <div class="modal-header  bg-light text-primary">
@@ -65,34 +65,45 @@
                             <input type="hidden" id="editIndex" value="-1">
 
                             <div class="mb-2">
-                                <label for="userName" class="form-label">Tên người dùng</label>
-                                <input type="text" class="form-control" id="userName" name="Tên người dùng" required>
-                                <div class="error-message" id="userNameError"></div>
+                                <label for="userFullName" class="form-label">Họ tên</label>
+                                <input type="text" class="form-control" id="userFullName" name="Họ tên" required>
+                                <div class="error-message" id="userFullNameError"></div>
                             </div>
                             <div class="mb-2">
-                                <label for="userPrice" class="form-label">Giá</label>
-                                <input type="number" class="form-control" id="userPrice" name="Giá" min="0"
-                                    oninput="this.value = Math.abs(this.value)" required>
-                                <div class="error-message" id="userPriceError"></div>
+                                <label for="userUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="userUsername" name="Họ tên" required>
+                                <div class="error-message" id="userUsernameError"></div>
                             </div>
-                            <div class="mb-2">
-                                <label for="userStock" class="form-label">Số lượng tồn</label>
-                                <input type="number" class="form-control" id="userStock" name="Số lượng tồn" min="0"
-                                    oninput="this.value = Math.abs(this.value)" required>
-                                <div class="error-message" id="userStockError"></div>
+                            <label class="d-block ">Giới tính</label>
+                            <div class="form-check form-check-inline ms-5">
+                                <input class="form-check-input" type="radio" name="editGender" id="editNam" value="Nam">
+                                <label class="form-check-label" class="form-label" for="editNam">Nam</label>
                             </div>
-                            <div class="mb-2">
-                                <label for="userCategory" class="form-label">Loại</label>
-                                <select class="form-select" id="userCategory" name="Loại" required>
-                                </select>
-                                <div class="error-message" id="userCategoryError"></div>
+
+                            <div class="form-check form-check-inline ">
+                                <input class="form-check-input" type="radio" name="editGender" id="editNu" value="Nữ">
+                                <label class="form-check-label" class="form-label" for="editNu">Nữ</label>
                             </div>
+                            <br />
+
+                            <label class="form-label" for="userPhone">Điện thoại</label>
+                            <input type="tel" id="userPhone" name="userPhone" class="form-control" required />
+                            <div class="error-message" id="errorPhone"></div>
+
+                            <label class="form-label" for="userEmail">Email</label>
+                            <input type="email" id="userEmail" name="userEmail" class="form-control" required />
+                            <div class="error-message" id="errorEmail"></div>
+
+                            <label class="form-label" for="userAddress">Địa chỉ</label>
+                            <input type="text" id="userAddress" name="userAddress" class="form-control" required />
+                            <div class="error-message" id="errorAddress"></div>
+
                             <div class="mb-2">
                                 <label for="userImage" class="form-label">Ảnh</label>
-                                <input type="file" class="form-control" id="userImage" name="Ảnh" accept="image/*"
+                                <input type="file" class="form-control" id="uploadUserImage" name="Ảnh" accept="image/*"
                                     onchange="updateImagePreview(this)">
                                 <div class="error-message" id="userImageError"></div>
-                                <img id="imagePreview" class="mt-2" style="max-width: 100px; max-height: 100px;">
+                                <img id="userImage" class="mt-2" style="max-width: 100px; max-height: 100px;">
                             </div>
 
                         </form>

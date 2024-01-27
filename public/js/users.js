@@ -2,10 +2,10 @@ let users = [
     {
       id: 1,
       name: "Bob",
-      phone: 100000,
+      phone: "0123456789",
       dob: "11/11/2000",
       email: "bob@gmail.com",
-      image: "",
+      image: "/img/logo_hcmus.png",
       gender: 'Nữ',
       username: "un1",
       password: "pw1",
@@ -14,10 +14,10 @@ let users = [
     {
       id: 2,
       name: "Alice",
-      phone: 200000,
+      phone: "0123456789",
       dob: "05/20/1995",
       email: "alice@gmail.com",
-      image: "",
+      image: "/img/logo_hcmus.png",
       gender: 'Nam',
       username: "un2",
       password: "pw2",
@@ -26,10 +26,10 @@ let users = [
     {
       id: 3,
       name: "Charlie",
-      phone: 300000,
+      phone: "0123456789",
       dob: "08/15/1988",
       email: "charlie@gmail.com",
-      image: "",
+      image: "/img/logo_hcmus.png",
       gender: 'Nữ',
       username: "un3",
       password: "pw3",
@@ -62,28 +62,18 @@ function updateTable() {
 function resetForm() {
   $("#userForm")[0].reset();
   $(".error-message").text("");
-  $("#imagePreview").attr("src", "");
 }
 
 function viewUser(index) {
   resetForm();
   $("#modalTitle").text(users[index].name);
   $(".modal-footer").hide();
-
   $("#editIndex").val(index);
+  
   let user = users[index];
-  $("#userName").val(user.name).prop("readonly", true);
-  $("#userPrice").val(user.price).prop("readonly", true);
-  $("#userStock").val(user.stock).prop("readonly", true);
-  $("#userCategory").val(user.categoryId).prop("disabled", true);
-  $("#userImage").hide();
-  $("#userImage").prop("readonly", true);
 
-  if (user.image) {
-    $("#imagePreview").attr("src", user.image);
-  } else {
-    $("#imagePreview").attr("src", "");
-  }
+  populateForm(user);
+  $("#uploadUserImage").hide();
   showForm();
 }
 
@@ -93,19 +83,20 @@ function editUser(index) {
   $("#confirmBtn").text("Lưu");
   $("#editIndex").val(index);
   let user = users[index];
-  $("#userName").val(user.name);
-  $("#userPrice").val(user.price);
-  $("#userStock").val(user.stock);
-  $("#userCategory").val(user.categoryId);
-  if (user.image) {
-    $("#imagePreview").attr("src", user.image);
-  } else {
-    $("#imagePreview").attr("src", "");
-  }
+  populateForm(user)
   showForm();
 }
 
-
+function populateForm(user){
+    $("#userFullName").val(user.name);
+    $("#userUsername").val(user.username);
+    $("#editNam").prop("checked",user.gender.toLowerCase() === "nam" ? true : false);
+    $("#editNu").prop("checked",user.gender.toLowerCase() === "nữ" ? true : false);
+    $("#userPhone").val(user.phone);
+    $("#userEmail").val(user.email);
+    $("#userAddress").val(user.address);
+    $("#userImage").attr("src", user.image);
+}
 function addNewUser() {
     $("#modalTitle").text("Thêm người dùng");
     $("#confirmBtn").text("Thêm");
