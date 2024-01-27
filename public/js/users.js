@@ -62,9 +62,10 @@ function resetForm() {
   $("#userForm")[0].reset();
   $(".error-message").text("");
   $("#userImage").attr("src", "");
+  $("#uploadUserImage").show();
+  $("#userImage").srd = "";
   $(".modal-footer").show();
 }
-
 
 function addNewUser() {
   resetForm();
@@ -74,7 +75,6 @@ function addNewUser() {
   makeReadonly(false);
   showForm();
 }
-
 
 function viewUser(index) {
   resetForm();
@@ -129,6 +129,7 @@ function populateForm(user) {
 
 let deletionIndex;
 function deleteUser(index) {
+	resetForm();
   deletionIndex = index;
   let userName = users[index].name;
   $("#userToDelete").text(userName);
@@ -191,7 +192,7 @@ $("#userFullName")
     hideError("#userFullNameError");
   });
 
-  $("#userUsername")
+$("#userUsername")
   .on("blur", function () {
     validateInput("#userUsername", "#userUsernameError", "Username trống!");
     hideError("#userUsernameError");
@@ -200,9 +201,13 @@ $("#userFullName")
     hideError("#userUsernameError");
   });
 
-  $("#userGender")
+$('input[name="userGender"]')
   .on("blur", function () {
-    validateInput('input[name="userGender"]:checked', "#userGenderError", "Giới tính trống!");
+    validateInput(
+      'input[name="userGender"]:checked',
+      "#userGenderError",
+      "Giới tính trống!"
+    );
     hideError("#userGenderError");
   })
   .on("click", function () {
@@ -244,6 +249,7 @@ $("#userAddress")
   .on("focus", function () {
     hideError("#errorAddress");
   });
+
 function submitForm() {
   let index = $("#editIndex").val();
 
@@ -287,8 +293,7 @@ function submitForm() {
     hideError("#userGenderError");
   }
 
-  const imageValid = validateImage();
-  validationResults.push(imageValid);
+  if (index === "-1") validationResults.push(validateImage());
 
   validationResults.push(validateUsername($("#userUsername").val(), index));
 
@@ -305,22 +310,14 @@ function submitForm() {
 }
 
 function validateImage() {
-  const input = $("#uploadUserImage")[0];
-  const imagePreview = $("#userImage")[0];
+  const fileInput = $("#uploadUserImage")[0];
   const errorElement = $("#userImageError");
-
-  const isValid = input.files.length > 0;
-
-  if (!isValid) {
-    errorElement.text("Vui lòng chọn ảnh!");
-  } else {
-    hideError(errorElement);
+  if (fileInput.files.length === 0) {
+    $(errorElement).text("Vui lòng chọn một ảnh.");
+    return false;
   }
-
-  return isValid;
+  return true;
 }
-
-
 
 function validateUsername(newUsername, currentIndex) {
   let isValid = !users.some(
@@ -350,8 +347,6 @@ function addUser() {
 }
 
 function saveEdit(index) {
-  console.log(index);
-
   let user = users[index];
 
   user.name = $("#userFullName").val().trim();
@@ -375,6 +370,7 @@ function hideForm() {
 }
 
 function updateImagePreview(input) {
+  $("#userImageError").text("");
   const imagePreview = document.getElementById("userImage");
   const file = input.files[0];
 
