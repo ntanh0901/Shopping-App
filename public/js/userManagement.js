@@ -27,13 +27,14 @@ async function updateAccount(id, newval) {
     }
 }
 
-async function deleteAccount(id) {
+async function deleteAccount(id, imgs) {
     try {
         const response = await $.ajax({
             url: `/admin/accountsmanagement/deleteAccount`,
             method: 'POST',
             data: {
-                id: id
+                id: id,
+                imgs: imgs
             },
         });
         return response;

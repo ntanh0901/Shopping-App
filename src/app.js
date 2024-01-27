@@ -45,21 +45,6 @@ require('./mws/passport')(app);
 
 route(app);
 
-// -------------------------------
-const ac = require('../src/controllers/account.c');
-const hbshelper = hbs.create();
-hbshelper.handlebars.registerHelper('ifCond', function (v1, v2, options) {
-    if (v1 === v2) {
-        return options.fn(this);
-    }
-    return options.inverse(this);
-});
-app.get('/accountTest', ac.GetAllAccount);
-app.post('/editAccount', ac.EditAccount);
-app.post('/editAccount/save', ac.Save);
-//--------------------------------------
-
-
 // http
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);

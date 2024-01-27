@@ -1,4 +1,6 @@
 const Account = require('../models/account.m');
+const fs = require('fs').promises;
+const path = require('path');
 
 module.exports = {
     // GetAllAccount: async (req, res) => {
@@ -106,6 +108,13 @@ module.exports = {
     deleteAccount: async (req, res) => {
         try {
             const id = req.body.id;
+            const deleteImgPath = req.body.imgs;
+            const baseDirectory = path.join(__dirname, '../../public');
+            for (let i = 0; i < deleteImgPath.length; i++) {
+                const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
+                // console.log(absolutePath);
+                await fs.unlink(absolutePath);
+            }
             if (await Account.delete(id))
                 res.json(true);
             else
