@@ -1,13 +1,49 @@
+//const { search } = require("../../src/routes/home.r");
+
+//const { load } = require("mime");
+
 $(document).ready(function () {
     let currentPage = 1;
     let currentType = 'Tất cả';
+    let searchInput = '';
     let showedPages = null;
     let firstPage = 1;
     let lastPage = null;
-    loadPage(currentType, 1);
+    loadPage(currentType, 1, 1);
     // Xử lí chọn loại
     $('input[name="categories"]').on('click', function () {
-        loadPage($(this).val(), 1);
+        loadPage($(this).val(), 1, 1);
+    });
+
+    //previous page next page button
+    $('#previous-page').on('click', function() {
+        if (currentPage == 1) {
+            return;
+        }
+        if (searchInput === '') {
+            loadPage(currentType, currentPage - 1, 1);
+        } else {
+            loadPage(searchInput, currentPage - 1, 2);
+        }
+    });
+
+    $('#next-page').on('click', function() {
+        if (currentPage === lastPage) {
+            return;
+        }
+        if (searchInput === '') {
+            loadPage(currentType, currentPage + 1, 1);
+        } else {
+            loadPage(searchInput, currentPage + 1, 2);
+        }
+    })
+
+    //search bar
+    $('#searchButton').on('click', function (event) {
+        event.preventDefault();
+        const searchTerm = $('#searchInput').val();
+
+        loadPage(searchTerm, 1, 2);
     });
 
     // reload page container
@@ -27,13 +63,44 @@ $(document).ready(function () {
     }
 
 
-    function loadPage(type, page) {
+    function loadPage(type, page, flag) {
+        let url;
+        if (flag === 1) {
+            if (searchInput != '') {
+                url = `/client/page?type=${type}&page=${page}&search=${searchInput}`;
+            } else {
+                url = `/client/page?type=${type}&page=${page}`;
+            }
+        } else {
+            url = `/client/search?input=${type}&page=${page}`;
+        }
         $.ajax({
-            url: `/client/page?type=${type}&page=${page}`,
+            url: url,
             method: 'GET',
             success: function (data) {
                 currentPage = page;
-                currentType = type;
+                if (flag === 1) {
+                    currentType = type;
+                } else {
+                    currentType = 'Tất cả';
+                    searchInput = type;
+                }
+                const pages = Math.ceil(data.total / data.perpage);
+                lastPage = pages;
+                //pagination
+                $('#pagination').empty();
+                const pageContainer = $('#pagination');
+                for (let i = 1; i <= pages; i++) {
+                    pageContainer.append($(`<button class="page-click btn ${i == currentPage ? "page-active" : ""}">${i}</button>`));
+                }
+                $('.page-click').on('click', function () {
+                    if(flag === 1) {
+                        loadPage(currentType, parseInt($(this).text()), 1);
+                    } else {
+                        loadPage(searchInput, parseInt($(this).text()), 2);
+                    }
+                })
+
                 //console.log(data);
                 // //----------------------
                 // // next page button click event
@@ -76,18 +143,18 @@ $(document).ready(function () {
                 for (let i = 0; i < data.perpage && i < data.data.length; i++) {
                     dataHtml += `
                     <div class="card-item rounded border">
-                        <a href="/products/" class="item-link">
+                        <a href="/client/products/${data.data[i].MaSP}" class="item-link">
                             <div class="img-container">
                                 <img class="rounded" src="${data.data[i].Anh[0]}" alt="">
                             </div>
                         </a>
                         <div class="content">
-                            <a href="/products/" class="item-link">
+                            <a href="/client/products/${data.data[i].MaSP}" class="item-link">
                                 ${data.data[i].Ten}
                             </a>
-                            <p class="fw-bold">${data.data[i].DonGia}.000Đ</p>
+                            <p class="fw-bold mt-2 mb-0">${data.data[i].DonGia}.000Đ</p>
                             <div class="subcontent">
-                                <p>Số lượng còn: ${data.data[i].SoLuongTon}</p>
+                                <p class="mb-0">Số lượng còn: ${data.data[i].SoLuongTon}</p>
                                 <div class="star-rating">
                                     <i class='bx bxs-star'></i>
                                     <span>5.0</span>
@@ -120,17 +187,17 @@ $(document).ready(function () {
                 //                         class="img-fluid rounded-top"
                 //                         alt=""
                 //                     />
-            
+
                 //                     <div class="name-price">
                 //                         <div class="name">
                 //                             ${data.data[i].Ten}
                 //                         </div>
-            
+
                 //                         <div class="price">
                 //                             ${data.data[i].DonGia}
                 //                         </div>
                 //                     </div>
-            
+
                 //                     <div class="qty">
                 //                         <input id='${data.data[i].MaSP}' class='sl'
                 //                             type="number"
@@ -138,21 +205,21 @@ $(document).ready(function () {
                 //                             value="1"
                 //                             onkeyup="if(value<0) value=0;"
                 //                         />
-            
+
                 //                     </div>
                 //                 </div>
-            
+
                 //                 <div class="row-2">
-            
+
                 //                     <div class="input-text">
                 //                         <input type="text" name="note" />
                 //                     </div>
                 //                     <div class="trash">
                 //                         <i class="bx bx-trash delete-order" id='${data.data[i].MaSP}'></i>
                 //                     </div>
-            
+
                 //                 </div>
-            
+
                 //             </div>
                 //             `));
                 //             $('#' + data.data[i].MaSP + ".delete-order").on("click", (event) => {

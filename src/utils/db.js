@@ -447,7 +447,52 @@ module.exports = {
             console.log('Select property by condition error: ', error);
         }
     },
+    searchAll: async (tbName, searchTerm) => {
+        try {
+            const query = `
+            SELECT * FROM "${tbName}"
+            WHERE LOWER("Ten") ILIKE LOWER($1)`;
+            const data = await db.any(query, [`%${searchTerm}%`]);
+            return data;
+        } catch (error) {
+            console.log('Search error: ', error);
+        }
+    },
 
+    joinTBSearch: async (tb1, tb2, col1, col2, colWhere, val, colOrder, isDesc, limit, input) => {
+        try {
+            let query = `
+                SELECT *
+                FROM "${tb1}"
+                JOIN "${tb2}" ON "${tb1}"."${col1}" = "${tb2}"."${col2}"
+                WHERE "${colWhere}" = $1 
+            `;
+            // if (colOrder) {
+            //     if (isDesc) {
+            //         query += `ORDER BY ${colOrder} DESC `;
+            //     }
+            //     else query += `ORDER BY ${colOrder} ASC `;
+            // }
+
+            // if (limit) {
+            //     query += `LIMIT ${limit} `;
+            // }
+
+            query += `AND LOWER("${tb1}"."Ten") ILIKE LOWER($2)`;
+            return db.manyOrNone(query, [val, `%${input}%`]);
+        } catch (error) {
+            console.log("Join table error: ", error);
+        }
+    },
+
+    selectByQuery: async(queryString) => {
+        try {
+            return db.manyOrNone(queryString);
+        }
+        catch(error) {
+            console.log('query error:', error);
+        }
+    },
     joinTBnGetAll: async (tb1, tb2, col1, col2, colOrder, isDesc, limit) => {
         try {
             let query = `

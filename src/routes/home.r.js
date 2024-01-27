@@ -4,6 +4,8 @@ const productController = require('../controllers/product.c');
 
 router.get('/', productController.index);
 router.get('/page', productController.getProducts);
+router.get('/search', productController.getSearch);
+router.get('/products/:slug', productController.show);
 
 
 module.exports = router;

@@ -5,6 +5,7 @@ $font-family-sans-serif: "Be Vietnam Pro", sans-serif;
 
 // colors
 $primary: #008F95;
+$primary-hover: #008186;
 $secondary: #E9B000;
 $light: #F5F5FA;
 @import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
@@ -14,6 +15,7 @@ $light: #F5F5FA;
 @import "mixins";
 @import "login";
 @import "home";
+@import "product";
 @import "sidebar";
 @import "cashier_dashboard";
 @import "edit_profile";
@@ -30,6 +32,14 @@ a {
 #admin {
   height: 100vh;
   display: flex;
+}
+
+.bx.bxs-star {
+  color: $star-rating-color;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 #overlay {

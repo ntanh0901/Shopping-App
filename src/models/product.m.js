@@ -27,6 +27,13 @@ module.exports = class Product {
     static async getBy(type, orderBy, isDesc) {
         return db.joinTB(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null);
     }
+    // get product with type id
+    static async getSimilar(typeID, productID) {
+        const query = `SELECT * FROM
+        "${tbName}" JOIN "Loai" ON "${tbName}"."MaLoai" = "Loai"."MaLoai"
+        WHERE "${tbName}"."MaLoai" = ${typeID} AND "MaSP" <> ${productID}`;
+        return db.selectByQuery(query);
+    }
     static async getAllProductsWithType(orderBy, isDesc) {
         return db.joinTBnGetAll(tbName, "Loai", "MaLoai", "MaLoai", orderBy, isDesc, null);
     }
@@ -35,5 +42,11 @@ module.exports = class Product {
     }
     static async update(col, colval, id) {
         return db.update(tbName, col, colval, "MaSP", id);
+    }
+    static async getSearch(input) {
+        return db.searchAll(tbName, input);
+    }
+    static async getByWithSearch(type, orderBy, isDesc, input) {
+        return db.joinTBSearch(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null, input);
     }
 }

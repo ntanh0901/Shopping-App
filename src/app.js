@@ -37,6 +37,12 @@ app.use(session({
 // require('./mws/fbpassport')(app);
 require('./mws/passport')(app);
 
+// app.get('/products', (req, res) => {
+//     res.render('client/product', {
+//         title: 'Sản phẩm'
+//     })
+// });
+
 route(app);
 
 // -------------------------------
