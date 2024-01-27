@@ -84,7 +84,7 @@ function validateForm() {
   }
 
   if (!/^\d{10}$/.test($("#editPhone").val())) {
-    $("#errorPhone").text("Số điện thoại không hợp lệ");
+    $("#errorPhone").text("Số điện thoại không hợp lệ!");
     isValid = false;
   }
 
@@ -94,12 +94,12 @@ function validateForm() {
   }
 
   if (!/\S+@\S+\.\S+/.test($("#editEmail").val())) {
-    $("#errorEmail").text("Email không hợp lệ");
+    $("#errorEmail").text("Email không hợp lệ!");
     isValid = false;
   }
 
   if ($("#editAddress").val() === "") {
-    $("#errorAddress").text("Địa chỉ trống");
+    $("#errorAddress").text("Địa chỉ trống!");
     isValid = false;
   }
 
