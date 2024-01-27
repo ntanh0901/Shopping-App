@@ -241,6 +241,9 @@ async function insertData() {
     await insertWithoutID("SanPham", {Ten: "Tất vớ nam", DonGia: "45", SoLuongTon: "100", Anh: [link + "Tất vớ nam" + ext], MaLoai: "5"})
     await insertWithoutID("SanPham", {Ten: "Mắt Kính Râm Mát Nam", DonGia: "139", SoLuongTon: "100", Anh: [link + "Mắt Kính Râm Mát Nam" + ext], MaLoai: "5"})
     await insertWithoutID("SanPham", {Ten: "Mũ lưỡi trai Ulzzang", DonGia: "55", SoLuongTon: "100", Anh: [link + "Mũ lưỡi trai Ulzzang" + ext], MaLoai: "5"})
+
+    await insertWithoutID("NguoiDung", {HoTen: "Admin", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "admin@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "admin", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "0", LaAdmin: "1", DiaChi: null});
+    await insertWithoutID("NguoiDung", {HoTen: "Khach Hang", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "khach@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "khach", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "1", LaAdmin: "0", DiaChi: null});
 }
 async function insertWithoutID(tbName, entity) {
     try {
