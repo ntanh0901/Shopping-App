@@ -14,8 +14,8 @@ module.exports = {
 
     updateCategories: async (req, res) => {
         try {
-            const id = req.query.id;
-            const newval = req.query.newval;
+            const id = req.body.id;
+            const newval = req.body.newval;
             if (await Categories.update(["MaLoai", "TenLoai"], [id, newval], id))
                 res.json(true);
             else
@@ -29,7 +29,7 @@ module.exports = {
 
     deleteCategories: async (req, res) => {
         try {
-            const id = req.query.id;
+            const id = req.body.id;
             if (await Categories.delete(id))
                 res.json(true);
             else
@@ -42,7 +42,7 @@ module.exports = {
     },
 
     addCategory: async (req, res) => {
-        const name = req.query.name;
+        const name = req.body.name;
         const result = await Categories.insert(new Categories(name));
         if (result !== null)
             res.json(result);

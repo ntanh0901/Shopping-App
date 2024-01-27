@@ -7,9 +7,9 @@ const path = require('path');
 
 // Categories
 router.post('/getCategories', categoriesController.getCategories);
-router.get('/updateCategories', categoriesController.updateCategories);
-router.get('/deleteCategories', categoriesController.deleteCategories);
-router.get('/addCategory', categoriesController.addCategory);
+router.post('/updateCategories', categoriesController.updateCategories);
+router.post('/deleteCategories', categoriesController.deleteCategories);
+router.post('/addCategory', categoriesController.addCategory);
 
 //Products
 router.get('/getProducts', productController.getProducts);

@@ -13,8 +13,12 @@ async function getCategories() {
 async function updateCategories(id, newval) {
     try {
         const response = await $.ajax({
-            url: `/admin/productsmanagement/updateCategories?id=${id}&newval=${newval}`,
-            method: 'GET',
+            url: `/admin/productsmanagement/updateCategories`,
+            method: 'POST',
+            data: {
+                id: id,
+                newval: newval
+            }
         });
         return response;
     }
@@ -26,8 +30,11 @@ async function updateCategories(id, newval) {
 async function deleteCategories(id) {
     try {
         const response = await $.ajax({
-            url: `/admin/productsmanagement/deleteCategories?id=${id}`,
-            method: 'GET',
+            url: `/admin/productsmanagement/deleteCategories`,
+            method: 'POST',
+            data: {
+                id: id
+            }
         });
         return response;
     }
@@ -39,8 +46,11 @@ async function deleteCategories(id) {
 async function addCategory(name) {
     try {
         const response = await $.ajax({
-            url: `/admin/productsmanagement/addCategory?name=${name}`,
-            method: 'GET',
+            url: `/admin/productsmanagement/addCategory`,
+            method: 'POST',
+            data: {
+                name: name
+            }
         });
         return response;
     }
