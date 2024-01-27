@@ -1,0 +1,41 @@
+.manageTable {
+  padding-bottom: 5rem;
+  tr {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  th {
+    background-color: $primary !important;
+    color: $white;
+    height: 2rem;
+  }
+
+  tbody {
+    padding-bottom: 4rem;
+    td {
+      height: 3rem !important;
+    }
+  }
+
+  thead {
+    height: 4rem;
+    vertical-align: middle;
+  }
+
+  text-align: center;
+  vertical-align: middle !important;
+  padding-bottom: 5rem;
+}
+
+.main-content {
+  .form-container {
+    display: none;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.75rem;
+    // margin-top: 5px;
+    min-height: 0.75rem;
+  }
+}

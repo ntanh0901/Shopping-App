@@ -12133,7 +12133,15 @@ a.nav-item:hover i, a.nav-item.active i {
   padding: 1.375rem 1rem;
 }
 .dashboard-container header {
+  color: #008f95;
+  font-weight: 800;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1.25rem;
+}
+.dashboard-container .dashboard-sub-header {
+  color: #008f95;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 .dashboard-container section {
   background-color: #fff;
@@ -12147,6 +12155,9 @@ a.nav-item:hover i, a.nav-item.active i {
   margin-top: 0.938rem;
   display: flex;
   align-items: center;
+  color: #000;
+  font-weight: 400;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1rem;
 }
 .dashboard-container .cashier-infor i {
@@ -12177,9 +12188,12 @@ a.nav-item:hover i, a.nav-item.active i {
   border: none;
   border-radius: 1rem;
   padding: 0.5rem 0.75rem;
+  color: #008f95;
+  font-weight: 400;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 .dashboard-container .state-container {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 .dashboard-container .state-container section {
   margin-top: 1rem;
@@ -12212,10 +12226,21 @@ a.nav-item:hover i, a.nav-item.active i {
   border-bottom: 1px solid #f0f0f0;
   padding: 0.375rem;
 }
+.dashboard-container .newest-order-table thead {
+  color: #000;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
 .dashboard-container .newest-order-table tbody {
+  color: #000;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 0.813rem;
 }
 .dashboard-container .newest-order-table .btn-detail {
+  color: #000;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1.5rem;
 }
 .dashboard-container .newest-order-table tbody tr:hover {
@@ -12252,14 +12277,26 @@ a.nav-item:hover i, a.nav-item.active i {
 .dashboard-container .newest-customer section .client div {
   margin-right: 1rem;
 }
+.dashboard-container .newest-customer section .client .no {
+  color: #008f95;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
 .dashboard-container .newest-customer section .client .img-client {
   width: 4rem;
+  height: 4rem;
   border-radius: 4.5rem;
 }
 .dashboard-container .newest-customer section .client ._name {
+  color: #000;
+  font-weight: 400;
+  font-family: "Be Vietnam Pro", sans-serif;
   margin-bottom: 1rem;
 }
 .dashboard-container .newest-customer section .client ._time {
+  color: #000;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
   font-size: 0.75rem;
 }
 .dashboard-container .newest-customer section .client:hover {
@@ -12280,11 +12317,281 @@ a.nav-item:hover i, a.nav-item.active i {
 }
 
 .edit-profile-container {
-  background-color: #f2f4f7;
+  display: none;
 }
 .edit-profile-container .form-group {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   width: 80%;
+}
+
+.main-content {
+  padding: 0.5rem 1rem;
+  flex: 1;
+  background-color: #f2f4f7;
+  overflow: auto;
+}
+
+.content_pos {
+  position: relative;
+}
+.content_pos .content_import {
+  position: relative;
+  background-color: #f2f4f7;
+  font-family: "Be Vietnam Pro", sans-serif;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 70vw;
+  height: 85%;
+  margin: 7vh auto;
+}
+.content_pos .content_import .head_import {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content_pos .content_import .head_import .import_title .id_import {
+  color: #000;
+  font-size: 1.5rem;
+}
+.content_pos .content_import .head_import .import_title .date_import {
+  color: #243c74;
+  font-size: 1.25rem;
+}
+.content_pos .content_import .head_import .import_add button {
+  height: 2rem;
+  width: auto;
+  border: 0.125rem solid #243c74;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #243c74;
+  cursor: pointer;
+}
+.content_pos .content_import .head_import .import_add button .icon {
+  font-weight: 600;
+}
+.content_pos .content_import .head_import .import_add button:hover {
+  border: 0.25rem solid #1b2d57;
+}
+.content_pos .content_import .table_content {
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 3fr 6fr 3fr 3fr 1fr;
+  margin: 1rem 0;
+}
+.content_pos .content_import .table_content div {
+  text-align: center;
+}
+.content_pos .content_import .table_container {
+  height: 30vh;
+  overflow: auto;
+}
+.content_pos .content_import .table_container .btn-trash {
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+.content_pos .content_import .thead {
+  color: #243c74;
+  padding-bottom: 0.75rem;
+  border-bottom: 0.125rem solid #808080;
+}
+.content_pos .content_import .sub {
+  color: #7c8cac;
+  padding: 1rem 0;
+}
+.content_pos .content_import .sum_import {
+  background-color: #00a67e;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  padding: 0.25rem 0.25rem;
+}
+.content_pos .content_import .foot_import {
+  display: flex;
+  justify-content: flex-end;
+}
+.content_pos .content_import .foot_import button {
+  background-color: #243c74;
+  height: 2.5rem;
+  width: 6.5rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: none;
+  color: #f2f4f7;
+  cursor: pointer;
+}
+.content_pos .content_import .foot_import button:hover {
+  background-color: #1b2d57;
+}
+.content_pos .content_import .btn-close {
+  position: absolute;
+  background-color: #e9ecf1;
+  top: -1.5rem;
+  right: -1.5rem;
+  cursor: pointer;
+}
+.content_pos .content_import .btn-close i {
+  font-size: 2.5rem;
+}
+.admin_import_table {
+  border-radius: 5rem;
+}
+
+.admin_import_table table {
+  width: 90%;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  overflow: hidden; /* Ensure rounded corners are visible */
+  background-color: #fff;
+  position: relative;
+  border-collapse: none;
+  text-align: left;
+  margin-top: 2.25rem;
+  padding-bottom: 3rem;
+}
+.admin_import_table table th,
+.admin_import_table table td {
+  border-bottom: 1px solid #7c8cac;
+  padding: 1.125rem;
+}
+.admin_import_table table thead {
+  background-color: #243c74;
+  color: #fff;
+  font-weight: 600;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+.admin_import_table table tbody {
+  color: #000;
+  font-weight: 300;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 0.813rem;
+}
+.admin_import_table table .btn-detail {
+  color: #000;
+  font-weight: 100;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 1.5rem;
+}
+.admin_import_table table tbody tr:hover {
+  background-color: #f2f4f7 !important;
+  border-color: #f2f4f7 !important;
+}
+.admin_import_table table td.paid {
+  color: #00a67e;
+}
+.admin_import_table table td.pending {
+  color: #f29339;
+}
+.admin_import_table table td.canceled {
+  color: #dc3545;
+}
+.admin_import_table table th,
+.admin_import_table table td {
+  background-clip: padding-box;
+}
+.admin_import_table table .bxs-edit-alt {
+  color: #ffd580;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.admin_import_table table .btn-delete-report {
+  color: #dc3545;
+  font-size: 1.5rem;
+}
+
+[class*=btn-] {
+  cursor: pointer;
+}
+[class*=btn-]:hover {
+  transform: scale(1.05);
+}
+
+.filter {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+}
+.filter .filter_compo {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.filter input, .filter select {
+  font-size: 1rem;
+  width: auto;
+  height: 1.75rem;
+  border-radius: 0.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+.main-header {
+  margin-top: 1rem;
+  color: #008f95;
+  font-weight: 800;
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 1.5rem;
+}
+
+.sub-header {
+  color: #5d6981;
+  font-weight: 400;
+  font-family: "Be Vietnam Pro", sans-serif;
+  margin-top: 0.75rem;
+  margin-bottom: 1.938rem;
+}
+
+.ic-plus {
+  font-size: 1.95rem;
+  color: #243c74;
+  float: right;
+}
+
+.manageTable {
+  padding-bottom: 5rem;
+  text-align: center;
+  vertical-align: middle !important;
+  padding-bottom: 5rem;
+}
+.manageTable tr {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.manageTable th {
+  background-color: #008f95 !important;
+  color: #fff;
+  height: 2rem;
+}
+.manageTable tbody {
+  padding-bottom: 4rem;
+}
+.manageTable tbody td {
+  height: 3rem !important;
+}
+.manageTable thead {
+  height: 4rem;
+  vertical-align: middle;
+}
+
+.main-content .form-container {
+  display: none;
+}
+.main-content .error-message {
+  color: red;
+  font-size: 0.75rem;
+  min-height: 0.75rem;
+}
+
+.product_img {
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 a {
@@ -12294,6 +12601,25 @@ a {
 #admin {
   height: 100vh;
   display: flex;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
+}
+
+.title_content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /*# sourceMappingURL=style.css.map */

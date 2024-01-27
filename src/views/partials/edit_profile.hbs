@@ -1,23 +1,23 @@
-<div class="edit-profile-container flex-fill d-flex pt-3">
-
+<div class="edit-profile-container flex-fill pt-3">
     <!-- Left column with profile image -->
-    <div class="w-25 mx-4">
+    <div class="w-25 mx-4 mt-5">
         <div class="text-center">
             <!-- Profile image with click event -->
-            <img id="avatar-image" src="//placehold.it/100" style="width: 100px; height: 100px; object-fit: cover;"
-                class="avatar rounded-circle " alt="avatar" onclick="openImageModal()">
-            <h6 class="mt-3">Upload a different photo...</h6>
-            <input type="file" class="form-control" accept="image/*" onchange="previewImage(event)">
+            <img id="avatar-image" src="//placehold.it/100" style="width: 200px; height: 200px; object-fit: cover;"
+                class="avatar rounded-circle mb-2 " alt="avatar" onclick="openImageModal()">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input d-none" id="customFile" accept="image/*"
+                    onchange="previewImage(event)">
+                <div class="btn btn-light">
+                    <label class="custom-file-label" for="customFile">Upload ảnh</label>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Edit form column -->
     <div class="flex-fill personal-info">
-
-
-        <h3 class="mb-4 ">Personal info</h3>
-
-        <form class="form-horizontal">
+        <form class="form-horizontal mt-5">
             <div class="row form-group">
                 <label class="col-lg-3 control-label text-end">Họ tên</label>
                 <div class="col-lg-8">
@@ -75,7 +75,7 @@
             <div class="row form-group position-relative">
                 <label class="col-md-3 control-label text-end">Xác nhận mật khẩu</label>
                 <div class="col-md-8 position-relative">
-                    <input id="confirmPasswordInput" class="form-control" type="    " value="{{MatKhau}}">
+                    <input id="confirmPasswordInput" class="form-control" value="{{MatKhau}}">
                     <i class="bi bi-eye-slash position-absolute top-50 translate-middle-y" style="right: 2rem;"
                         id="confirmEyeIcon"
                         onclick="toggleInputVisibility('confirmPasswordInput', 'confirmEyeIcon')"></i>
@@ -88,26 +88,25 @@
                 </div>
             </div>
 
-            <div class="row form-group">
+            <div class="row form-group mt-5">
                 <label class="col-md-3 control-label text-end"></label>
-                <div class="col-md-8">
-                    <button id="btn-confirm" type="button" class="btn btn-primary">Save Changes</button>
-                    <button id="btn-cancel" type="reset" class="btn btn-default">Cancel</button>
+                <div class="col-md-8 d-flex justify-content-end">
+                    <button id="btn-confirm" type="button" class="btn btn-primary text-white me-2">Lưu</button>
+                    <button id="btn-cancel" type="reset" class="btn btn-light">Hủy</button>
                 </div>
             </div>
     </div>
-</div>
 
-<!-- Modal for displaying the larger image -->
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img id="largeImage" src="//placehold.it/300" class="img-fluid" alt="Large Image">
+    <!-- Modal for displaying the larger image -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="largeImage" src="//placehold.it/300" class="img-fluid" alt="Large Image">
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <script src="/js/edit_profile.js"></script>
