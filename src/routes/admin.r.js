@@ -37,6 +37,19 @@ router.get("/products", (req, res) => {
   });
 });
 
+router.get("/analysis", (req, res) => {
+  res.render("analysis", {
+    title: "Admin analysis",
+    isAnalysis: true,
+  });
+});
+
+router.get("/users", (req, res) => {
+  res.render("users", {
+    title: "Admin users",
+    isUsers: true,
+  });
+});
 router.use('/productsmanagement', productRouter);
 
 module.exports = router;

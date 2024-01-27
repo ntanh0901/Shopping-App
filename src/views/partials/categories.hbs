@@ -1,7 +1,3 @@
-<div id="overlay">
-    {{>admin_new_import}}
-</div>
-
 <div class="main-content">
     <div class="title_content">
         <div>
@@ -20,8 +16,8 @@
             <thead class="my-auto">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Mã danh mục</th>
-                    <th scope="col">Tên danh mục</th>
+                    <th scope="col">ID </th>
+                    <th scope="col">Tên </th>
                     <th scope="col">Chỉnh sửa/Xóa</th>
                 </tr>
             </thead>
@@ -30,11 +26,12 @@
             </tbody>
         </table>
 
+        {{!-- Modal delete confirm --}}
         <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1"
             aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header  bg-light text-primary">
                         <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -55,7 +52,7 @@
         </div>
 
         <!-- Form for edit/add category -->
-        <section class="form-container mt-3 ms-auto">
+        <section class="form-container mt-3 ms-auto ">
             <form id="categoryForm" onsubmit="event.preventDefault();">
                 <div class="mb-3">
                     <label for="newName" class="form-label">Tên danh mục</label>

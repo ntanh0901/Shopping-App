@@ -68,8 +68,8 @@ async function updateTable() {
                      <td>${product.TenLoai}</td>
                      <td><img src="${product.Anh[0]}" alt="" class = "product_img"></td>
                      <td> 
-                        <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editProduct(${index})" title="Edit"></i>
-                        <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteProduct(${index})" title="Delete"></i>
+                     <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editProduct(${index})" title="Chỉnh sửa"></i>
+                     <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteProduct(${index})" title="Xóa"></i>
                      </td>`;
   });
 }
@@ -123,6 +123,44 @@ function editProduct(index) {
     $("#imagePreview").html("");
   }
   showForm();
+}
+
+
+function viewProduct(index) {
+	resetForm();
+	$("#modalTitle").text(	$("#productName").val(product.name));
+	$("#editIndex").val(index);
+	let product = products[index];
+	$("#productName").val(product.name);
+	$("#productPrice").val(product.price);
+	$("#productStock").val(product.stock);
+	$("#productCategory").val(product.categoryId);
+	console.log(product.image);
+	if (product.image) {
+		$("#imagePreview").attr("src", product.image);
+	} else {
+		$("#imagePreview").attr("src", "");
+	}
+	showForm();
+}
+
+
+function viewProduct(index) {
+	resetForm();
+	$("#modalTitle").text(	$("#productName").val(product.name));
+	$("#editIndex").val(index);
+	let product = products[index];
+	$("#productName").val(product.name);
+	$("#productPrice").val(product.price);
+	$("#productStock").val(product.stock);
+	$("#productCategory").val(product.categoryId);
+	console.log(product.image);
+	if (product.image) {
+		$("#imagePreview").attr("src", product.image);
+	} else {
+		$("#imagePreview").attr("src", "");
+	}
+	showForm();
 }
 
 function submitEditForm(index) {

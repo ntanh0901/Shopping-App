@@ -26,7 +26,7 @@ module.exports = {
         try {
             const type = req.query.type || 'Tất cả';
             const orderBy = req.query.orderBy || "MaSP";
-            const isDesc = req.query.isDesc || "MaSP";
+            const isDesc = req.query.isDesc || false;
             const searchInput = req.query.search || null;
             let data = null;
             if (searchInput === null) {

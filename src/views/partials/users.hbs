@@ -1,0 +1,149 @@
+<div class="main-content">
+    <div class="title_content">
+        <div>
+            <div class="main-header">
+                Người dùng
+            </div>
+
+            <div class="sub-header">
+                Quản lý người dùng
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative  mx-auto w-50">
+        <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="userTable">
+            <thead class="my-auto">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Xem/Sửa/Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+            <div class="ic-plus" id="btn_add">
+                <i class='btn bx bxs-plus-square btn-plus position-absolute cursor-pointer end-0 bottom-0'
+                    style="font-size:1.5rem; margin-bottom:-2rem" data-placement="top" title="Thêm"
+                    onclick="addNewUser() "></i>
+            </div>
+        </table>
+
+        {{!-- Modal delete confirm --}}
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header  bg-light text-primary">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Xóa người dùng "<span id="userToDelete"></span>"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="comfirmDeleteUserBtn"
+                            onclick="confirmDeleteUser()" data-bs-dismiss="modal">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form  edit/add user -->
+        <div class="modal fade" id="userFormModal" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-light text-primary">
+                        <h5 class="modal-title" id="modalTitle">Thêm người dùng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="" id="userForm" onsubmit="event.preventDefault();" method="post">
+                            <input type="hidden" id="editIndex" value="-1">
+
+                            <div class="mb-2">
+                                <label for="userFullName" class="form-label">Họ tên</label>
+                                <input type="text" class="form-control" id="userFullName" name="Họ tên" required>
+                                <div class="error-message" id="userFullNameError"></div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="userUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="userUsername" name="Username" required>
+                                <div class="error-message" id="userUsernameError"></div>
+                            </div>
+                            <div class="mb-2">
+                                <label class="d-block ">Giới tính</label>
+                                <div class="form-check form-check-inline ms-5">
+                                    <input class="form-check-input" type="radio" name="userGender" id="editNam"
+                                        value="Nam">
+                                    <label class="form-check-label" class="form-label" for="editNam">Nam</label>
+                                </div>
+
+                                <div class="form-check form-check-inline mb-3">
+                                    <input class="form-check-input" type="radio" name="userGender" id="editNu"
+                                        value="Nữ">
+                                    <label class="form-check-label" class="form-label" for="editNu">Nữ</label>
+                                </div>
+                                <br />
+                                <div class="error-message" id="userGenderError"></div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label" for="userPhone">Điện thoại</label>
+                                <input type="tel" id="userPhone" name="userPhone" class="form-control" required />
+                                <div class="error-message" id="errorPhone"></div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="userDob" class="form-label">Ngày sinh</label>
+                                <input type="date" class="form-control" id="userDob" name="Ngày sinh" required>
+                                <div class="error-message" id="userDobError"></div>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <label class="form-label" for="userEmail">Email</label>
+                                <input type="email" id="userEmail" name="userEmail" class="form-control" required />
+                                <div class="error-message" id="errorEmail"></div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label" for="userAddress">Địa chỉ</label>
+                                <input type="text" id="userAddress" name="userAddress" class="form-control" required />
+                                <div class="error-message" id="errorAddress"></div>
+                            </div>
+
+                            <div class="mb-2 ">
+                                <label for="userImage" class="form-label">Ảnh</label>
+                                <br/>
+                                <input type="file" class="form-control" id="uploadUserImage" name="Ảnh" accept="image/*"
+                                    onchange="updateImagePreview(this)">
+                                <img id="userImage" src="" class="mt-2" style="max-width: 100px; max-height: 100px;">
+                                <div class="error-message" id="userImageError"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary text-white" id="confirmBtn"
+                            onclick="submitForm()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+<script src="/js/users.js"></script>

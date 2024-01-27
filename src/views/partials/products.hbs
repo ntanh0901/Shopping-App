@@ -1,7 +1,3 @@
-<div id="overlay">
-    {{>admin_new_import}}
-</div>
-
 <div class="main-content">
     <div class="title_content">
         <div>
@@ -28,8 +24,8 @@
             <thead class="my-auto">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Mã sản phẩm</th>
-                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">ID </th>
+                    <th scope="col">Tên </th>
                     <th scope="col">Giá</th>
                     <th scope="col">Số lượng tồn</th>
                     <th scope="col">Loại</th>
@@ -48,10 +44,10 @@
         </table>
 
         <!-- Confirm delete product -->
-        <div class="modal fade position-absolute" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal fade " id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
             <div class="modal-dialog ">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header  bg-light text-primary">
                         <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -71,7 +67,7 @@
         <div class="modal fade" id="productFormModal" tabindex="-1" data-bs-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header  bg-light text-primary">
                         <h5 class="modal-title" id="modalTitle">Thêm sản phẩm</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

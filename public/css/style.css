@@ -12163,7 +12163,8 @@ a.nav-item:hover i, a.nav-item.active i {
 }
 .dashboard-container .cashier-infor .cashier-image {
   display: inline-block;
-  width: 6.438rem;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
 }
 .dashboard-container .cashier-infor .col1,
@@ -12311,14 +12312,6 @@ a.nav-item:hover i, a.nav-item.active i {
 }
 .dashboard-container [class*=btn-]:hover {
   transform: scale(1.05);
-}
-
-.edit-profile-container {
-  display: none;
-}
-.edit-profile-container .form-group {
-  margin-bottom: 1rem;
-  width: 80%;
 }
 
 .main-content {
@@ -12580,7 +12573,8 @@ a.nav-item:hover i, a.nav-item.active i {
 .main-content .form-container {
   display: none;
 }
-.main-content .error-message {
+
+.error-message {
   color: red;
   font-size: 0.75rem;
   min-height: 0.75rem;
