@@ -36,5 +36,17 @@ router.get("/admin/products", (req, res) => {
   });
 });
 
+router.get("/admin/analysis", (req, res) => {
+  res.render("analysis", {
+    title: "Admin analysis",
+    isAnalysis: true,
+  });
+});
 
+router.get("/admin/users", (req, res) => {
+  res.render("users", {
+    title: "Admin users",
+    isUsers: true,
+  });
+});
 module.exports = router;
