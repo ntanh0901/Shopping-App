@@ -1,5 +1,7 @@
 //const { search } = require("../../src/routes/home.r");
 
+//const { load } = require("mime");
+
 $(document).ready(function () {
     let currentPage = 1;
     let currentType = 'Tất cả';
@@ -13,11 +15,33 @@ $(document).ready(function () {
         loadPage($(this).val(), 1, 1);
     });
 
+    //previous page next page button
+    $('#previous-page').on('click', function() {
+        if (currentPage == 1) {
+            return;
+        }
+        if (searchInput === '') {
+            loadPage(currentType, currentPage - 1, 1);
+        } else {
+            loadPage(searchInput, currentPage - 1, 2);
+        }
+    });
+
+    $('#next-page').on('click', function() {
+        if (currentPage === lastPage) {
+            return;
+        }
+        if (searchInput === '') {
+            loadPage(currentType, currentPage + 1, 1);
+        } else {
+            loadPage(searchInput, currentPage + 1, 2);
+        }
+    })
+
     //search bar
     $('#searchButton').on('click', function (event) {
         event.preventDefault();
         const searchTerm = $('#searchInput').val();
-        console.log(searchTerm);
 
         loadPage(searchTerm, 1, 2);
     });
@@ -41,7 +65,6 @@ $(document).ready(function () {
 
     function loadPage(type, page, flag) {
         let url;
-        console.log(flag);
         if (flag === 1) {
             if (searchInput != '') {
                 url = `/client/page?type=${type}&page=${page}&search=${searchInput}`;
@@ -55,7 +78,6 @@ $(document).ready(function () {
             url: url,
             method: 'GET',
             success: function (data) {
-                console.log(data);
                 currentPage = page;
                 if (flag === 1) {
                     currentType = type;
@@ -64,6 +86,7 @@ $(document).ready(function () {
                     searchInput = type;
                 }
                 const pages = Math.ceil(data.total / data.perpage);
+                lastPage = pages;
                 //pagination
                 $('#pagination').empty();
                 const pageContainer = $('#pagination');

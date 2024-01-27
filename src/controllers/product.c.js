@@ -35,7 +35,6 @@ module.exports = {
                 }
             } else {
                 if (type === 'Tất cả') {
-                    console.log(searchInput);
                     data = await Product.getSearch(searchInput);
                 } else {
                     data = await Product.getByWithSearch(type, orderBy, isDesc, searchInput);
@@ -67,9 +66,6 @@ module.exports = {
             const input = req.query.input;
             let data = null;
             data = await Product.getSearch(input);
-
-            console.log('data getSearch:');
-            console.log(data);
 
             const total = data.length;
 

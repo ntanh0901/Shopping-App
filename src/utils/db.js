@@ -448,8 +448,6 @@ module.exports = {
             SELECT * FROM "${tbName}"
             WHERE LOWER("Ten") ILIKE LOWER($1)`;
             const data = await db.any(query, [`%${searchTerm}%`]);
-            console.log('data searchAll');
-            console.log(data);
             return data;
         } catch (error) {
             console.log('Search error: ', error);
