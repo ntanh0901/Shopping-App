@@ -19,9 +19,13 @@
                         <i class='bx bxs-star'></i>
                         <span class="text-muted">(145)</span>
                         <span class="text-muted">|</span>
-                        <span class="text-muted">Số lượng còn {{product.SoLuongTon}}</span>
+                        <span class="text-muted" id="left-over-amount">Số lượng còn {{product.SoLuongTon}}</span>
                     </div>
-                    <p class="fs-3 fw-bold">{{product.DonGia}}.000Đ</p>
+                    <p class="fs-3 fw-bold d-flex">
+                        <span id="product-price">
+                            {{product.DonGia}}
+                        </span>.000Đ
+                    </p>
                 </section>
 
                 <section class="bg-white rounded p-3">
@@ -35,19 +39,20 @@
                 <section class="bg-white rounded p-3">
                     <h6>Sản phẩm tương tự</h6>
                     <div class="card-container-small mt-4">
+                        {{#each similar}}
                         <div class="card-item rounded border">
-                            <a href="/products/" class="item-link">
+                            <a href="/client/products/{{this.MaSP}}" class="item-link">
                                 <div class="img-container">
-                                    <img class="rounded" src="/img/products/Bảng Phóng Phi Tiêu.jpg" alt="rice">
+                                    <img class="rounded" src="/{{this.Anh.[0]}}" alt="{{this.Ten}}">
                                 </div>
                             </a>
                             <div class="content">
-                                <a href="/products/" class="item-link">
-                                    Bảng phóng phi tiêu
+                                <a href="/client/products/{{this.MaSP}}" class="item-link">
+                                    {{this.Ten}}
                                 </a>
-                                <p class="fw-bold mt-2 mb-0">25.000Đ</p>
+                                <p class="fw-bold mt-2 mb-0">{{this.DonGia}}.000Đ</p>
                                 <div class="subcontent">
-                                    <p class="mb-0">Số lượng còn: 10</p>
+                                    <p class="mb-0">Số lượng còn: {{this.SoLuongTon}}</p>
                                     <div class="star-rating">
                                         <i class='bx bxs-star'></i>
                                         <span>5.0</span>
@@ -55,90 +60,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-item rounded border">
-                            <a href="/products/" class="item-link">
-                                <div class="img-container">
-                                    <img class="rounded" src="/img/products/Cà phê G7 3in1.jpg" alt="rice">
-                                </div>
-                            </a>
-                            <div class="content">
-                                <a href="/products/" class="item-link">
-                                    Cà phê G7 3in1
-                                </a>
-                                <p class="fw-bold mt-2 mb-0">25.000Đ</p>
-                                <div class="subcontent">
-                                    <p class="mb-0">Số lượng còn: 10</p>
-                                    <div class="star-rating">
-                                        <i class='bx bxs-star'></i>
-                                        <span>5.0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-item rounded border">
-                            <a href="/products/" class="item-link">
-                                <div class="img-container">
-                                    <img class="rounded" src="/img/products/Gọng kính SARIFA.jpg" alt="rice">
-                                </div>
-                            </a>
-                            <div class="content">
-                                <a href="/products/" class="item-link">
-                                    Gọng kính SARIFA
-                                </a>
-                                <p class="fw-bold mt-2 mb-0">25.000Đ</p>
-                                <div class="subcontent">
-                                    <p class="mb-0">Số lượng còn: 10</p>
-                                    <div class="star-rating">
-                                        <i class='bx bxs-star'></i>
-                                        <span>5.0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-item rounded border">
-                            <a href="/products/" class="item-link">
-                                <div class="img-container">
-                                    <img class="rounded" src="/img/products/Đồng hồ Nữ Daniel Klein.png" alt="rice">
-                                </div>
-                            </a>
-                            <div class="content">
-                                <a href="/products/" class="item-link">
-                                    Đồng hồ Nữ Daniel Klein
-                                </a>
-                                <p class="fw-bold mt-2 mb-0">25.000Đ</p>
-                                <div class="subcontent">
-                                    <p class="mb-0">Số lượng còn: 10</p>
-                                    <div class="star-rating">
-                                        <i class='bx bxs-star'></i>
-                                        <span>5.0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-item rounded border">
-                            <a href="/products/" class="item-link">
-                                <div class="img-container">
-                                    <img class="rounded" src="/img/products/Bảng Phóng Phi Tiêu.jpg" alt="rice">
-                                </div>
-                            </a>
-                            <div class="content">
-                                <a href="/products/" class="item-link">
-                                    Bảng phóng phi tiêu
-                                </a>
-                                <p class="fw-bold mt-2 mb-0">25.000Đ</p>
-                                <div class="subcontent">
-                                    <p class="mb-0">Số lượng còn: 10</p>
-                                    <div class="star-rating">
-                                        <i class='bx bxs-star'></i>
-                                        <span>5.0</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </section>
             </div>
@@ -191,16 +113,16 @@
         <form>
             <h6>Chọn số lượng</h6>
             <div class="input-group w-50 mb-3">
-                <button class="btn border" type="button" id="increase-btn">
+                <button class="btn border" type="button" id="decrease-btn" disabled>
                     <i class='bx bx-minus'></i>
                 </button>
-                <input type="number" class="form-control" value="1">
-                <button class="btn border" type="button" id="decrease-btn">
+                <input type="number" class="form-control" value="1" id="input-value">
+                <button class="btn border" type="button" id="increase-btn">
                     <i class='bx bx-plus'></i>
                 </button>
             </div>
             <h6>Tổng tiền</h6>
-            <p class="fw-bold">250.000Đ</p>
+            <p class="fw-bold" id="total-price"></p>
             <div class="d-flex flex-column gap-3">
                 <button type="submit" class="btn btn-danger">Mua ngay</button>
                 <button type="button" class="btn btn-outline-primary d-flex align-items-center justify-content-center">
@@ -211,4 +133,5 @@
         </form>
     </div>
 </div>
+<script src="/js/product_detail.js"></script>
 {{> footer }}

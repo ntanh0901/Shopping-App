@@ -110,9 +110,10 @@ module.exports = {
     show: async (req, res) => {
         try {
             const product = await Product.getProduct(req.params.slug);
-            //console.log(similar);
+            const similar = await Product.getSimilar(product.MaLoai, product.MaSP);
             res.render('client/product', {
                 product: product,
+                similar: similar,
                 title: product.Ten
             });
         }

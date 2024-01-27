@@ -480,5 +480,14 @@ module.exports = {
         } catch (error) {
             console.log("Join table error: ", error);
         }
+    },
+
+    selectByQuery: async(queryString) => {
+        try {
+            return db.manyOrNone(queryString);
+        }
+        catch(error) {
+            console.log('query error:', error);
+        }
     }
 }

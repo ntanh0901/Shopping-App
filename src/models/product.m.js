@@ -28,6 +28,13 @@ module.exports = class Product {
     static async getBy(type, orderBy, isDesc) {
         return db.joinTB(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null);
     }
+    // get product with type id
+    static async getSimilar(typeID, productID) {
+        const query = `SELECT * FROM
+        "${tbName}" JOIN "Loai" ON "${tbName}"."MaLoai" = "Loai"."MaLoai"
+        WHERE "${tbName}"."MaLoai" = ${typeID} AND "MaSP" <> ${productID}`;
+        return db.selectByQuery(query);
+    }
     static async getType() {
         return db.selectAll("Loai");
     }
