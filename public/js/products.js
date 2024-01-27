@@ -40,7 +40,7 @@ let products = [
   },
 ];
 
-function updateTable() {
+function updateMainTable() {
   let tableBody = $("#productTable tbody").html("");
 
   products.sort((a, b) => a.id.localeCompare(b.id));
@@ -77,6 +77,7 @@ function populateCategoryOptions() {
 		categorySelect.append(`<option value="${category.id}">${category.name}</option>`);
 	});
 }
+
 populateCategoryOptions();
 
 function addNewProduct() {
@@ -97,12 +98,13 @@ function editProduct(index) {
 	resetForm();
 	$("#modalTitle").text("Chỉnh sửa sản phẩm");
 	$("#editIndex").val(index);
+
 	let product = products[index];
+
 	$("#productName").val(product.name);
 	$("#productPrice").val(product.price);
 	$("#productStock").val(product.stock);
 	$("#productCategory").val(product.categoryId);
-	console.log(product.image);
 	if (product.image) {
 		$("#imagePreview").attr("src", product.image);
 	} else {
@@ -135,7 +137,7 @@ function submitEditForm(index) {
 
   if (newname) {
     categories[index].name = newname;
-    updateTable();
+    updateMainTable();
     hideForm();
   }
 }
@@ -153,7 +155,7 @@ function deleteProduct(index) {
 function confirmDeleteProduct() {
   let index = $("#deleteProductBtn").data("index");
   products.splice(deletionIndex, 1);
-  updateTable();
+  updateMainTable();
 }
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -252,7 +254,7 @@ function addProduct() {
 	};
 
 	products.push(product);
-	updateTable();
+	updateMainTable();
 }
 
 function editExistingProduct(index) {
@@ -263,7 +265,7 @@ function editExistingProduct(index) {
 	product.stock = $("#productStock").val();
 	product.categoryId = $("#productCategory").val();
 	product.image = $("#imagePreview").attr("src") || ""; 
-	updateTable();
+	updateMainTable();
 }
 function showForm() {
   $("#productFormModal").modal("show");
@@ -289,4 +291,4 @@ function updateImagePreview(input) {
   }
 }
 
-updateTable();
+updateMainTable();

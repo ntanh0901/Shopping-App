@@ -68,6 +68,13 @@
                     <input type="hidden" id="editIndex" value="-1">
 
                     <div class="mb-2">
+                        <label for="userRole" class="form-label">Vai trò</label>
+                        <select class="form-select" id="userRole" name="userRole" required>
+                        </select>
+                        <div class="error-message" id="userRoleError"></div>
+                    </div>
+
+                    <div class="mb-2">
                         <label for="userFullName" class="form-label">Họ tên</label>
                         <input type="text" class="form-control" id="userFullName" name="Họ tên" required>
                         <div class="error-message" id="userFullNameError"></div>

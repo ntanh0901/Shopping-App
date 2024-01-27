@@ -21,11 +21,15 @@ function populateTable() {
                      </td>`;
   });
 }
-
+function addCategories() {
+  $("#categoryModalLabel").text("Thêm danh mục");
+  $("#categoryModal").modal("show");
+}
 function editCategory(index) {
   let category = categories[index];
+  $("#categoryModalLabel").text('Đổi tên danh mục');
   $("#newName").val(category.name);
-  showForm();
+  $("#categoryModal").modal("show");
   $("#categoryForm button[type='button']").attr(
     "onclick",
     `submitEditForm(${index})`
@@ -86,6 +90,7 @@ function submitForm() {
   if (categories.some((category) => category.name === name)) {
     $("#newNameError").text("Tên danh mục đã tồn tại!");
     isValid = false;
+    return;
   }
 
   categories.push({ id: id, name: name });
@@ -93,7 +98,13 @@ function submitForm() {
   populateTable();
 
   $("#newName").val("");
-  $("#categoryModal").modal('hide');
+  $("#categoryModal").modal("hide");
+  resetForm();
+}
+
+function resetForm() {
+  $("#newName").text("");
+  $("#newNameError").text("");
 }
 
 populateTable();
