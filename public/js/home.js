@@ -221,10 +221,3 @@ $(document).ready(function () {
         });
     }
 })
-function money() {
-    let sum = 0;
-    orderArr.forEach(element => {
-        sum += element.DonGia * element.SoLuong;
-    });
-    return sum;
-}
