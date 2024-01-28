@@ -120,11 +120,8 @@ module.exports = {
             const id = req.body.id;
             const deleteImgPath = req.body.imgs;
             const baseDirectory = path.join(__dirname, '../../public');
-            for (let i = 0; i < deleteImgPath.length; i++) {
-                const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
-                // console.log(absolutePath);
-                await fs.unlink(absolutePath);
-            }
+            const absolutePath = path.join(baseDirectory, deleteImgPath);
+            await fs.unlink(absolutePath);
             if (await Account.delete(id))
                 res.json(true);
             else

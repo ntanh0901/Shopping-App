@@ -150,12 +150,23 @@ function deleteUser(index) {
   $("#userToDelete").text(userName);
   $("#deleteUserBtn").data("index", index);
   $("#deleteConfirmationModal").modal("show");
+  $("#comfirmDeleteUserBtn").attr('onclick', `confirmDeleteUser(${index})`);
 }
 
-function confirmDeleteUser() {
-  let index = $("#deleteUserBtn").data("index");
-  users.splice(deletionIndex, 1);
-  updateTable();
+async function confirmDeleteUser(index) {
+  // let index = $("#deleteUserBtn").data("index");
+  const result = await deleteAccount(users[index].MaND, users[index].Anh);
+  if (result) {
+    users.splice(deletionIndex, 1);
+    // if (products.length === 0 && currentPage > 1) {
+    //   lastPage--;firstPage--;
+    //   loadPage(currentType, --currentPage);
+    // }
+    await updateTable();
+  }
+  else {
+    // Handle delete error
+  }
 }
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -353,7 +364,7 @@ async function addUser() {
   const filename = (await uploadAvt(file)).filename;
   const path = "/img/users/";
   const imagePath = path + filename;
-  console.log(imagePath);
+  // console.log(imagePath);
 
   let user = {
     MaND: "0",
