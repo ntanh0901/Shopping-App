@@ -9,11 +9,19 @@ router.get('/search', productController.getSearch);
 router.get('/cart', cartController.index);
 
 router.post('/cart', cartController.getCartList);
-router.get('/checkout', (req, res) => {
+router.post('/cart/update', cartController.updateCart);
+// router.get('/checkout', (req, res) => {
+//     res.render('client/checkout', {
+//         title: 'Thanh toán'
+//     })
+// });
+
+router.post('/checkout', (req, res) => {
     res.render('client/checkout', {
-        title: 'Thanh toán'
+        title: 'Thanh toán',
+        data: req.session.cart
     })
-});
+})
 
 router.get('/wallet', (req, res) => {
     res.render('client/wallet', {

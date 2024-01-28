@@ -1,16 +1,19 @@
 {{> topbar }}
 <div class="checkout-body bg-light px-4 py-3 d-flex gap-4">
     <section class="d-flex flex-grow-1 flex-column gap-3">
+        
         <div class="bg-white rounded p-3">
             <h5 class="mb-3">Thông tin đơn hàng</h5>
+            {{#each data}}
             <div class="grid-container rounded border p-3 mb-3">
                 <div class="img-container">
-                    <img src="/img/products/Bánh ăn sáng C'est bon.jpg" alt="">
+                    <img src="/{{this.product.Anh.[0]}}" alt="">
                 </div>
-                <span>Bánh ăn sáng C'est bon</span>
-                <span>Số lượng: x1</span>
-                <span>25.000&#8363;</span>
+                <span>{{this.product.Ten}}</span>
+                <span>Số lượng: x{{this.amount}}</span>
+                <span class="text-muted">{{this.product.TongGia}}&#8363;</span>
             </div>
+            {{/each}}
         </div>
         <div class="bg-white rounded p-3">
             <h5 class="mb-3">Hình thức thanh toán</h5>
@@ -40,7 +43,7 @@
                 <h6>Đơn hàng <span class="text-muted"> (1 sản phẩm) </span></h6>
                 <div class="d-flex align-itmes-center justify-content-between">
                     <h6>Tổng tiền</h6>
-                    <span class="fw-bold">25.000&#8363;</span>
+                    <span class="fw-bold"><span id="total-price"></span>&#8363;</span>
                 </div>
                 <button class="btn btn-danger">Thanh toán</button>
             </form>
