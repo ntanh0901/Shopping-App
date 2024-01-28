@@ -18,7 +18,6 @@ $sub-color: #7c8cac;
 @import "sidebar";
 @import "cashier_dashboard";
 @import "edit_profile";
-@import "import";
 @import "filter";
 @import "header";
 @import "categories";
@@ -51,4 +50,24 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.main-content {
+  padding: 0.5rem 1rem;
+  flex: 1;
+  background-color: $light-bg-color ;
+  overflow: auto;
+  section{
+  background-color: $nav-bg ;
+  padding: 1rem;
+  border-radius:1rem;
+  }
+}
+
+
+[class*="btn-"] {
+  &:hover {
+    transform: scale(1.05);
+  }
+  cursor: pointer;
 }
