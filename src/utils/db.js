@@ -515,7 +515,7 @@ module.exports = {
             console.log("Join table error: ", error);
         }
     },
-    searchAll: async (tbName, searchTerm, col, colOrder, isDesc) => {
+    searchAll2: async (tbName, searchTerm, col, colOrder, isDesc) => {
         try {
             let query = `
             SELECT * FROM "${tbName}"
@@ -529,7 +529,7 @@ module.exports = {
             const data = await db.any(query, [`%${searchTerm}%`]);
             return data;
         } catch (error) {
-            console.log('searchAll error: ', error);
+            console.log('searchAll2 error: ', error);
         }
     },
 }

@@ -39,7 +39,7 @@ module.exports = class User {
         return db.selectAllBy(tbName, orderBy, isDesc);
     }
     static async getSearch(input, col, colOrder) {
-        return db.searchAll(tbName, input, col, colOrder, false);
+        return db.searchAll2(tbName, input, col, colOrder, false);
     }
     static async getByWithSearch(type, orderBy, isDesc, input) {
         return db.joinTBSearch(tbName, "Loai", "MaLoai", "MaLoai", "TenLoai", type, orderBy, isDesc, null, input);
