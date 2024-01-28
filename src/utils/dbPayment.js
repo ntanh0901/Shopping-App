@@ -123,6 +123,16 @@ async function create() {
     } catch (error) {
         console.log(`Create main account error: `, error);
     }
+
+    try {
+        const cols = [
+            { name: 'ID', type: 'SERIAL', primaryKey: true },
+            { name: 'Token', type: 'VARCHAR(120)' },
+        ];
+        await createTB("RefreshToken", cols);
+    } catch (error) {
+        console.log(`Create table RefreshToken error: `, error);
+    }
     
 }
 
@@ -167,7 +177,7 @@ module.exports = {
     delete: async (tbName, col, val) => {
         try {
             const result = await db.result(
-                `DELETE FROM "${tbName}" WHERE ${col} = $1 RETURNING *`, [val]
+                `DELETE FROM "${tbName}" WHERE "${col}" = $1 RETURNING *`, [val]
             );
             if (result.rowCount > 0) {
                 console.log(`Deleted row with value ${val} in colmn ${col}`);

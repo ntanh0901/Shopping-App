@@ -17,5 +17,14 @@ module.exports = class TaiKhoan {
     }
     static async updateBalance(id, newBalance) {
         return db.updateBalance(id, newBalance);
-        }
+    }
+    static async checkRefreshToken(token) {
+        return db.select("RefreshToken", "Token", token);
+    }
+    static async insertRefreshToken(token) {
+        return db.insertWithoutID("RefreshToken", { Token: token });
+    }
+    static async deleteRefreshToken(token) {
+        return db.delete("RefreshToken", "Token", token);
+    }
 }

@@ -35,9 +35,28 @@ app.get('/getBalance', authenticateToken, async (req, res) => {
 app.post('/getAccessToken', async (req, res) => {
     const Id = req.body.Id;
     const user = { id: Id };
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-    res.json({ accessToken: accessToken });
+    const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+    model.insertRefreshToken(refreshToken);
+    res.json({ accessToken: accessToken, refreshToken: refreshToken });
 });
+
+app.post('/token', (req, res) => {
+    const refreshToken = req.body.refreshToken;
+    if (refreshToken === null) return res.sendStatus(401);
+    if (!model.checkRefreshToken(refreshToken)) return res.sendStatus(403);
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        const accessToken = generateAccessToken({ id: user.id });
+        res.json({ accessToken: accessToken });
+    })
+})
+
+app.delete('/logout', async (req, res) => {
+    const refreshToken = req.body.refreshToken;
+    await model.deleteRefreshToken(refreshToken);
+    res.sendStatus(204);
+})
 
 app.get('/returnBill', async (req, res) => {
     let vnp_Params = req.query;
@@ -103,6 +122,11 @@ function authenticateToken(req, res, next) {
         req.paymentAccount = user;
         next();
     })
+}
+
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
 }
 
 app.listen(PORT, () => {

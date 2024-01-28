@@ -109,7 +109,24 @@ router.post('/signup', passport.authenticate('passport-signup', {
 }));
 
 
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
+    try {
+        console.log('get access token');
+        const response = await fetch("http://localhost:3001/logout", {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ refreshToken: req.session.refreshToken }),
+        });
+
+        const data = await response;
+
+        console.log('delete success');
+
+    } catch (error) {
+        console.log('Get access token error: ' + error);
+    }
     req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/login');
@@ -153,6 +170,7 @@ router.get('/getAccessToken', async (req, res) => {
         console.log(data);
 
         req.session.accessToken = data.accessToken;
+        req.session.refreshToken = data.refreshToken;
 
         console.log(req.accessToken);
 
@@ -162,6 +180,28 @@ router.get('/getAccessToken', async (req, res) => {
         console.log('Get access token error: ' + error);
     }
 });
+
+router.get('/refreshToken', async (req, res) => {
+    console.log('refreshing token');
+    try {
+        const response = await fetch("http://localhost:3001/token", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ refreshToken: req.session.refreshToken }),
+        });
+
+        const data = await response.json();
+        console.log('got new access token: ');
+        req.session.accessToken = data.accessToken;
+
+        res.redirect('/customer');
+
+    } catch (error) {
+        console.log('Refresh token error: ' + error);
+    }
+})
 
 router.get('/customer', async (req, res) => {
     if (!req.user) {
@@ -177,14 +217,16 @@ router.get('/customer', async (req, res) => {
             }
         });
 
-        const data = await response.json();
+        const preData = await response;
+        const data = await preData.json();
         console.log('get balance data: ');
         console.log(data);
 
         res.render('home');
 
     } catch (error) {
-        console.log('Get balance error: ' + error);
+        res.redirect('/refreshToken');
+        //console.log('Get balance error: ' + error);
     }
 });
 
