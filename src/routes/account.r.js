@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const accountController = require('../controllers/account.c');
 
 router.get('/', (req, res) => {
     if (req.user) {
@@ -17,11 +18,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    // const messages = req.flash('error');
-    // if (messages[0] == 'Invalid auth') {
-    //     res.render('login', { wrong: true });
-    //     return;
-    // }
+    const messages = req.flash('error');
+    if (messages[0] == 'Invalid auth') {
+        res.render('login', { wrong: true });
+        return;
+    }
     if (req.user) {
         if (req.user.LaAdmin === '1') {
             res.redirect('/admin');
@@ -48,7 +49,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('passport-login', {
     failureRedirect: '/',
-    //failureFlash: true
+    failureFlash: true
 }), (req, res) => {
     try {
         // Ghi đăng nhập cũ vào input
@@ -91,11 +92,11 @@ router.get('/signup', (req, res) => {
         }
         return;
     }
-    // const messages = req.flash('error');
-    // if (messages[0] == 'Invalid auth') {
-    //     res.render('signup', { existed: true });
-    //     return;
-    // }
+    const messages = req.flash('error');
+    if (messages[0] == 'Invalid auth') {
+        res.render('signup', { existed: true });
+        return;
+    }
     res.render('signup', {
         title: 'Signup page'
     });
@@ -103,11 +104,11 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', passport.authenticate('passport-signup', {
     failureRedirect: '/signup',
-    //failureFlash: true,
+    failureFlash: true,
     successRedirect: '/client'
 }));
 
-router.post('/logout', (req, res) => {
+router.get('/logout', accountController.revokeToken, (req, res) => {
     req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/login');

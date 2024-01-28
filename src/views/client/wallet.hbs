@@ -7,11 +7,11 @@
                 <i class='bx bx-wallet'></i>
                 <span>Số dư hiện tại</span>
             </div>
-            <span class="text-danger fs-3">25.000&#8363;</span>
+            <span class="text-danger fs-3">{{ balance }}&#8363;</span>
         </div>
     </section>
     <section class="mt-3 rounded bg-white p-3">
-        <form>
+        <form action="/client/rechage" method="post">
             <h5 class="mb-3">Nạp tiền vào tài khoản</h5>
             
 
@@ -23,32 +23,32 @@
                     <h6 class="text-muted mb-3">Chọn mệnh giá nạp</h6>
                     <div class="money-container mb-3">
                         <div>
-                            <input type="radio" class="btn-check" id="10k" name="money-value">
+                            <input type="radio" class="btn-check" id="10k" name="moneyValue" value="10000">
                             <label for="10k" class="btn btn-outline-primary w-100">10.000&#8363;</label>
                         </div>
 
                         <div>
-                            <input type="radio" class="btn-check" id="20k" name="money-value">
+                            <input type="radio" class="btn-check" id="20k" name="moneyValue" value="20000">
                             <label for="20k" class="btn btn-outline-primary w-100">20.000&#8363;</label>
                         </div>
 
                         <div>
-                            <input type="radio" class="btn-check" id="50k" name="money-value">
+                            <input type="radio" class="btn-check" id="50k" name="moneyValue" value="50000">
                             <label for="50k" class="btn btn-outline-primary w-100">50.000&#8363;</label>
                         </div>
 
                         <div>
-                            <input type="radio" class="btn-check" id="100k" name="money-value">
+                            <input type="radio" class="btn-check" id="100k" name="moneyValue" value="100000">
                             <label for="100k" class="btn btn-outline-primary w-100">100.000&#8363;</label>
                         </div>
 
                         <div>
-                            <input type="radio" class="btn-check" id="200k" name="money-value">
+                            <input type="radio" class="btn-check" id="200k" name="moneyValue" value="200000">
                             <label for="200k" class="btn btn-outline-primary w-100">200.000&#8363;</label>
                         </div>
 
                         <div>
-                            <input type="radio" class="btn-check" id="500k" name="money-value">
+                            <input type="radio" class="btn-check" id="500k" name="moneyValue" value="500000">
                             <label for="500k" class="btn btn-outline-primary w-100">500.000&#8363;</label>
                         </div>
                     </div>
