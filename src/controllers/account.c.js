@@ -102,8 +102,8 @@ module.exports = {
             const id = req.body.id;
             const newval = req.body.newval;
             if (await Account.update(
-                ["MaND", "HoTen", "SDT", "NgaySinh", "Email", "Anh", "GioiTinh", "Username", "MatKhau", "LaKhachHang", "LaAdmin", "DiaChi"],
-                [id, newval.HoTen, newval.SDT, newval.NgaySinh, newval.Email, newval.Anh, newval.GioiTinh, newval.Username, newval.MatKhau, newval.LaKhachHang, newval.LaAdmin, newval.DiaChi],
+                ["MaND", "HoTen", "SDT", "NgaySinh", "Email", "Anh", "GioiTinh", "UserName", "LaKhachHang", "LaAdmin", "DiaChi"],
+                [id, newval.HoTen, newval.SDT, newval.NgaySinh, newval.Email, newval.Anh, newval.GioiTinh, newval.UserName, newval.LaKhachHang, newval.LaAdmin, newval.DiaChi],
                 id))
                 res.json(true);
             else

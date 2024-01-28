@@ -310,7 +310,7 @@ async function editExistingProduct(index) {
   // Get old srcs
   let srcArray = product.Anh;
 
-  if (onImageChangeFlag) {   // Romove old images
+  if (onImageChangeFlag) {   // Remove old images and add new
     await removeImages(srcArray);
     const files = $("#productImage")[0].files;
     let filenames = (await uploadImages(files)).filenames;

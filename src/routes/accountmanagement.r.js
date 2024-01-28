@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const accountController = require('../controllers/account.c');
+const fs = require('fs').promises;
+const path = require('path');
 
 router.get('/getAccounts', accountController.getAccounts);
 router.post('/updateAccount', accountController.updateAccount);
@@ -32,15 +34,13 @@ router.post('/removeImage', async (req, res) => {
     try {
         const deleteImgPath = req.body.imgs;
         const baseDirectory = path.join(__dirname, '../../public');
-        for (let i = 0; i < deleteImgPath.length; i++) {
-            const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
-            // console.log(absolutePath);
-            await fs.unlink(absolutePath);
-        }
+        const absolutePath = path.join(baseDirectory, deleteImgPath);
+        // console.log(absolutePath);
+        await fs.unlink(absolutePath);
         res.json(true);
     }
     catch (err) {
-        console.log("Router removeImage error: ", err);
+        console.log("Router removeAvt error: ", err);
         res.json(false);
     }
 })

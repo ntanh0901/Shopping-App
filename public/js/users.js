@@ -135,7 +135,7 @@ function populateForm(user) {
     "checked",
     user.GioiTinh.toLowerCase() === "nữ" ? true : false
   );
-  $("#userPhone").val(user.SDT);
+  $("#userPhone").val(user.SDT.trim());
   $("#userDob").val(user.NgaySinh);
   $("#userEmail").val(user.Email);
   $("#userAddress").val(user.DiaChi);
@@ -398,13 +398,29 @@ async function addUser() {
 
   users.push(user);
   await updateTable();
+  onAvtChangeFlag = false;
 }
 
-function saveEdit(index) {
+async function saveEdit(index) {
   let user = users[index];
 
-  user.LaAdmin = $("#userRole").val().trim() === "Admin" ? true : false;
-  user.LaKhachHang = !user.LaAdmin;
+  // Get old srcs
+  let srcArray = user.Anh;
+
+  if (onAvtChangeFlag && srcArray && srcArray !== "") {   // Remove old images and add new
+    await removeAvt(srcArray);
+    const file = $("#uploadUserImage")[0].files[0];
+    let filename = (await uploadAvt(file)).filename;
+    const path = "/img/users/";
+    filename = path + filename;
+    srcArray = filename;
+  }
+  else {
+    srcArray = $("#userImage").attr("src");
+  }
+
+  user.LaAdmin = $("#userRole").val().trim() === "Admin" ? '1' : '0';
+  user.LaKhachHang = (user.LaAdmin === '1') ? '0' : '1';
   user.HoTen = $("#userFullName").val().trim();
   user.UserName = $("#userUsername").val().trim();
   user.GioiTinh = $('input[name="userGender"]:checked').val();
@@ -412,9 +428,11 @@ function saveEdit(index) {
   user.NgaySinh = $("#userDob").val().trim();
   user.Email = $("#userEmail").val().trim();
   user.DiaChi = $("#userAddress").val().trim();
-  user.Anh = $("#userImage").attr("src") || "";
+  user.Anh = srcArray || "";
 
-  updateTable();
+  await updateAccount(users[index].MaND, user);
+  await updateTable();
+  onAvtChangeFlag = false;
 }
 
 function showForm() {
@@ -439,6 +457,7 @@ function updateImagePreview(input) {
   } else {
     imagePreview.src = "";
   }
+  onAvtChangeFlag = true;
 }
 
 function togglePasswordVisibility(inputId) {
@@ -488,6 +507,7 @@ function populateRole() {
 
 populateRole();
 
+let onAvtChangeFlag = false;
 let users;
 async function main() {
   data = await getAccounts(1);

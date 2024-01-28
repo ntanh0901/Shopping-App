@@ -444,7 +444,7 @@ module.exports = {
             const result = await db.result(query, values);
             return result.rowCount;
         } catch (error) {
-            console.log('Select property by condition error: ', error);
+            console.log('update error: ', error);
         }
     },
     searchAll: async (tbName, searchTerm) => {
