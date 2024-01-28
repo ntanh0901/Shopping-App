@@ -6,6 +6,14 @@
             column-gap: 1.5rem;
             font-size: 0.875rem;
             align-items: center;
+            .product-amount {
+                & > * {
+                    font-size: 0.875rem;
+                }
+                button:hover {
+                    background-color: $gray-200;
+                }
+            }
             .product-label {
                 display: grid;
                 grid-template-columns: 25% 1fr;
@@ -29,6 +37,6 @@
     }
     .checkout-form {
         width: 23rem;
-        
+
     }
 }

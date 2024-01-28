@@ -12086,6 +12086,12 @@ textarea.form-control-lg {
   font-size: 0.875rem;
   align-items: center;
 }
+.cart-body .cart-view-container .grid-container .product-amount > * {
+  font-size: 0.875rem;
+}
+.cart-body .cart-view-container .grid-container .product-amount button:hover {
+  background-color: #e9ecef;
+}
 .cart-body .cart-view-container .grid-container .product-label {
   display: grid;
   grid-template-columns: 25% 1fr;
