@@ -46,11 +46,11 @@ Fix:
 .name -> .Ten
 .price -> .DonGia
 .stock -> .SoLuongTon
-chuyển populateCategoryOptions, updateTable vào main
+chuyển populateCategoryOptions, updateMainTable vào main
 các hàm updateImagePreview, confirmDeleteProduct, addProduct
 */
 
-async function updateTable() {
+async function updateMainTable() {
   let tableBody = $("#productTable tbody").html("");
 
   // products.sort((a, b) => a.MaSP.localeCompare(b.MaSP));
@@ -123,26 +123,7 @@ function editProduct(index) {
     $("#imagePreview").html("");
   }
   showForm();
-}
-
-
-function viewProduct(index) {
-	resetForm();
-	$("#modalTitle").text(	$("#productName").val(product.name));
-	$("#editIndex").val(index);
-	let product = products[index];
-	$("#productName").val(product.name);
-	$("#productPrice").val(product.price);
-	$("#productStock").val(product.stock);
-	$("#productCategory").val(product.categoryId);
-	console.log(product.image);
-	if (product.image) {
-		$("#imagePreview").attr("src", product.image);
-	} else {
-		$("#imagePreview").attr("src", "");
-	}
-	showForm();
-}
+} 
 
 
 function viewProduct(index) {
@@ -168,7 +149,7 @@ function submitEditForm(index) {
 
   if (newname) {
     categories[index].Ten = newname;
-    updateTable();
+    updateMainTable();
     hideForm();
   }
 }
@@ -193,7 +174,7 @@ async function confirmDeleteProduct(index) {
       lastPage--;firstPage--;
       loadPage(currentType, --currentPage);
     }
-    await updateTable();
+    await updateMainTable();
   }
   else {
     // Handle delete error
@@ -320,7 +301,7 @@ async function addProduct() {
   else if (lastPage === totalPages) {
     loadPage(currentType, currentPage);
   }
-  await updateTable();
+  await updateMainTable();
   onImageChangeFlag = false;
 }
 
@@ -353,7 +334,7 @@ async function editExistingProduct(index) {
   product.Anh = srcArray || "";
 
   await updateProducts(products[index].MaSP, product);
-  await updateTable();
+  await updateMainTable();
   onImageChangeFlag = false;
 }
 function showForm() {
@@ -398,7 +379,7 @@ function changeState() {
 async function main() {
   data = await getProducts("Tất cả", 1);
   products = data.data;
-  await updateTable();
+  await updateMainTable();
   categories = (await getCategories()).categories;
   populateCategoryOptions();
 
@@ -473,7 +454,7 @@ async function loadPage(type, page) {
   // console.log(page);
   data = await getProducts(type, page);
   products = data.data;
-  await updateTable();
+  await updateMainTable();
 
   currentPage = page;
   currentType = type;

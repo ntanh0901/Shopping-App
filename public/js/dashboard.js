@@ -1,12 +1,16 @@
 let adminInfo = {
+  id: 1,
+  name: "Bob",
+  phone: "0123456789",
+  dob: "1996-12-02",
+  email: "bob@gmail.com",
   image: "/img/logo_hcmus.png",
-  username: "Admin",
-  name: "Nguyễn Admin",
-  age: 24,
-  sex: "nam",
-  phone: "0867564837",
-  email: "admin@example.com",
-  address: "Admin address",
+  gender: "Nữ",
+  username: "un1",
+  password: "pw1",
+  address: "Address 1",
+  isCustomer: false,
+  isAdmin: true,
 };
 
 updateDashboard();
@@ -15,8 +19,10 @@ function updateDashboard() {
   $("#adminImage").attr("src", adminInfo.image);
   $("#adminUsername").text(adminInfo.username);
   $("#adminName").text(adminInfo.name);
-  $("#adminAge").text(adminInfo.age);
-  $("#adminSex").text(adminInfo.sex);
+  $("#adminAge").text(
+    new Date().getFullYear() - new Date(adminInfo.dob).getFullYear()
+  );
+  $("#adminGender").text(adminInfo.gender);
   $("#adminPhone").text(adminInfo.phone);
   $("#adminEmail").text(adminInfo.email);
   $("#adminAddress").text(adminInfo.address);
@@ -30,14 +36,14 @@ function populateEditProfileModal() {
   $("#editImage").attr("src", adminInfo.image);
   $("#editUsername").val(adminInfo.username);
   $("#editName").val(adminInfo.name);
-  $("#editAge").val(adminInfo.age);
+  $("#editDob").val(adminInfo.dob);
   $("#editNam").prop(
     "checked",
-    adminInfo.sex.toLowerCase() === "nam" ? true : false
+    adminInfo.gender.toLowerCase() === "nam" ? true : false
   );
   $("#editNu").prop(
     "checked",
-    adminInfo.sex.toLowerCase() === "nữ" ? true : false
+    adminInfo.gender.toLowerCase() === "nữ" ? true : false
   );
   $("#editPhone").val(adminInfo.phone);
   $("#editEmail").val(adminInfo.email);
@@ -48,7 +54,7 @@ function submitForm() {
   adminInfo.image = $("#editImage").attr("src");
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
-  adminInfo.age = $("#editAge").val();
+  adminInfo.dob = $("#editDob").val();
   adminInfo.sex = $('input[name="editGender"]:checked').val();
   adminInfo.phone = $("#editPhone").val();
   adminInfo.email = $("#editEmail").val();
@@ -73,7 +79,7 @@ function validateForm() {
     isValid = false;
   }
 
-  if ($("#editAge").val() === "") {
+  if ($("#editDob").val() === "") {
     $("#errorAge").text("Tuổi trống");
     isValid = false;
   }
@@ -93,7 +99,7 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!/\S+@\S+\.\S+/.test($("#editEmail").val())) {
+  if (!/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm.test($("#editEmail").val())) {
     $("#errorEmail").text("Email không hợp lệ!");
     isValid = false;
   }
@@ -102,26 +108,50 @@ function validateForm() {
     $("#errorAddress").text("Địa chỉ trống!");
     isValid = false;
   }
+  if(!validteDob()) isValid = false;
 
   return isValid;
 }
 
-$("#editUsername, #editName, #editAge, #editPhone, #editEmail, #editAddress").focus(function () {
-	$(`#error${$(this).attr("id").replace("edit", "")}`).text("");
+$(
+  "#editUsername, #editName, #editDob, #editPhone, #editEmail, #editAddress"
+).focus(function () {
+  $(`#error${$(this).attr("id").replace("edit", "")}`).text("");
 });
 
-
 function updateImagePreview(input) {
-	const imagePreview = document.getElementById("editImage");
-	const file = input.files[0];
-  
-	if (file) {
-	  const reader = new FileReader();
-	  reader.onload = function (e) {
-		imagePreview.src = e.target.result;
-	  };
-	  reader.readAsDataURL(file);
-	} else {
-	  imagePreview.src = ""; 
-	}
+  const imagePreview = document.getElementById("editImage");
+  const file = input.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      imagePreview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    imagePreview.src = "";
   }
+}
+
+function validteDob() {
+  let isValid = true;
+  const dobValue = $("#editDob").val().trim();
+
+  if ($("#editDob").prop("required") && !dobValue) {
+    $("#editDobError").text("Ngày sinh trống!");
+    isValid = false;
+  } else {
+    const currentDate = new Date();
+    const selectedDate = new Date(dobValue);
+
+    if (selectedDate > currentDate) {
+      $("#editDobError").text("Ngày sinh không thể sau ngày hiện tại!");
+
+      isValid = false;
+    } else {
+      $("#editDobError").text("");
+    }
+  }
+  return isValid;
+}

@@ -1,3 +1,4 @@
+let roles = ['Admin','Khách hàng']
 let users = [
   {
     id: 1,
@@ -10,6 +11,8 @@ let users = [
     username: "un1",
     password: "pw1",
     address: "Address 1",
+    isCustomer: false,
+    isAdmin:true
   },
   {
     id: 2,
@@ -22,6 +25,8 @@ let users = [
     username: "un2",
     password: "pw2",
     address: "Address 2",
+    isCustomer: true,
+    isAdmin:true
   },
   {
     id: 3,
@@ -34,9 +39,11 @@ let users = [
     username: "un3",
     password: "pw3",
     address: "Address 3",
+    isCustomer: true,
+    isAdmin:false
   },
 ];
-
+updateTable();
 function updateTable() {
   let tableBody = $("#userTable tbody").html("");
 
@@ -65,6 +72,8 @@ function resetForm() {
   $("#uploadUserImage").show();
   $("#userImage").srd = "";
   $(".modal-footer").show();
+  $("#password").show();
+  $("#repassword").show();
 }
 
 function addNewUser() {
@@ -79,19 +88,23 @@ function addNewUser() {
 function viewUser(index) {
   resetForm();
   $("#modalTitle").text(users[index].name);
+  $("#password").hide();
+  $("#repassword").hide();
   $(".modal-footer").hide();
+  $("#uploadUserImage").hide();
   $("#editIndex").val(index);
 
   let user = users[index];
 
   populateForm(user);
-  $("#uploadUserImage").hide();
   makeReadonly(true);
   showForm();
 }
 
 function editUser(index) {
   resetForm();
+  $("#password").hide();
+  $("#repassword").hide();
   $("#modalTitle").text("Chỉnh sửa người dùng");
   $("#confirmBtn").text("Lưu");
   $("#editIndex").val(index);
@@ -105,11 +118,13 @@ function editUser(index) {
 
 function makeReadonly(isReadonly) {
   $("#userForm :input").prop("readonly", isReadonly);
+  $("#userForm select").prop("disabled", isReadonly);
   $("#editNam").prop("disabled", isReadonly);
   $("#editNu").prop("disabled", isReadonly);
 }
 
 function populateForm(user) {
+  $("#userRole").val(user.isAdmin?"Admin":"Khách hàng");
   $("#userFullName").val(user.name);
   $("#userUsername").val(user.username);
   $("#editNam").prop(
@@ -129,7 +144,7 @@ function populateForm(user) {
 
 let deletionIndex;
 function deleteUser(index) {
-	resetForm();
+  resetForm();
   deletionIndex = index;
   let userName = users[index].name;
   $("#userToDelete").text(userName);
@@ -281,7 +296,7 @@ function submitForm() {
   }
 
   if (!/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm.test($("#userEmail").val())) {
-    $("#errorEmail").text("Email không hợp lệ");
+    $("#errorEmail").text("Email không hợp lệ!");
     validationResults.push(false);
   }
 
@@ -293,7 +308,10 @@ function submitForm() {
     hideError("#userGenderError");
   }
 
-  if (index === "-1") validationResults.push(validateImage());
+  if (index === "-1") {
+    validationResults.push(validateImage());
+    validationResults.push(validatePassword());
+  }
 
   validationResults.push(validateUsername($("#userUsername").val(), index));
 
@@ -349,6 +367,8 @@ function addUser() {
 function saveEdit(index) {
   let user = users[index];
 
+  user.isAdmin = $("#userRole").val().trim() === "Admin"?true:false;
+  user.isCustomer = !user.isAdmin;
   user.name = $("#userFullName").val().trim();
   user.username = $("#userUsername").val().trim();
   user.gender = $('input[name="userGender"]:checked').val();
@@ -385,4 +405,49 @@ function updateImagePreview(input) {
   }
 }
 
-updateTable();
+function togglePasswordVisibility(inputId) {
+  const passwordInput = document.getElementById(inputId);
+  const eyeIcon = passwordInput.nextElementSibling;
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.classList.remove("bi-eye-slash");
+    eyeIcon.classList.add("bi-eye");
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.classList.remove("bi-eye");
+    eyeIcon.classList.add("bi-eye-slash");
+  }
+}
+
+function validatePassword() {
+  const passwordValue = $("#userPassword").val().trim();
+  const repasswordValue = $("#userRepassword").val().trim();
+
+  if (passwordValue !== repasswordValue) {
+    $("#userPasswordError").text("Mật khẩu xác nhận không khớp!");
+    return false;
+  } else {
+    hideError("#userRepasswordError");
+  }
+
+  if (!passwordValue || !repasswordValue) {
+    $("#userPasswordError").text(
+      "Mật khẩu và mật khẩu xác nhận không được để trống!"
+    );
+    return false;
+  } else {
+    hideError("#userPasswordError");
+  }
+  return true;
+}
+
+function populateRole() {
+	let roleInput = $("#userRole");
+	roleInput.empty();
+	roles.forEach(role => {
+		roleInput.append(`<option value="${role}">${role}</option>`);
+	});
+}
+
+populateRole();

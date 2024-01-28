@@ -12592,6 +12592,7 @@ a {
 #admin {
   height: 100vh;
   display: flex;
+  position: relative;
 }
 
 #overlay {

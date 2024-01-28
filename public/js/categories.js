@@ -14,7 +14,7 @@
   thêm bảng thông báo lỗi ràng buộc khóa ngoại khi xóa
 */
 
-let isTaskInProgress = false;
+// let isTaskInProgress = false;
 
 async function populateTable() {
   let tableBody = $("#categoryTable tbody").html("");
@@ -32,16 +32,22 @@ async function populateTable() {
                      </td>`;
   });
 }
-
+function addCategories() {
+  $("#categoryModalLabel").text("Thêm danh mục");
+  $("#categoryModal").modal("show");
+  $('#newName').val("");
+  $("#submitbtn").attr('onclick', `submitForm()`);
+}
 function editCategory(index) {
-  if (!isTaskInProgress) {
-    let category = categories[index];
-    showEditForm(index);
-    $("#newName").val(category.TenLoai);//
-    // showForm();
-    // $("#categoryForm button[type='button']").attr('onclick', `submitEditForm(${index})`);
-    isTaskInProgress = true;
-  }
+  let category = categories[index];
+  $("#categoryModalLabel").text('Đổi tên danh mục');
+  $("#newName").val(category.TenLoai);
+  $("#categoryModal").modal("show");
+  // $("#categoryForm button[type='button']").attr(
+  //   "onclick",
+  //   `submitEditForm(${index})`
+  // );
+  $("#submitbtn").attr('onclick', `submitEditForm(${index})`);
 }
 
 async function submitEditForm(index) {
@@ -51,19 +57,15 @@ async function submitEditForm(index) {
     categories[index].TenLoai = newname;//
     await updateCategories(categories[index].MaLoai, newname);//
     await populateTable();//
-    cancelForm();
-    isTaskInProgress = false;
+    $("#categoryModal").modal("hide");
   }
 }
 
 function deleteCategory(index) {
-  if (!isTaskInProgress) {
-    let categoryName = categories[index].TenLoai;//
-    $("#categoryToDelete").text(categoryName);
-    $("#deleteCategoryBtn").data("index", index);
-    $("#deleteConfirmationModal").modal('show');
-    isTaskInProgress = false;
-  }
+  let categoryName = categories[index].TenLoai;//
+  $("#categoryToDelete").text(categoryName);
+  $("#deleteCategoryBtn").data("index", index);
+  $("#deleteConfirmationModal").modal("show");
 }
 
 $("#deleteCategoryBtn").click(async function () {//
@@ -75,8 +77,7 @@ $("#deleteCategoryBtn").click(async function () {//
   else {//
     $("#errorDeleteModal").modal('show');
   }//
-  $("#deleteConfirmationModal").modal('hide');
-  isTaskInProgress = false;
+  $("#deleteConfirmationModal").modal("hide");
 });
 
 function validateInput(inputId, errorId, errorMessage) {
@@ -117,25 +118,24 @@ async function submitForm() {//
   await populateTable();//
 
   $("#newName").val("");
-
-  $("#btn_add").show();
-  $(".form-container").hide();
-  isTaskInProgress = false;//
+  $("#categoryModal").modal("hide");
+  resetForm();
 }
 
-function showForm() {
-  isTaskInProgress = true;
-  $("#newName").val("");//
-  $("#btn_add").hide();
-  $("#submitbtn").attr('onclick', `submitForm()`);//
-  $(".form-container").show();
-}
+// function showForm() {
+//   isTaskInProgress = true;
+//   $("#newName").val("");//
+//   $("#btn_add").hide();
+//   $("#submitbtn").attr('onclick', `submitForm()`);//
+//   $(".form-container").show();
+// }
 
-function cancelForm() {
+// function cancelForm() {
+//   $("#newNameError").text("");
+// }
+function resetForm() {
+  $("#newName").text("");
   $("#newNameError").text("");
-  $("#btn_add").show();
-  $(".form-container").hide();
-  isTaskInProgress = false;
 }
 
 function showEditForm(index) {
