@@ -1,3 +1,85 @@
+{{!-- view profile --}}
+<div class="modal fade" id="viewProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header   bg-light text-primary">
+                <h5 class="modal-title" id="viewProfileModalLabel">Thông tin cá nhân</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="mx-auto text-center"> <!-- Center the content -->
+                    <img id="adminImage" src="/img/logo_hcmus.png" class="avatar rounded-circle mb-4"
+                        style="width: 5rem; height: 5rem;" alt="Admin Avatar">
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Username:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminUsername"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Họ tên:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminName"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Tuổi:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminAge"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Giới tính:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminGender"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <i class="bx bx-phone"></i>
+                        <strong>Điện thoại:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminPhone"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <i class="bx bx-envelope"></i>
+                        <strong>Email:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminEmail"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <i class="bx bx-target-lock"></i>
+                        <strong>Địa chỉ:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span id="adminAddress"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal"
+                    data-bs-target="#editProfileModal">Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- edit profile --}}
 <div class="modal fade  " id="editProfileModal" tabindex="-1" role="dialog" data-bs-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content p-3">
@@ -70,3 +152,5 @@
         </div>
     </div>
 </div>
+
+<script src="/js/profile.js"></script>
