@@ -545,7 +545,7 @@ async function main(searchInput, sortOrder) {
   perpage = null;
 
   data = await getAccounts(1, searchInput, sortOrder);
-  console.log(data);
+  // console.log(data);
   // console.log(searchInput, sortOrder);
   users = data.data;
   // console.log(users);

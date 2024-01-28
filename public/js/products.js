@@ -123,25 +123,25 @@ function editProduct(index) {
     $("#imagePreview").html("");
   }
   showForm();
-} 
+}
 
 
 function viewProduct(index) {
-	resetForm();
-	$("#modalTitle").text(	$("#productName").val(product.name));
-	$("#editIndex").val(index);
-	let product = products[index];
-	$("#productName").val(product.name);
-	$("#productPrice").val(product.price);
-	$("#productStock").val(product.stock);
-	$("#productCategory").val(product.categoryId);
-	console.log(product.image);
-	if (product.image) {
-		$("#imagePreview").attr("src", product.image);
-	} else {
-		$("#imagePreview").attr("src", "");
-	}
-	showForm();
+  resetForm();
+  $("#modalTitle").text($("#productName").val(product.name));
+  $("#editIndex").val(index);
+  let product = products[index];
+  $("#productName").val(product.name);
+  $("#productPrice").val(product.price);
+  $("#productStock").val(product.stock);
+  $("#productCategory").val(product.categoryId);
+  console.log(product.image);
+  if (product.image) {
+    $("#imagePreview").attr("src", product.image);
+  } else {
+    $("#imagePreview").attr("src", "");
+  }
+  showForm();
 }
 
 function submitEditForm(index) {
@@ -171,8 +171,8 @@ async function confirmDeleteProduct(index) {
   if (result) {
     products.splice(deletionIndex, 1);
     if (products.length === 0 && currentPage > 1) {
-      lastPage--;firstPage--;
-      loadPage(currentType, --currentPage);
+      lastPage--; firstPage--;
+      loadPage(currentType, --currentPage, currentSort, currentSearch);
     }
     await updateMainTable();
   }
@@ -300,7 +300,8 @@ async function addProduct() {
     products.push(product);
   }
   else if (lastPage === totalPages) {
-    loadPage(currentType, currentPage);
+    if (lastPage < maxShowedPages) lastPage++;
+    loadPage(currentType, currentPage, currentSort, currentSearch);
   }
   await updateMainTable();
   onImageChangeFlag = false;
@@ -377,17 +378,40 @@ function changeState() {
   onImageChangeFlag = false;
 }
 
-async function main() {
-  data = await getProducts("Tất cả", 1);
+// Pagination
+let currentPage = 1;
+let totalPages = null;
+const maxShowedPages = 3;
+let showedPages = 3;
+let firstPage = 1;
+let lastPage = null;
+let currentType = 'Tất cả';
+let perpage = null;
+
+let currentSearch = null;
+let currentSort = "MaSP";
+
+async function main(type, searchInput, sortOrder) {
+  currentPage = 1;
+  totalPages = null;
+  showedPages = null;
+  firstPage = 1;
+  lastPage = null;
+  perpage = null;
+
+  data = await getProducts(type, 1, sortOrder, searchInput);
   products = data.data;
+  console.log(products);
   await updateMainTable();
   categories = (await getCategories()).categories;
   populateCategoryOptions();
+  setupSelector();
 
   perpage = data.perpage;
   totalPages = data.totalPages;
-  showedPages = (totalPages < showedPages) ? totalPages : showedPages;
+  showedPages = (totalPages < maxShowedPages) ? totalPages : maxShowedPages;
   lastPage = showedPages;
+  firstPage = 1;
   loadPageContainer(firstPage, lastPage);
 }
 
@@ -396,18 +420,12 @@ let products;
 let categories;
 let onImageChangeFlag = false;
 
-main();
+main("Tất cả", null, null);
 
-// Pagination
-let currentPage = 1;
-let totalPages = null;
-let showedPages = 5;
-let firstPage = 1;
-let lastPage = null;
-let currentType = 'Tất cả';
-let perpage = null;
+
 
 function loadPageContainer(first, last) {
+  $('#page-container').empty();
   // console.log(first, last);
   if (first < 1) first = 1;
   if (last < first) last = first;
@@ -420,7 +438,7 @@ function loadPageContainer(first, last) {
     }
     $(this).addClass('page-active');
     currentPage = parseInt($(this).text());
-    loadPage(currentType, currentPage);
+    loadPage(currentType, currentPage, currentSort, currentSearch);
   });
 }
 
@@ -428,12 +446,11 @@ function loadPageContainer(first, last) {
 $('#next-page').on('click', function () {
   if (currentPage < totalPages) {
     ++currentPage;
-    loadPage(currentType, currentPage);
+    loadPage(currentType, currentPage, currentSort, currentSearch);
     if (currentPage > lastPage) {
       firstPage++;
       lastPage++;
     }
-    $('#page-container').empty();
   }
 });
 
@@ -442,18 +459,18 @@ $('#previous-page').on('click', function () {
 
   if (currentPage > 1) {
     --currentPage;
-    loadPage(currentType, currentPage);
+    loadPage(currentType, currentPage, currentSort, currentSearch);
     if (currentPage < firstPage) {
       firstPage--;
       lastPage--;
     }
-    $('#page-container').empty();
   }
 })
 
-async function loadPage(type, page) {
+async function loadPage(type, page, sortOrder, searchInput) {
   // console.log(page);
-  data = await getProducts(type, page);
+  data = await getProducts(type, page, sortOrder, searchInput);
+  console.log(data);
   products = data.data;
   await updateMainTable();
 
@@ -462,6 +479,57 @@ async function loadPage(type, page) {
   perpage = data.perpage;
   totalPages = data.totalPages;
 
-  $('#page-container').empty();
+  if (lastPage > totalPages) lastPage = totalPages;
+
   loadPageContainer(firstPage, lastPage);
+}
+
+const sortKeys = ["MaSP", "Ten", "DonGia", "SoLuongTon"];
+
+function setupSelector() {
+  $('#sort').html("");
+  $('#type').html("");
+  sortKeys.forEach(key => {
+    $('#sort').append(`
+      <option value="${key}">${key}</option>
+    `);
+  });
+  $('#type').append(`<option value="Tất cả">Tất cả</option>`);
+  categories.forEach(c => {
+    $('#type').append(`<option value="${c.TenLoai}">${c.TenLoai}</option>`);
+  });
+}
+
+$('#sort').change(async function () {
+  const selectedValue = $(this).val();
+  await main(currentType, currentSearch, selectedValue);
+  currentSort = selectedValue;
+  $(this).val(currentSort);
+  $('#type').val(currentType);
+})
+
+$('#type').change(async function () {
+  const selectedValue = $(this).val().trim();
+  await main(selectedValue, currentSearch, currentSort);
+  currentType = selectedValue;
+  $(this).val(currentType);
+  $('#sort').val(currentSort);
+})
+
+$('#searchbtn').on('click', async () => {
+  await search($('#searchInput').val().trim());
+})
+
+async function search(input) {
+  if (input === "" || input === null) {
+    currentSearch = null;
+    await main(currentType, null, currentSort);
+  }
+  else {
+    currentSearch = input;
+    await main(currentType, input, currentSort);
+  }
+  $('#type').val(currentType);
+  $('#sort').val(currentSort);
+  console.log('curr ', currentType, currentSort);
 }

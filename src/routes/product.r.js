@@ -12,7 +12,7 @@ router.post('/deleteCategories', categoriesController.deleteCategories);
 router.post('/addCategory', categoriesController.addCategory);
 
 //Products
-router.get('/getProducts', productController.getProducts);
+router.post('/getProducts', productController.getProductsAdmin);
 router.post('/updateProduct', productController.updateProduct);
 router.post('/deleteProduct', productController.deleteProduct);
 router.post('/addProduct', productController.addProduct);

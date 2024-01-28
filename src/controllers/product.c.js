@@ -182,5 +182,50 @@ module.exports = {
         const type = req.body.type;
         const result = await Product.insert(new Product(name, price, stock, images, type));
         res.json(result);
-    }
+    },
+
+    getProductsAdmin: async (req, res, next) => {
+        try {
+            const type = req.body.type || 'Tất cả';
+            const orderBy = req.body.orderBy || "MaSP";
+            const isDesc = req.body.isDesc || false;
+            const searchInput = req.body.search || null;
+            let data = null;
+            console.log(type, orderBy, searchInput);
+            if (searchInput === null) {
+                if (type === 'Tất cả') {
+                    data = await Product.getAllProductsWithType(orderBy, isDesc);
+                } else {
+                    data = await Product.getBy(type, orderBy, isDesc);
+                }
+                // console.log(data);
+            } else {
+                if (type === 'Tất cả') {
+                    data = await Product.getSearch2(searchInput, orderBy, isDesc);
+                } else {
+                    data = await Product.getByWithSearch2(type, orderBy, isDesc, searchInput);
+                }
+            }
+
+            const total = data.length;
+
+            const currentPage = req.body.page || 1;
+            const itemsPerPage = 3;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            data = data.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(total / itemsPerPage);
+
+            res.json({
+                data: data,
+                perpage: itemsPerPage,
+                total: total,
+                type: type,
+                totalPages: totalPages
+            });
+        } catch (error) {
+            console.log('Product page error: ', error);
+        }
+    },
 }

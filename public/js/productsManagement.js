@@ -1,8 +1,14 @@
-async function getProducts(type, page) {
+async function getProducts(type, page, order, input) {
     try {
         const response = await $.ajax({
-            url: `/admin/productsmanagement/getProducts?type=${type}&page=${page}`,
-            method: 'GET'
+            url: `/admin/productsmanagement/getProducts`,
+            method: 'POST',
+            data: {
+                type: type,
+                page: page,
+                orderBy: order,
+                search: input
+            }
         });
         return response;
     } catch (err) {

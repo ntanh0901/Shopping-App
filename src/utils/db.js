@@ -211,7 +211,7 @@ async function insertData() {
     await insertWithoutID("Loai", { TenLoai: "Đồng hồ" });
     await insertWithoutID("Loai", { TenLoai: "Bách hóa" });
     await insertWithoutID("Loai", { TenLoai: "Thể thao" });
-    await insertWithoutID("Loai", { TenLoai: "Nhà cửa và đời sống " });
+    await insertWithoutID("Loai", { TenLoai: "Nhà cửa và đời sống" });
     await insertWithoutID("Loai", { TenLoai: "Phụ kiện thời trang" });
 
     const link = "/img/products/";
@@ -536,8 +536,9 @@ module.exports = {
     searchAll2: async (tbName, searchTerm, col, colOrder, isDesc) => {
         try {
             let query = `
-            SELECT * FROM "${tbName}"
-            WHERE LOWER("${col}") ILIKE LOWER($1)`;
+            SELECT *
+            FROM "${tbName}" JOIN "Loai" ON "${tbName}"."MaLoai" = "Loai"."MaLoai"
+            WHERE LOWER("${col}") ILIKE LOWER($1) `;
             if (colOrder) {
                 if (isDesc) {
                     query += `ORDER BY "${colOrder}" DESC `;
@@ -608,4 +609,31 @@ module.exports = {
             console.error('joinAndCalculateTotals error: ', error);
         }
     },
+    joinTBSearch2: async (tb1, tb2, col1, col2, colWhere, val, colOrder, isDesc, limit, input) => {
+        try {
+            let query = `
+                SELECT *
+                FROM "${tb1}"
+                JOIN "${tb2}" ON "${tb1}"."${col1}" = "${tb2}"."${col2}"
+                WHERE "${colWhere}" = $1 
+            `;
+
+            query += `AND LOWER("${tb1}"."Ten") ILIKE LOWER($2)`;
+
+            if (colOrder) {
+                if (isDesc) {
+                    query += `ORDER BY "${colOrder}" DESC `;
+                }
+                else query += `ORDER BY "${colOrder}" ASC `;
+            }
+
+            if (limit) {
+                query += `LIMIT ${limit} `;
+            }
+            return db.manyOrNone(query, [val, `%${input}%`]);
+        } catch (error) {
+            console.log("Join table error: ", error);
+        }
+    },
+
 }
