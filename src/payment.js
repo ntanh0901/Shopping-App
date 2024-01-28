@@ -3,18 +3,22 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const model = require('./models/payment.m');
+const jwt = require('jsonwebtoken');
+const { use } = require('passport');
+
 
 const app = express();
 const PORT = process.env.PAYMENT_PORT || 3001;
 app.use(express.json());
 
-app.post('/getBalance', async (req, res) => {
-    console.log(req.body);
-    const account = await model.getAccountByID(req.body.Id);
+app.get('/getBalance', authenticateToken, async (req, res) => {
+    console.log('paymentAccount:');
+    console.log(req.paymentAccount);
+    const account = await model.getAccountByID(req.paymentAccount.id);
     let balance = 0;
     if (!account) {
         const newAccount = {
-            ID: req.body.Id,
+            ID: req.paymentAccount.id,
             SoDu: 0
         };
         try {
@@ -25,7 +29,14 @@ app.post('/getBalance', async (req, res) => {
     } else {
         balance = account.SoDu;
     }
-    res.json({ status: 'success', balance: balance });
+    res.json({ balance: balance });
+});
+
+app.post('/getAccessToken', async (req, res) => {
+    const Id = req.body.Id;
+    const user = { id: Id };
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    res.json({ accessToken: accessToken });
 });
 
 app.get('/returnBill', async (req, res) => {
@@ -51,7 +62,6 @@ app.get('/returnBill', async (req, res) => {
         //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
         const orderInfo = vnp_Params.vnp_OrderInfo;
         const id = orderInfo.substring(2, orderInfo.length);
-        console.log(id);
         const amount = vnp_Params.vnp_Amount;
         const result = await model.updateBalance(id, amount);
         res.redirect('http://localhost:3000/customer');
@@ -76,6 +86,23 @@ function sortObject(obj) {
         sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
     }
     return sorted;
+}
+
+function authenticateToken(req, res, next) {
+    console.log('checking access token');
+    const authHeader = req.headers['authorization'];
+    console.log(authHeader);
+    const token = authHeader && authHeader.split(' ')[1];
+    console.log(token);
+    if (token === null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        console.log('good access token');
+        console.log(user);
+        req.paymentAccount = user;
+        next();
+    })
 }
 
 app.listen(PORT, () => {

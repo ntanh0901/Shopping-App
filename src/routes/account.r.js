@@ -74,7 +74,7 @@ router.post('/login', passport.authenticate('passport-login', {
             res.redirect('/admin');
         }
         else {
-            res.redirect('/customer');
+            res.redirect('/getAccessToken');
         }
     }
     else {
@@ -137,9 +137,10 @@ router.get('/fb/auth', passport.authenticate('facebook', {
         res.redirect('/client');
     });
 
-router.get('/customer', async (req, res) => {
+router.get('/getAccessToken', async (req, res) => {
     try {
-        const response = await fetch("http://localhost:3001/getBalance", {
+        console.log('get access token');
+        const response = await fetch("http://localhost:3001/getAccessToken", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -149,6 +150,35 @@ router.get('/customer', async (req, res) => {
 
         const data = await response.json();
 
+        console.log(data);
+
+        req.session.accessToken = data.accessToken;
+
+        console.log(req.accessToken);
+
+        res.redirect('/customer');
+
+    } catch (error) {
+        console.log('Get access token error: ' + error);
+    }
+});
+
+router.get('/customer', async (req, res) => {
+    if (!req.user) {
+        res.redirect('/login');
+    }
+    console.log('got access token');
+    console.log(req.session.accessToken);
+    try {
+        const response = await fetch("http://localhost:3001/getBalance", {
+            method: 'GET',
+            headers: {
+                'authorization': 'Bearer ' + req.session.accessToken
+            }
+        });
+
+        const data = await response.json();
+        console.log('get balance data: ');
         console.log(data);
 
         res.render('home');
@@ -165,7 +195,7 @@ router.post('/create_payment_url', function (req, res, next) {
     //     req.socket.remoteAddress ||
     //     req.connection.socket.remoteAddress;
 
-    const ipAddr = '127.0.0.5'
+    const ipAddr = '127.0.0.1'
     //var config = require('config');
     const dateFormat = require('dateformat');
 
@@ -207,7 +237,7 @@ router.post('/create_payment_url', function (req, res, next) {
 
     vnp_Params = sortObject(vnp_Params);
 
-    
+
     const querystring = require('qs');
     const signData = querystring.stringify(vnp_Params, { encode: false });
     const crypto = require("crypto");
@@ -221,15 +251,15 @@ router.post('/create_payment_url', function (req, res, next) {
 
 
 function sortObject(obj) {
-	let sorted = {};
-	let str = [];
-	let key;
-	for (key in obj){
-		if (obj.hasOwnProperty(key)) {
-		str.push(encodeURIComponent(key));
-		}
-	}
-	str.sort();
+    let sorted = {};
+    let str = [];
+    let key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            str.push(encodeURIComponent(key));
+        }
+    }
+    str.sort();
     for (key = 0; key < str.length; key++) {
         sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
     }

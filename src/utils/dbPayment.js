@@ -329,7 +329,7 @@ module.exports = {
 
     updateBalance: async(id, newBalance) => {
         try {
-            const query = 'UPDATE "ThanhToan" SET "SoDu" = $1 WHERE "ID" = $2';
+            const query = 'UPDATE "ThanhToan" SET "SoDu" = "SoDu" + $1 WHERE "ID" = $2';
             const values = [newBalance, id];
             const result = await db.result(query, values);
             return result.rowCount;
