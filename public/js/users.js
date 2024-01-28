@@ -1,4 +1,4 @@
-let roles = ['Admin','Khách hàng']
+let roles = ["Admin", "Khách hàng"];
 let users = [
   {
     id: 1,
@@ -12,7 +12,7 @@ let users = [
     password: "pw1",
     address: "Address 1",
     isCustomer: false,
-    isAdmin:true
+    isAdmin: true,
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ let users = [
     password: "pw2",
     address: "Address 2",
     isCustomer: true,
-    isAdmin:true
+    isAdmin: true,
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ let users = [
     password: "pw3",
     address: "Address 3",
     isCustomer: true,
-    isAdmin:false
+    isAdmin: false,
   },
 ];
 updateTable();
@@ -119,19 +119,19 @@ function editUser(index) {
 function makeReadonly(isReadonly) {
   $("#userForm :input").prop("readonly", isReadonly);
   $("#userForm select").prop("disabled", isReadonly);
-  $("#editNam").prop("disabled", isReadonly);
-  $("#editNu").prop("disabled", isReadonly);
+  $("#userNam").prop("disabled", isReadonly);
+  $("#userNu").prop("disabled", isReadonly);
 }
 
 function populateForm(user) {
-  $("#userRole").val(user.isAdmin?"Admin":"Khách hàng");
+  $("#userRole").val(user.isAdmin ? "Admin" : "Khách hàng");
   $("#userFullName").val(user.name);
   $("#userUsername").val(user.username);
-  $("#editNam").prop(
+  $("#userNam").prop(
     "checked",
     user.gender.toLowerCase() === "nam" ? true : false
   );
-  $("#editNu").prop(
+  $("#userNu").prop(
     "checked",
     user.gender.toLowerCase() === "nữ" ? true : false
   );
@@ -216,6 +216,15 @@ $("#userUsername")
     hideError("#userUsernameError");
   });
 
+$("#userPassword, #userRepassword")
+  .on("blur", function () {
+    validatePassword();
+    hideError("#userPasswordError");
+  })
+  .on("focus", function () {
+    hideError("#userPasswordError");
+  });
+
 $('input[name="userGender"]')
   .on("blur", function () {
     validateInput(
@@ -231,38 +240,38 @@ $('input[name="userGender"]')
 
 $("#userPhone")
   .on("blur", function () {
-    validateInput("#userPhone", "#errorPhone", "Số điện thoại trống!");
-    hideError("#errorPhone");
+    validateInput("#userPhone", "#userPhone", "Số điện thoại trống!");
+    hideError("#userPhoneError");
   })
   .on("focus", function () {
-    hideError("#errorPhone");
+    hideError("#userPhoneError");
   });
 
 $("#userDob")
   .on("blur", function () {
-    validateInput("#userDob", "#userDobError", "Số điện thoại trống!");
+    validateInput("#userDob", "#userDobError", "Ngày sinh trống!");
     hideError("#userDobError");
   })
   .on("focus", function () {
     hideError("#userDobError");
-  });
-
-$("#userEmail")
-  .on("blur", function () {
-    validateInput("#userEmail", "#errorEmail", "Email không hợp lệ!");
-    hideError("#errorEmail");
-  })
-  .on("focus", function () {
-    hideError("#errorEmail");
   });
 
 $("#userAddress")
   .on("blur", function () {
-    validateInput("#userAddress", "#errorAddress", "Địa chỉ trống!");
-    hideError("#errorAddress");
+    validateInput("#userEmail", "#userAddressError", "Địa chỉ không hợp lệ!");
+    hideError("#userAddressError");
   })
   .on("focus", function () {
-    hideError("#errorAddress");
+    hideError("#userAddressError");
+  });
+
+$("#userEmail")
+  .on("blur", function () {
+    validateInput("#userEmail", "#userEmailError", "Email trống!");
+    hideError("#userEmailError");
+  })
+  .on("focus", function () {
+    hideError("#userEmailError");
   });
 
 function submitForm() {
@@ -277,16 +286,13 @@ function submitForm() {
     validateInput("#userUsername", "#userUsernameError", "Username trống!")
   );
   validationResults.push(
-    validateInput("#userEmail", "#errorEmail", "Email trống!")
+    validateInput("#userEmail", "#userEmailError", "Email trống!")
   );
   validationResults.push(
-    validateInput("#userAddress", "#errorAddress", "Địa chỉ trống!")
+    validateInput("#userAddress", "#userAddressError", "Địa chỉ trống!")
   );
   validationResults.push(
-    validateInput("#userPhone", "#errorPhone", "Số điện thoại trống!")
-  );
-  validationResults.push(
-    validateInput("#userAddress", "#errorAddress", "Địa chỉ trống!")
+    validateInput("#userPhone", "#userPhoneError", "Số điện thoại trống!")
   );
   validationResults.push(validteDob());
 
@@ -367,7 +373,7 @@ function addUser() {
 function saveEdit(index) {
   let user = users[index];
 
-  user.isAdmin = $("#userRole").val().trim() === "Admin"?true:false;
+  user.isAdmin = $("#userRole").val().trim() === "Admin" ? true : false;
   user.isCustomer = !user.isAdmin;
   user.name = $("#userFullName").val().trim();
   user.username = $("#userUsername").val().trim();
@@ -443,11 +449,11 @@ function validatePassword() {
 }
 
 function populateRole() {
-	let roleInput = $("#userRole");
-	roleInput.empty();
-	roles.forEach(role => {
-		roleInput.append(`<option value="${role}">${role}</option>`);
-	});
+  let roleInput = $("#userRole");
+  roleInput.empty();
+  roles.forEach((role) => {
+    roleInput.append(`<option value="${role}">${role}</option>`);
+  });
 }
 
 populateRole();
