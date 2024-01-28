@@ -1,5 +1,8 @@
 <div id="admin">
     {{> admin_sidebar}}
-    {{> cashier_dashboard}} 
-    {{> edit_profile}}  
+    <div class="flex-col main-content">
+        {{> cashier_dashboard}}
+        {{> edit_profile}}
+        {{>statistic}}
+    </div>
 </div>

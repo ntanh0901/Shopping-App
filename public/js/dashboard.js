@@ -55,7 +55,7 @@ function submitForm() {
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
   adminInfo.dob = $("#editDob").val();
-  adminInfo.sex = $('input[name="editGender"]:checked').val();
+  adminInfo.gender = $('input[name="editGender"]:checked').val();
   adminInfo.phone = $("#editPhone").val();
   adminInfo.email = $("#editEmail").val();
   adminInfo.address = $("#editAddress").val();
@@ -121,12 +121,14 @@ $(
 
 function updateImagePreview(input) {
   const imagePreview = document.getElementById("editImage");
+  const imgSidebar = document.getElementById("imgSidebar");
   const file = input.files[0];
 
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
+      imgSidebar.src = e.target.result;
     };
     reader.readAsDataURL(file);
   } else {
