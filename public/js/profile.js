@@ -54,7 +54,7 @@ async function submitForm() {
 
   let srcArray = adminInfo.image;
 
-  if (onAvtChangeFlag && srcArray && srcArray !== "") {   // Remove old images and add new
+  if (onChangeFlag && srcArray && srcArray !== "") {   // Remove old images and add new
     await removeAvt(srcArray);
     const file = $("#productImage")[0].files[0];
     let filename = (await uploadAvt(file)).filename;
@@ -70,7 +70,7 @@ async function submitForm() {
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
   adminInfo.dob = $("#editDob").val();
-  adminInfo.sex = $('input[name="editGender"]:checked').val();
+  adminInfo.gender = $('input[name="editGender"]:checked').val();
   adminInfo.phone = $("#editPhone").val();
   adminInfo.email = $("#editEmail").val();
   adminInfo.address = $("#editAddress").val();
@@ -84,7 +84,7 @@ async function submitForm() {
     $("#errorUsername").text("Username đã tồn tại");
     return;
   }
-  onAvtChangeFlag = false;
+  onChangeFlag = false;
 
   updateDashboard();
   $("#editProfileModal").modal("hide");
@@ -147,18 +147,20 @@ $(
 
 function updateImagePreview(input) {
   const imagePreview = document.getElementById("editImage");
+  const imgSidebar = document.getElementById("imgSidebar");
   const file = input.files[0];
 
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
       imagePreview.src = e.target.result;
+      imgSidebar.src = e.target.result;
     };
     reader.readAsDataURL(file);
   } else {
     imagePreview.src = "";
   }
-  onAvtChangeFlag = true;
+  onChangeFlag = true;
 }
 
 function validteDob() {
@@ -198,7 +200,7 @@ async function getCurrentUser() {
   }
 }
 
-let onAvtChangeFlag = false;
+let onChangeFlag = false;
 
 async function main() {
   const user = await getCurrentUser();

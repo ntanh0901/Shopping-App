@@ -35,7 +35,7 @@ module.exports = {
                 } else {
                     data = await Product.getBy(type, orderBy, isDesc);
                 }
-            // console.log(data);
+                // console.log(data);
             } else {
                 if (type === 'Tất cả') {
                     data = await Product.getSearch(searchInput);
@@ -131,7 +131,7 @@ module.exports = {
             const id = req.body.id;
             const newval = req.body.newval;
             if (await Product.update(
-                ["MaSP", "Ten", "DonGia", "SoLuongTon", "Anh", "MaLoai"], 
+                ["MaSP", "Ten", "DonGia", "SoLuongTon", "Anh", "MaLoai"],
                 [id, newval.Ten, newval.DonGia, newval.SoLuongTon, newval.Anh, newval.MaLoai],
                 id))
                 res.json(true);
@@ -151,9 +151,16 @@ module.exports = {
             const deleteImgPath = req.body.imgs;
             const baseDirectory = path.join(__dirname, '../../public');
             for (let i = 0; i < deleteImgPath.length; i++) {
-                const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
-                // console.log(absolutePath);
-                await fs.unlink(absolutePath);
+                if (deleteImgPath[i] !== "/img/logo_hcmus.png") {
+                    const absolutePath = path.join(baseDirectory, deleteImgPath[i]);
+                    // console.log(absolutePath);
+                    try {
+                        await fs.unlink(absolutePath);
+                    }
+                    catch (err) {
+                        console.log("delete image failed: ", err);
+                    }
+                }
             }
             if (await Product.delete(id))
                 res.json(true);

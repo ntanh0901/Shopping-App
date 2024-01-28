@@ -267,7 +267,8 @@ function isProductNameExist(newName, currentIndex) {
 
 async function addProduct() {
   // Upload
-  const files = $("#productImage")[0].files;
+  const files = $("#productImages")[0].files;
+  console.log(files);
   let filenames = (await uploadImages(files)).filenames;
   const path = "/img/products/";
   for (let i = 0; i < filenames.length; i++) {

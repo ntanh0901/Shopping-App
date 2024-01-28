@@ -3,10 +3,10 @@
         Dashboard
     </header>
 
-    <section class="cashier-infor w-75 mx-auto">
+    {{!-- <section class="cashier-infor w-75 mx-auto">
         <img id="adminImage" src="/img/logo_hcmus.png" alt="" class="cashier-image" />
         <div class="col1">
-             <div>
+            <div>
                 Username:
                 <span id="adminUsername"></span>
             </div>
@@ -22,7 +22,7 @@
                 Giới tính:
                 <span id="adminGender"></span>
             </div>
-           
+
         </div>
         <div class="col2">
             <div><i class="bx bx-phone"></i>Điện thoại:
@@ -38,9 +38,10 @@
         <button class="btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">
             Chỉnh sửa
         </button>
-    </section>
+    </section> --}}
 
-   {{> edit_profile}}
+{{> view}}
+    {{> edit_profile}}
 
 </div>
 
