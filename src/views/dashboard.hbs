@@ -1,18 +1,64 @@
-{{> profile}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<style>
+    li::marker {
+        font-size: 2rem;
+        bottom: 0;
+    }
+</style>{{> profile}}
 
 <div id="admin">
     {{> admin_sidebar}}
-    <div class="flex-col main-content">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
-        <script type="module" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-        <style>
-            li::marker {
-                font-size: 2rem;
-                bottom: 0;
-            }
-        </style>
-        <div class="main-content" style="">
-            <section style="width: 45vw;" class="pe-0 category-chart d-flex flex-row">
+    <div class=" main-content">
+        <div class="title_content">
+            <div>
+                <div class="main-header">
+                    Dashboard
+                </div>
+
+                <div class="sub-header">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around" style="">
+            {{!-- Tổng doanh thu card --}}
+            <section class="" style="width:30vw ;  heigh: 45vh">
+                <div class="card widget-card border-0" style="height: 100%;">
+                    <div class="card-body p-4 container d-flex flex-column">
+                        <div class="row">
+                            <div class="col-8">
+                                <h5 class="card-title widget-card-title mb-3">Tổng doanh thu</h5>
+                                <h4 class="card-subtitle  text-secondary m-0" id="sumRevenue">đ21,900</h4>
+                            </div>
+                            <div class="col-4">
+                                <div class="d-flex justify-content-end">
+                                    <div
+                                        class="lh-1 text-white bg-info rounded-circle p-3 d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-auto">
+                            <div class="col-12">
+                                <div class="d-flex align-items-center mt-3">
+                                    <span
+                                        class="lh-1 me-3 bg-success-subtle text-success rounded-circle p-1 d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-arrow-right-short bsb-rotate-n45"></i>
+                                    </span>
+                                    <div>
+                                        <p class="fs-7 mb-0">+26%</p>
+                                        <p class="fs-7 mb-0" id="percentDiff">So với tuần trước</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {{!-- Doanh thu on LoaiSP chart --}}
+            <section style="width: 50vw; heigh: 45vh" class="pe-0 category-chart d-flex flex-row">
                 <canvas class="" id="revenueChart" width="250px;" height="200"></canvas>
                 <div id="legendChart"></div>
             </section>
