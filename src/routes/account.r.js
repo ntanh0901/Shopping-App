@@ -232,12 +232,12 @@ router.get('/customer', async (req, res) => {
 
 
 router.post('/create_payment_url', function (req, res, next) {
-    // const ipAddr = req.headers['x-forwarded-for'] ||
-    //     req.connection.remoteAddress ||
-    //     req.socket.remoteAddress ||
-    //     req.connection.socket.remoteAddress;
+    const ipAddr = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress;
 
-    const ipAddr = '127.0.0.1'
+    //const ipAddr = '127.0.0.1'
     //var config = require('config');
     const dateFormat = require('dateformat');
 
