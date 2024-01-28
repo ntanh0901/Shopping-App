@@ -50,9 +50,9 @@ async function updateTable() {
   // users.sort((a, b) => a.MaND - b.MaND);
 
   users.forEach((user, index) => {
-    // if (!user.Anh) {
-    //   user.Anh = "/img/logo_hcmus.png";
-    // }
+    if (!user.Anh) {
+      user.Anh = "/img/logo_hcmus.png";
+    }
     let row = tableBody[0].insertRow(index);
     row.innerHTML = `<td>${index + 1}</td>
                        <td>${user.MaND}</td>

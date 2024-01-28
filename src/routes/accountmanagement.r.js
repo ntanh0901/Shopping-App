@@ -33,6 +33,10 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
 router.post('/removeImage', async (req, res) => {
     try {
         const deleteImgPath = req.body.imgs;
+        if (deleteImgPath === "/img/logo_hcmus.png") {
+            res.json(false);
+            return;
+        }
         const baseDirectory = path.join(__dirname, '../../public');
         const absolutePath = path.join(baseDirectory, deleteImgPath);
         // console.log(absolutePath);

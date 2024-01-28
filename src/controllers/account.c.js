@@ -119,9 +119,16 @@ module.exports = {
         try {
             const id = req.body.id;
             const deleteImgPath = req.body.imgs;
-            const baseDirectory = path.join(__dirname, '../../public');
-            const absolutePath = path.join(baseDirectory, deleteImgPath);
-            await fs.unlink(absolutePath);
+            try {
+                if (deleteImgPath !== "/img/logo_hcmus.png") {
+                    const baseDirectory = path.join(__dirname, '../../public');
+                    const absolutePath = path.join(baseDirectory, deleteImgPath);
+                    await fs.unlink(absolutePath);
+                }
+            }
+            catch (err) {
+                console.log("deleteProduct-deleteAvt error", err);
+            }
             if (await Account.delete(id))
                 res.json(true);
             else
