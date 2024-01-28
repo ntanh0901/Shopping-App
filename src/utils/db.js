@@ -244,6 +244,23 @@ async function insertData() {
 
     await insertWithoutID("NguoiDung", { HoTen: "Admin", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "admin@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "admin", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "0", LaAdmin: "1", DiaChi: null });
     await insertWithoutID("NguoiDung", { HoTen: "Khach Hang", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "khach@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "khach", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "1", LaAdmin: "0", DiaChi: null });
+
+    await insertWithoutID("HoaDon", { NgayLap: "2024-01-27", TongHoaDon: "2060", KHMua: "2" })
+    await insertWithoutID("HoaDon", { NgayLap: "2024-01-26", TongHoaDon: "1289.7", KHMua: "2" })
+    await insertWithoutID("HoaDon", { NgayLap: "2024-01-25", TongHoaDon: "529", KHMua: "2" })
+
+    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "1", SoLuong: "2", TongTien: "1000" });
+    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "2", SoLuong: "1", TongTien: "340" });
+    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "3", SoLuong: "1", TongTien: "720" });
+
+    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "4", SoLuong: "2", TongTien: "950" });
+    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "5", SoLuong: "1", TongTien: "263" });
+    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "6", SoLuong: "1", TongTien: "76.7" });
+
+    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "7", SoLuong: "2", TongTien: "100" });
+    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "8", SoLuong: "1", TongTien: "329" });
+    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "9", SoLuong: "1", TongTien: "100" });
+
 }
 async function insertWithoutID(tbName, entity) {
     try {
@@ -264,24 +281,25 @@ async function insertWithoutID(tbName, entity) {
     }
     return null;
 }
+
+async function insert (tbName, entity) {
+    try {
+        const query = pgp.helpers.insert(entity, null, tbName);
+        const result = await db.one(query + ' returning *');
+        if (result) {
+            console.log(`1 row inserted to ${tbName}.`);
+            return result;
+        } else {
+            console.log('No data returned from the query.');
+            return null;
+        }
+    } catch (error) {
+        console.log('Insert error: ', error);
+    }
+}
 module.exports = {
     insertWithoutID,
-    insert: async (tbName, entity) => {
-        try {
-            const query = pgp.helpers.insert(entity, null, tbName);
-            const result = await db.one(query + ' returning *');
-            if (result) {
-                console.log(`1 row inserted to ${tbName}.`);
-                return result;
-            } else {
-                console.log('No data returned from the query.');
-                return null;
-            }
-        } catch (error) {
-            console.log('Insert error: ', error);
-        }
-    },
-
+    insert,
     delete: async (tbName, col, val) => {
         try {
             const result = await db.result(
