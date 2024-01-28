@@ -78,7 +78,7 @@ async function submitForm() {
   const res = await updateAccount(adminInfo.id, {
     HoTen : adminInfo.name, SDT: adminInfo.phone, 
     NgaySinh: adminInfo.dob, Email: adminInfo.email, 
-    Anh: adminInfo.image, GioiTinh: adminInfo.sex, 
+    Anh: adminInfo.image, GioiTinh: adminInfo.gender || "Nam", 
     UserName: adminInfo.username, LaKhachHang: '0', LaAdmin: '1', DiaChi: adminInfo.address });
   if (!res) {
     $("#errorUsername").text("Username đã tồn tại");
