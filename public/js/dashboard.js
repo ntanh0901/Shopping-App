@@ -7,13 +7,13 @@ let adminInfo = {
   image: "/img/logo_hcmus.png",
   gender: "Nữ",
   username: "un1",
-  password: "pw1",
+  // password: "pw1",
   address: "Address 1",
   isCustomer: false,
   isAdmin: true,
 };
 
-updateDashboard();
+// updateDashboard();
 
 function updateDashboard() {
   $("#adminImage").attr("src", adminInfo.image);
@@ -45,13 +45,28 @@ function populateEditProfileModal() {
     "checked",
     adminInfo.gender.toLowerCase() === "nữ" ? true : false
   );
-  $("#editPhone").val(adminInfo.phone);
+  $("#editPhone").val(adminInfo.phone.trim());
   $("#editEmail").val(adminInfo.email);
   $("#editAddress").val(adminInfo.address);
 }
-function submitForm() {
+async function submitForm() {
   if (!validateForm()) return;
-  adminInfo.image = $("#editImage").attr("src");
+
+  let srcArray = adminInfo.image;
+
+  if (onAvtChangeFlag && srcArray && srcArray !== "") {   // Remove old images and add new
+    await removeAvt(srcArray);
+    const file = $("#productImage")[0].files[0];
+    let filename = (await uploadAvt(file)).filename;
+    const path = "/img/users/";
+    filename = path + filename;
+    srcArray = filename;
+  }
+  else {
+    srcArray = $("#editImage").attr("src");
+  }
+  adminInfo.image = srcArray;
+  // adminInfo.image = $("#editImage").attr("src");
   adminInfo.username = $("#editUsername").val();
   adminInfo.name = $("#editName").val();
   adminInfo.dob = $("#editDob").val();
@@ -59,6 +74,17 @@ function submitForm() {
   adminInfo.phone = $("#editPhone").val();
   adminInfo.email = $("#editEmail").val();
   adminInfo.address = $("#editAddress").val();
+
+  const res = await updateAccount(adminInfo.id, {
+    HoTen : adminInfo.name, SDT: adminInfo.phone, 
+    NgaySinh: adminInfo.dob, Email: adminInfo.email, 
+    Anh: adminInfo.image, GioiTinh: adminInfo.sex, 
+    UserName: adminInfo.username, LaKhachHang: '0', LaAdmin: '1', DiaChi: adminInfo.address });
+  if (!res) {
+    $("#errorUsername").text("Username đã tồn tại");
+    return;
+  }
+  onAvtChangeFlag = false;
 
   updateDashboard();
   $("#editProfileModal").modal("hide");
@@ -108,7 +134,7 @@ function validateForm() {
     $("#errorAddress").text("Địa chỉ trống!");
     isValid = false;
   }
-  if(!validteDob()) isValid = false;
+  if (!validteDob()) isValid = false;
 
   return isValid;
 }
@@ -132,6 +158,7 @@ function updateImagePreview(input) {
   } else {
     imagePreview.src = "";
   }
+  onAvtChangeFlag = true;
 }
 
 function validteDob() {
@@ -155,3 +182,54 @@ function validteDob() {
   }
   return isValid;
 }
+
+
+//-------------------------------
+async function getCurrentUser() {
+  try {
+    const response = await $.ajax({
+      url: `/currentUser`,
+      method: 'GET'
+    });
+    return response;
+  }
+  catch (err) {
+    console.error('Error fetching data:', err);
+  }
+}
+
+let onAvtChangeFlag = false;
+
+async function main() {
+  const user = await getCurrentUser();
+  // Parse dob
+  const dateObject = new Date(user.NgaySinh);
+  const year = dateObject.getFullYear();
+  const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+  const day = String(dateObject.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+  user.NgaySinh = formattedDate;
+
+  if (!adminInfo.image) {
+    adminInfo.image = ['/img/logo_hcmus.png'];
+  }
+  
+  // Set info
+  adminInfo = {
+    id: user.MaND,
+    name: user.HoTen,
+    phone: user.SDT,
+    dob: user.NgaySinh,
+    email: user.Email,
+    image: user.Anh,
+    gender: user.GioiTinh,
+    username: user.UserName,
+    address: user.DiaChi,
+    isCustomer: (user.LaKhachHang === '1') ? true : false,
+    isAdmin: (user.LaAdmin === '1') ? true : false,
+  };
+
+  updateDashboard();
+}
+
+main()

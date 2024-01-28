@@ -135,4 +135,13 @@ router.get('/fb/auth', passport.authenticate('facebook', {
         res.redirect('/client');
     });
 
+router.get('/currentUser', (req, res) => {
+    if (req.user) {
+        res.json(req.user);
+    }
+    else {
+        res.json(false);
+    }
+})
+
 module.exports = router;

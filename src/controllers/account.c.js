@@ -101,13 +101,18 @@ module.exports = {
         try {
             const id = req.body.id;
             const newval = req.body.newval;
+            const existed = await Account.getUserByUsername(newval.UserName);
+            if (existed) {
+                res.json(false);
+                return;
+            }
             if (await Account.update(
                 ["MaND", "HoTen", "SDT", "NgaySinh", "Email", "Anh", "GioiTinh", "UserName", "LaKhachHang", "LaAdmin", "DiaChi"],
                 [id, newval.HoTen, newval.SDT, newval.NgaySinh, newval.Email, newval.Anh, newval.GioiTinh, newval.UserName, newval.LaKhachHang, newval.LaAdmin, newval.DiaChi],
                 id))
                 res.json(true);
             else
-                res.json(false);
+                res.json(true);
         }
         catch (error) {
             console.log("updateAccount error: ", error);
