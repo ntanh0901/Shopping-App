@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const accountController = require('../controllers/account.c');
 
 router.get('/', (req, res) => {
     if (req.user) {
@@ -107,7 +108,7 @@ router.post('/signup', passport.authenticate('passport-signup', {
     successRedirect: '/client'
 }));
 
-router.post('/logout', (req, res) => {
+router.get('/logout', accountController.revokeToken, (req, res) => {
     req.logout(function (err) {
         if (err) { return next(err); }
         res.redirect('/login');
