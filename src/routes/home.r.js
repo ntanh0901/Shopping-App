@@ -15,6 +15,12 @@ router.get('/checkout', (req, res) => {
         title: 'Thanh toán'
     })
 });
+
+router.get('/wallet', (req, res) => {
+    res.render('client/wallet', {
+        title: 'Ví tiền'
+    })
+})
 router.get('/products/:slug', productController.show);
 
 

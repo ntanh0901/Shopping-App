@@ -12137,6 +12137,15 @@ textarea.form-control-lg {
   margin: auto;
 }
 
+.wallet-body {
+  min-height: 75vh;
+}
+.wallet-body .money-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
 .sidebar {
   height: 100vh;
   z-index: 2;
