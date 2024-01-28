@@ -13,15 +13,15 @@
                 <span>Thành tiền</span>
                 <span>Xóa</span>
             </div>
-
+            {{#each data}}
             <div class="grid-container bg-white rounded px-3 py-2">
                 <div class="d-flex gap-2 align-items-center">
-                    <input class="form-check-input" type="checkbox" name="" id="first">
-                    <label class="form-check-label flex-grow-1 product-label" for="first">
+                    <input class="form-check-input" type="checkbox" name="">
+                    <label class="form-check-label flex-grow-1 product-label">
                         <div class="img-container border rounded">
-                            <img src="/img/products/Bánh ăn sáng C'est bon.jpg" alt="" class="rounded">
+                            <img src="/{{this.product.Anh.[0]}}" alt="{{this.product.Ten}}" class="rounded">
                         </div>
-                        <a href="/">Bánh ăn sáng C'est bon</a>
+                        <a href="/client/products/{{this.id}}">{{this.product.Ten}}</a>
                     </label>
                 </div>
                 <span class="fw-bold">25.000&#8363;</span>
@@ -29,7 +29,7 @@
                     <button class="btn border" type="button">
                         <i class='bx bx-minus'></i>
                     </button>
-                    <input type="number" class="form-control" value="1" id="input-value">
+                    <input type="number" class="form-control" value="{{this.amount}}">
                     <button class="btn border" type="button">
                         <i class='bx bx-plus'></i>
                     </button>
@@ -39,7 +39,7 @@
                     <i class='bx bx-trash fs-4'></i>
                 </button>
             </div>
-
+            {{/each}}
              
         </section>
 
@@ -54,7 +54,7 @@
             </section>
 
             <section class="p-3 bg-white rounded">
-                <form class="d-flex flex-column">
+                <form class="d-flex flex-column" method="post" action="/client/checkout">
                     <div class="d-flex align-itmes-center justify-content-between">
                         <h6>Tổng tiền</h6>
                         <span class="fw-bold">25.000&#8363;</span>
@@ -65,3 +65,4 @@
         </section>
     </div>
 </div>
+{{> footer }}

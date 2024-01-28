@@ -35,8 +35,12 @@
             <a href="/client/cart" class="text-white">
                 <i class='bx bx-cart fs-4'></i>
             </a>
-            <span class="rounded-circle px-1 py-0 bg-danger text-white">12</span>
+            <span class="rounded-circle px-1 py-0 bg-danger text-white" id="cart-value-noti">0</span>
         </div>
-
     </section>
 </nav>
+<script>
+    let cartLength = sessionStorage.getItem("cartLength");
+    cartLength = !cartLength ? 0 : cartLength;
+    $('#cart-value-noti').text(cartLength);
+</script>
