@@ -249,17 +249,17 @@ async function insertData() {
     await insertWithoutID("HoaDon", { NgayLap: "2024-01-26", TongHoaDon: "1289.7", KHMua: "2" })
     await insertWithoutID("HoaDon", { NgayLap: "2024-01-25", TongHoaDon: "529", KHMua: "2" })
 
-    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "1", SoLuong: "2", TongTien: "1000" });
-    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "2", SoLuong: "1", TongTien: "340" });
-    await insert("ChiTietHoaDon", {MaHD: "1", MaSP: "3", SoLuong: "1", TongTien: "720" });
+    await insert("ChiTietHoaDon", { MaHD: "1", MaSP: "1", SoLuong: "2", TongTien: "1000" });
+    await insert("ChiTietHoaDon", { MaHD: "1", MaSP: "2", SoLuong: "1", TongTien: "340" });
+    await insert("ChiTietHoaDon", { MaHD: "1", MaSP: "3", SoLuong: "1", TongTien: "720" });
 
-    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "4", SoLuong: "2", TongTien: "950" });
-    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "5", SoLuong: "1", TongTien: "263" });
-    await insert("ChiTietHoaDon", {MaHD: "2", MaSP: "6", SoLuong: "1", TongTien: "76.7" });
+    await insert("ChiTietHoaDon", { MaHD: "2", MaSP: "4", SoLuong: "2", TongTien: "950" });
+    await insert("ChiTietHoaDon", { MaHD: "2", MaSP: "5", SoLuong: "1", TongTien: "263" });
+    await insert("ChiTietHoaDon", { MaHD: "2", MaSP: "6", SoLuong: "1", TongTien: "76.7" });
 
-    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "7", SoLuong: "2", TongTien: "100" });
-    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "8", SoLuong: "1", TongTien: "329" });
-    await insert("ChiTietHoaDon", {MaHD: "3", MaSP: "9", SoLuong: "1", TongTien: "100" });
+    await insert("ChiTietHoaDon", { MaHD: "3", MaSP: "7", SoLuong: "2", TongTien: "100" });
+    await insert("ChiTietHoaDon", { MaHD: "3", MaSP: "8", SoLuong: "1", TongTien: "329" });
+    await insert("ChiTietHoaDon", { MaHD: "3", MaSP: "9", SoLuong: "1", TongTien: "100" });
 
 }
 async function insertWithoutID(tbName, entity) {
@@ -282,7 +282,7 @@ async function insertWithoutID(tbName, entity) {
     return null;
 }
 
-async function insert (tbName, entity) {
+async function insert(tbName, entity) {
     try {
         const query = pgp.helpers.insert(entity, null, tbName);
         const result = await db.one(query + ' returning *');
@@ -548,6 +548,64 @@ module.exports = {
             return data;
         } catch (error) {
             console.log('searchAll2 error: ', error);
+        }
+    },
+
+    calculateTotals: async (colsToGroup, colsToSum, tbName, limit, orderBy) => {
+        try {
+            const quotedColsToGroup = colsToGroup.map(col => `"${col}"`);
+            const quotedColsToSum = colsToSum.map(col => `"${col}"`);
+
+            const selectColumns = quotedColsToGroup
+                .concat(quotedColsToSum.map(col => `SUM(${col}) AS ${col}`))
+                .join(', ');
+
+            const groupByColumns = quotedColsToGroup.join(', ');
+
+            let query = `
+            SELECT ${selectColumns}
+            FROM "${tbName}"
+            GROUP BY ${groupByColumns}`;
+            if (orderBy) {
+                query += ` ORDER BY "${orderBy}" DESC`
+            }
+            if (limit) {
+                query += ` LIMIT ${limit}`
+            }
+
+            const result = await db.any(query);
+            return result;
+        } catch (error) {
+            console.error('calculateTotals error: ', error);
+        }
+    },
+
+    joinAndCalculateTotals: async (tb1, tb2, col1, col2, colsToGroup, colsToSum, limit, orderBy) => {
+        try {
+            const quotedColsToGroup = colsToGroup.map(col => `"${col}"`);
+            const quotedColsToSum = colsToSum.map(col => `"${col}"`);
+
+            const selectColumns = quotedColsToGroup
+                .concat(quotedColsToSum.map(col => `SUM(${col}) AS ${col}`))
+                .join(', ');
+
+            const groupByColumns = quotedColsToGroup.join(', ');
+
+            let query = `
+            SELECT ${selectColumns}
+            FROM "${tb1}" JOIN "${tb2}" ON "${tb1}"."${col1}" = "${tb2}"."${col2}"
+            GROUP BY ${groupByColumns}`;
+
+            if (orderBy) {
+                query += ` ORDER BY "${orderBy}" DESC`
+            }
+            if (limit) {
+                query += ` LIMIT ${limit}`
+            }
+            const result = await db.any(query);
+            return result;
+        } catch (error) {
+            console.error('joinAndCalculateTotals error: ', error);
         }
     },
 }
