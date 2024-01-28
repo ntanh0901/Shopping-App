@@ -211,7 +211,7 @@ async function main() {
   user.NgaySinh = formattedDate;
 
   if (!adminInfo.image) {
-    adminInfo.image = ['/img/logo_hcmus.png'];
+    adminInfo.image = '/img/logo_hcmus.png';
   }
   
   // Set info

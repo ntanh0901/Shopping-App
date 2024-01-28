@@ -276,7 +276,7 @@ $("#userAddress")
     hideError("#errorAddress");
   });
 
-function submitForm() {
+async function submitForm() {
   let index = $("#editIndex").val();
 
   const validationResults = [];
@@ -332,7 +332,10 @@ function submitForm() {
     if (index === "-1") {
       addUser();
     } else {
-      saveEdit(index);
+      if(! (await saveEdit(index))) {
+        // console.log(false);
+        return;
+      };
     }
     $("#userFormModal").modal("hide");
   }
@@ -431,9 +434,14 @@ async function saveEdit(index) {
   user.DiaChi = $("#userAddress").val().trim();
   user.Anh = srcArray || "";
 
-  await updateAccount(users[index].MaND, user);
+  const res = await updateAccount(users[index].MaND, user);
+  if (!res) {
+    $("#userUsernameError").text("User name đã tồn tại!");
+    return false;
+  }
   await updateTable();
   onAvtChangeFlag = false;
+  return true;
 }
 
 function showForm() {

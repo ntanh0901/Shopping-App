@@ -126,6 +126,7 @@ module.exports = {
     //Product Management
 
     updateProduct: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         try {
             const id = req.body.id;
             const newval = req.body.newval;
@@ -144,6 +145,7 @@ module.exports = {
     },
 
     deleteProduct: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         try {
             const id = req.body.id;
             const deleteImgPath = req.body.imgs;
@@ -165,6 +167,7 @@ module.exports = {
     },
 
     addProduct: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         const name = req.body.name;
         const price = req.body.price;
         const stock = req.body.stock;

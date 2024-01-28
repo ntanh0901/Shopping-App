@@ -13,6 +13,7 @@ module.exports = {
     },
 
     updateCategories: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         try {
             const id = req.body.id;
             const newval = req.body.newval;
@@ -28,6 +29,7 @@ module.exports = {
     },
 
     deleteCategories: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         try {
             const id = req.body.id;
             if (await Categories.delete(id))
@@ -42,6 +44,7 @@ module.exports = {
     },
 
     addCategory: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         const name = req.body.name;
         const result = await Categories.insert(new Categories(name));
         if (result !== null)

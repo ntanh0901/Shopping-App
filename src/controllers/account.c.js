@@ -102,7 +102,8 @@ module.exports = {
             const id = req.body.id;
             const newval = req.body.newval;
             const existed = await Account.getUserByUsername(newval.UserName);
-            if (existed) {
+            if (existed && existed.MaND !== parseInt(id)) {
+                console.log('existed account');
                 res.json(false);
                 return;
             }
@@ -121,6 +122,7 @@ module.exports = {
     },
 
     deleteAccount: async (req, res) => {
+        if (!req.user || req.user.LaAdmin !== '1') res.redirect('/');
         try {
             const id = req.body.id;
             const deleteImgPath = req.body.imgs;
