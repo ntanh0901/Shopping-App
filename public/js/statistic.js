@@ -152,3 +152,63 @@ const horizontalBarChart = new Chart(top5chart, {
     },
   },
 });
+
+function calculateRevenue(period) {
+  switch (period) {
+    case "day":
+      return 100000;
+    case "month":
+      return 2000000;
+    case "year":
+      return 300000000;
+    default:
+      return 0;
+  }
+}
+
+function createRevenueCard(period, color) {
+  const revenue = calculateRevenue(period);
+
+  const card = document.createElement("div");
+
+  const cardContent = `
+  <div class=" p-2 d-flex justify-content-between align-items-center">
+  <div class="card-title text-black-50">${
+    getLocalizedPeriodLabel(period)
+  } </div>
+  <h4 class="rounded-1 card-text ${color} p-2 e-0 text-white text-end" style="width: 13rem">
+      ${revenue.toLocaleString("vi-VN")} ₫
+  </h4>
+</div>
+`;
+
+  card.innerHTML = cardContent;
+  return card;
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getLocalizedPeriodLabel(period) {
+  switch (period) {
+    case "day":
+      return "Ngày hiện tại";
+    case "month":
+      return "Tháng hiện tại";
+    case "year":
+      return "Năm hiện tại";
+    default:
+      return "";
+  }
+}
+
+const revenueSection = document.getElementById("revenueSection");
+
+const dayCard = createRevenueCard("day", "bg-primary");
+const monthCard = createRevenueCard("month", "bg-success");
+const yearCard = createRevenueCard("year", "bg-danger");
+
+revenueSection.appendChild(dayCard);
+revenueSection.appendChild(monthCard);
+revenueSection.appendChild(yearCard);

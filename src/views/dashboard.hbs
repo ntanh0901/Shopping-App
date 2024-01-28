@@ -16,14 +16,11 @@
                 <div class="main-header">
                     Dashboard
                 </div>
-
-                <div class="sub-header">
-                </div>
             </div>
         </div>
         <div class="d-flex justify-content-center" style="">
             {{!-- Tổng doanh thu card --}}
-            <section class="me-3" style="width:30vw ;  heigh: 45vh ">
+            <section class="me-3 col-4" style=" heigh: 45vh ">
                 <div class="card widget-card border-0" style="height: 100%;">
                     <div class="card-body p-4 container d-flex flex-column">
                         <div class="row">
@@ -55,16 +52,28 @@
             </section>
 
             {{!-- Doanh thu on LoaiSP chart --}}
-            <section style="width: 50vw; heigh: 45vh" class="pe-0 category-chart d-flex flex-row">
+            <section style=" heigh: 45vh" class="col-7 pe-0 category-chart d-flex flex-row">
                 <canvas class="" id="revenueChart" width="250px;" height="200"></canvas>
                 <div id="legendChart"></div>
             </section>
         </div>
         <br />
         <div class="d-flex justify-content-center" style="">
+            {{!-- Doanh thu on current day/month/year --}}
+            <section class="me-3 col-4 " style=" ;  heigh: 50vh">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">Doanh thu hiện tại</h5>
+                        <hr>
+                        <div class=" mt-4 d-flex flex-column" id="revenueSection">
+                        </div>
+
+                    </div>
+                </div>
+            </section>
             {{!-- Top 5 sản phẩm bán chạy nhất --}}
-            <section class="me-3 col-5 " style=" ;  heigh: 50vh">
-                <div class="card widget-card border-0" style="height: 100%;">
+            <section class="me-3 col-7 " style=" ;  heigh: 50vh">
+                <div class="card widget-card border-0">
                     <div class="card-body p-2 ps-4 container d-flex flex-column">
                         <div class="row">
                             <div class="col-9">
@@ -75,12 +84,7 @@
                         <hr>
                         <div class="row d-flex">
                             {{!-- chart --}}
-                            <canvas id="top5Chart" width="" height="200"></canvas>
-                            {{!-- table --}}
-                            {{!-- <div class="col-8">
-                                <div class="d-flex flex-column  mt-3" id="topProductsList">
-                                </div>
-                            </div> --}}
+                            <canvas  id="top5Chart" width="" height="200"></canvas>
                         </div>
                     </div>
                 </div>
