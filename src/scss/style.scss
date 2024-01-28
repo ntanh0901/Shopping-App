@@ -16,7 +16,6 @@ $sub-color: #7c8cac;
 @import "mixins";
 @import "login";
 @import "sidebar";
-@import "cashier_dashboard";
 @import "header";
 @import "categories";
 @import "products";
@@ -58,6 +57,7 @@ a {
   section{
   background-color: $nav-bg ;
   padding: 1rem;
+  margin:1rem;
   border-radius:1rem;
   }
 }

@@ -1,5 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
 <script type="module" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-horizontalbar@3.7.0"></script>
 <style>
     li::marker {
         font-size: 2rem;
@@ -62,7 +63,7 @@
         <br />
         <div class="d-flex justify-content-center" style="">
             {{!-- Top 5 sản phẩm bán chạy nhất --}}
-            <section class="me-3 col-5" style=" ;  heigh: 45vh">
+            <section class="me-3 col-5 " style=" ;  heigh: 50vh">
                 <div class="card widget-card border-0" style="height: 100%;">
                     <div class="card-body p-2 ps-4 container d-flex flex-column">
                         <div class="row">
@@ -72,20 +73,17 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-12">
+                        <div class="row d-flex">
+                            {{!-- chart --}}
+                            <canvas id="top5Chart" width="" height="200"></canvas>
+                            {{!-- table --}}
+                            {{!-- <div class="col-8">
                                 <div class="d-flex flex-column  mt-3" id="topProductsList">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
-            </section>
-
-            {{!-- Doanh thu on LoaiSP chart --}}
-            <section style="width: 50vw; heigh: 45vh" class="pe-0 category-chart d-flex flex-row">
-                <canvas class="" id="revenueChart" width="250px;" height="200"></canvas>
-                <div id="legendChart"></div>
             </section>
         </div>
         <script src="/js/statistic.js"></script>

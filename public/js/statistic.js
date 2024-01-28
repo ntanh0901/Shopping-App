@@ -95,6 +95,7 @@ legendHTML += `</ul>`;
 $("#legendChart").html(legendHTML);
 
 // Top 5 best seller
+// -- table
 const top5 = [
   { name: "Đồng hồ nam dây da Skmei 90TCK58", sold: 150 },
   { name: "Thảm Tập Yoga TPE", sold: 120 },
@@ -107,10 +108,47 @@ top5.forEach((product, index) => {
   const listItem = `
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <span class="badge bg-light text-primary me-2 mb-2">${index + 1}</span>
+                <span class="badge bg-light text-primary me-2 mb-2">${
+                  index + 1
+                }</span>
                 ${product.name}
             </div>
             <span class="badge bg-success">${product.sold} sold</span>
         </li>`;
   $("#topProductsList").append(listItem);
+});
+
+// --chart
+const productNames = top5.map((item) => item.name);
+const soldQuantities = top5.map((item) => item.sold);
+function getRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  const pastel = `hsl(${hue}, 70%, 80%)`;
+  return pastel;
+}
+const backgroundColors = top5.map(() => getRandomColor());
+let top5chart = document.getElementById("top5Chart").getContext("2d");
+const horizontalBarChart = new Chart(top5chart, {
+  type: "bar",
+  data: {
+    labels: productNames,
+    datasets: [
+      {
+        label: "Sold Quantities",
+        data: soldQuantities,
+        backgroundColor: backgroundColors,
+        borderColor: backgroundColors,
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    responsive: false,
+    indexAxis: "y",
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  },
 });
