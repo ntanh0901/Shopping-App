@@ -17,17 +17,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const imageFilter = function (req, file, cb) {
-    // Chỉ chấp nhận file có kiểu MIME là ảnh
-    const allowedMimes = ['image/jpeg', 'image/png', 'image/gif'];
-    if (allowedMimes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(new Error('Only image files are allowed!'), false);
-    }
-};
-
-const upload = multer({ storage: storage, fileFilter: imageFilter });
+const upload = multer({ storage: storage });
 
 router.post('/upload', upload.single('file'), function (req, res, next) {
     if (!req.file) {

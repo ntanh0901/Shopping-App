@@ -1,6 +1,8 @@
 const Account = require('../models/account.m');
 const fs = require('fs').promises;
 const path = require('path');
+const bcrypt = require('bcrypt');
+const saltBounds = 10;
 
 module.exports = {
     // GetAllAccount: async (req, res) => {
@@ -135,12 +137,19 @@ module.exports = {
     },
 
     addAccount: async (req, res) => {
-        const newval = req.body.acc;
-        const result = await Product.insert(new Account(
-            newval.HoTen, newval.SDT, newval.NgaySinh,
-            newval.Email, newval.Anh, newval.GioiTinh,
-            newval.Username, newval.MatKhau,
-            newval.LaKhachHang, newval.LaAdmin, newval.DiaChi));
-        res.json(result);
+        try {
+            const newval = req.body.acc;
+            const isAdmin = (newval.role === "Admin") ? '1' : '0';
+            const isCustomer = (newval.role === "Khách hàng") ? '1' : '0';
+            const HashPW = await bcrypt.hash(newval.MatKhau, saltBounds);
+            const result = await Account.insert(new Account(
+                newval.HoTen, newval.SDT, newval.NgaySinh,
+                newval.Email, newval.Anh, newval.GioiTinh,
+                newval.UserName, HashPW,
+                isCustomer, isAdmin, newval.DiaChi));
+            res.json(result);
+        } catch (error) {
+            res.join(false);
+        }
     }
 }

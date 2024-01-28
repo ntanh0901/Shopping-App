@@ -50,9 +50,9 @@ async function updateTable() {
   // users.sort((a, b) => a.MaND - b.MaND);
 
   users.forEach((user, index) => {
-    if (!user.Anh) {
-      user.Anh = "/img/logo_hcmus.png";
-    }
+    // if (!user.Anh) {
+    //   user.Anh = "/img/logo_hcmus.png";
+    // }
     let row = tableBody[0].insertRow(index);
     row.innerHTML = `<td>${index + 1}</td>
                        <td>${user.MaND}</td>
@@ -347,21 +347,46 @@ function validateUsername(newUsername, currentIndex) {
   return isValid;
 }
 
-function addUser() {
+async function addUser() {
+  // Upload avt
+  const file = $("#uploadUserImage")[0].files[0];
+  const filename = (await uploadAvt(file)).filename;
+  const path = "/img/users/";
+  const imagePath = path + filename;
+  console.log(imagePath);
+
   let user = {
-    id: "0",
-    name: $("#userFullName").val().trim(),
-    username: $("#userUsername").val().trim(),
-    gender: $('input[name="userGender"]:checked').val(),
-    phone: $("#userPhone").val().trim(),
-    dob: $("#userDob").val().trim(),
-    email: $("#userEmail").val().trim(),
-    address: $("#userAddress").val().trim(),
-    image: $("#userImage").attr("src") || "",
+    MaND: "0",
+    HoTen: $("#userFullName").val().trim(),
+    UserName: $("#userUsername").val().trim(),
+    GioiTinh: $('input[name="userGender"]:checked').val(),
+    SDT: $("#userPhone").val().trim(),
+    NgaySinh: $("#userDob").val().trim(),
+    Email: $("#userEmail").val().trim(),
+    DiaChi: $("#userAddress").val().trim(),
+    // image: $("#userImage").attr("src") || "",
+    Anh: imagePath || "",
+    role: $('#userRole').val(),
+    MatKhau: $('#userPassword').val()
   };
 
+  const result = await addAccount(user);
+  if (!result) {
+    // Handle error here
+    console.log('error');
+    return;
+  }
+  user.MaND = result.MaND;
+  // // End of page
+  // if (products.length < perpage) {
+  //   products.push(product);
+  // }
+  // else if (lastPage === totalPages) {
+  //   loadPage(currentType, currentPage);
+  // }
+
   users.push(user);
-  updateTable();
+  await updateTable();
 }
 
 function saveEdit(index) {

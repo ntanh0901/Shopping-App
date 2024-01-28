@@ -47,11 +47,45 @@ async function deleteAccount(id, imgs) {
 async function addAccount(acc) {
     try {
         const response = await $.ajax({
-            url: `/admin/accountsmanagement/addProduct`,
+            url: `/admin/accountsmanagement/addAccount`,
             method: 'POST',
             data: {
                 acc: acc
             },
+        });
+        return response;
+    }
+    catch (err) {
+        console.error('Error fetching data:', err);
+    }
+}
+
+async function uploadAvt(file) {
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const response = await $.ajax({
+            url: `/admin/accountsmanagement/upload`,
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false
+        });
+        return response;
+    }
+    catch (err) {
+        console.error('Error fetching data:', err);
+    }
+}
+
+async function removeAvt(imgs) {
+    try {
+        const response = await $.ajax({
+            url: `/admin/accountsmanagement/removeImage`,
+            method: 'POST',
+            data: {
+                imgs: imgs
+            }
         });
         return response;
     }
