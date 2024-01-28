@@ -10,6 +10,11 @@ router.get('/cart', (req, res) => {
         title: 'Giỏ hàng'
     })
 });
+router.get('/checkout', (req, res) => {
+    res.render('client/checkout', {
+        title: 'Thanh toán'
+    })
+});
 router.get('/products/:slug', productController.show);
 
 

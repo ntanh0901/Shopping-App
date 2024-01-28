@@ -1,0 +1,50 @@
+{{> topbar }}
+<div class="checkout-body bg-light px-4 py-3 d-flex gap-4">
+    <section class="d-flex flex-grow-1 flex-column gap-3">
+        <div class="bg-white rounded p-3">
+            <h5 class="mb-3">Thông tin đơn hàng</h5>
+            <div class="grid-container rounded border p-3 mb-3">
+                <div class="img-container">
+                    <img src="/img/products/Bánh ăn sáng C'est bon.jpg" alt="">
+                </div>
+                <span>Bánh ăn sáng C'est bon</span>
+                <span>Số lượng: x1</span>
+                <span>25.000&#8363;</span>
+            </div>
+        </div>
+        <div class="bg-white rounded p-3">
+            <h5 class="mb-3">Hình thức thanh toán</h5>
+            <div class="d-flex align-items-center mb-4 gap-3">
+                <i class='bx bx-wallet fs-4' ></i> 
+                <span>Thanh toán bằng số dư</span>
+            </div>
+
+            <div class="d-flex align-items-center text-danger gap-3">
+                <i class='bx bx-money fs-4' ></i>
+                <span>Số dư hiện tại: 500.000&#8363;</span>
+            </div>
+        </div>
+    </section>
+    <section class="checkout-form d-flex flex-column gap-3">
+        <section class="address-container p-3 rounded bg-white">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6 class="text-muted m-0 fw-light">Giao tới</h6>
+                <a href="/">Thay đổi</a>
+            </div>
+            <p>Ngô Tuấn Đạt | 0966452047</p>
+            <p class="text-muted fw-light">18, Buôn Jung 2, Xã Ea Yông, Huyện Krông Pắc, Đắk Lắk</p>
+        </section>
+
+        <section class="p-3 bg-white rounded">
+            <form class="d-flex flex-column gap-3">
+                <h6>Đơn hàng <span class="text-muted"> (1 sản phẩm) </span></h6>
+                <div class="d-flex align-itmes-center justify-content-between">
+                    <h6>Tổng tiền</h6>
+                    <span class="fw-bold">25.000&#8363;</span>
+                </div>
+                <button class="btn btn-danger">Thanh toán</button>
+            </form>
+        </section>
+    </section>
+</div>
+{{> footer }}
