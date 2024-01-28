@@ -13,9 +13,11 @@ $light: #F5F5FA;
 
 @import "variables";
 @import "mixins";
+@import "topbar";
 @import "login";
 @import "home";
 @import "product";
+@import "cart";
 @import "sidebar";
 @import "cashier_dashboard";
 @import "edit_profile";

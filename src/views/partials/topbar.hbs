@@ -10,14 +10,15 @@
                 <span class="input-group-text border-0 bg-white">
                     <i class='bx bx-search'></i>
                 </span>
-                <input class="form-control shadow-none border-0" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <input class="form-control shadow-none border-0" type="search" placeholder="Search" aria-label="Search"
+                    id="searchInput">
                 <button class="btn btn-secondary" id="searchButton">Search</button>
             </div>
         </form>
 
         <div class="btn-group">
-            <button type="button" class="btn border-0  dropdown-toggle text-white d-flex align-items-center" data-bs-toggle="dropdown"
-                aria-expanded="false">
+            <button type="button" class="btn border-0  dropdown-toggle text-white d-flex align-items-center"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <i class='bx bxs-user fs-4'></i> Tài khoản
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -29,8 +30,12 @@
                 <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
             </ul>
         </div>
-        <a href="/client/cart" class="text-white">
-            <i class='bx bx-cart fs-4'></i>
-        </a>
+        <div class="cart-notification">
+            <a href="/client/cart" class="text-white">
+                <i class='bx bx-cart fs-4'></i>
+            </a>
+            <span class="rounded-circle px-1 py-0 bg-danger text-white">12</span>
+        </div>
+
     </section>
 </nav>
