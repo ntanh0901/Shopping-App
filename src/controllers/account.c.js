@@ -65,6 +65,15 @@ module.exports = {
             } else {
                 data = await Account.getSearch(searchInput, searchCol);
             }
+            for (let i = 0; i < data.length; i++) {
+                delete data[i].MatKhau;
+                const dateObject = new Date(data[i].NgaySinh);
+                const year = dateObject.getFullYear();
+                const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObject.getDate()).padStart(2, '0');
+                const formattedDate = `${year}-${month}-${day}`;
+                data[i].NgaySinh = formattedDate;
+            }
 
             const total = data.length;
 
@@ -80,7 +89,6 @@ module.exports = {
                 data: data,
                 perpage: itemsPerPage,
                 total: total,
-                type: type,
                 totalPages: totalPages
             });
         } catch (error) {
@@ -129,9 +137,9 @@ module.exports = {
     addAccount: async (req, res) => {
         const newval = req.body.acc;
         const result = await Product.insert(new Account(
-            newval.HoTen, newval.SDT, newval.NgaySinh, 
-            newval.Email, newval.Anh, newval.GioiTinh, 
-            newval.Username, newval.MatKhau, 
+            newval.HoTen, newval.SDT, newval.NgaySinh,
+            newval.Email, newval.Anh, newval.GioiTinh,
+            newval.Username, newval.MatKhau,
             newval.LaKhachHang, newval.LaAdmin, newval.DiaChi));
         res.json(result);
     }

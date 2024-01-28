@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const accountController = require('../controllers/account.c');
 
-router.get('/getAccount', accountController.getAccounts);
+router.get('/getAccounts', accountController.getAccounts);
 router.post('/updateAccount', accountController.updateAccount);
 router.post('/deleteAccount', accountController.deleteAccount);
 router.post('/addAccount', accountController.addAccount);

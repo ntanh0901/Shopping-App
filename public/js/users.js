@@ -1,62 +1,62 @@
-let roles = ['Admin','Khách hàng']
-let users = [
-  {
-    id: 1,
-    name: "Bob",
-    phone: "0123456789",
-    dob: "1996-12-02",
-    email: "bob@gmail.com",
-    image: "/img/logo_hcmus.png",
-    gender: "Nữ",
-    username: "un1",
-    password: "pw1",
-    address: "Address 1",
-    isCustomer: false,
-    isAdmin:true
-  },
-  {
-    id: 2,
-    name: "Alice",
-    phone: "0123456789",
-    dob: "2020-01-01",
-    email: "alice@gmail.com",
-    image: "/img/logo_hcmus.png",
-    gender: "Nam",
-    username: "un2",
-    password: "pw2",
-    address: "Address 2",
-    isCustomer: true,
-    isAdmin:true
-  },
-  {
-    id: 3,
-    name: "Charlie",
-    phone: "0123456789",
-    dob: "1994-05-11",
-    email: "charlie@gmail.com",
-    image: "/img/logo_hcmus.png",
-    gender: "Nữ",
-    username: "un3",
-    password: "pw3",
-    address: "Address 3",
-    isCustomer: true,
-    isAdmin:false
-  },
-];
-updateTable();
-function updateTable() {
+let roles = ['Admin', 'Khách hàng']
+// let users = [
+//   {
+//     id: 1,
+//     name: "Bob",
+//     phone: "0123456789",
+//     dob: "1996-12-02",
+//     email: "bob@gmail.com",
+//     image: "/img/logo_hcmus.png",
+//     gender: "Nữ",
+//     username: "un1",
+//     password: "pw1",
+//     address: "Address 1",
+//     isCustomer: false,
+//     isAdmin: true
+//   },
+//   {
+//     id: 2,
+//     name: "Alice",
+//     phone: "0123456789",
+//     dob: "2020-01-01",
+//     email: "alice@gmail.com",
+//     image: "/img/logo_hcmus.png",
+//     gender: "Nam",
+//     username: "un2",
+//     password: "pw2",
+//     address: "Address 2",
+//     isCustomer: true,
+//     isAdmin: true
+//   },
+//   {
+//     id: 3,
+//     name: "Charlie",
+//     phone: "0123456789",
+//     dob: "1994-05-11",
+//     email: "charlie@gmail.com",
+//     image: "/img/logo_hcmus.png",
+//     gender: "Nữ",
+//     username: "un3",
+//     password: "pw3",
+//     address: "Address 3",
+//     isCustomer: true,
+//     isAdmin: false
+//   },
+// ];
+// updateTable();
+async function updateTable() {
   let tableBody = $("#userTable tbody").html("");
 
-  users.sort((a, b) => a.id - b.id);
+  // users.sort((a, b) => a.MaND - b.MaND);
 
   users.forEach((user, index) => {
-    if (!user.image) {
-      user.image = "/img/logo_hcmus.png";
+    if (!user.Anh) {
+      user.Anh = "/img/logo_hcmus.png";
     }
     let row = tableBody[0].insertRow(index);
     row.innerHTML = `<td>${index + 1}</td>
-                       <td>${user.id}</td>
-                       <td>${user.name}</td>
+                       <td>${user.MaND}</td>
+                       <td>${user.HoTen}</td>
                        <td> 
                           <i class='bx bx-file-find text-dark cursor-pointer' role="button" onclick="viewUser(${index})" title="Xem"></i>
                           <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editUser(${index})" title="Sửa"></i>
@@ -87,7 +87,7 @@ function addNewUser() {
 
 function viewUser(index) {
   resetForm();
-  $("#modalTitle").text(users[index].name);
+  $("#modalTitle").text(users[index].HoTen);
   $("#password").hide();
   $("#repassword").hide();
   $(".modal-footer").hide();
@@ -124,29 +124,29 @@ function makeReadonly(isReadonly) {
 }
 
 function populateForm(user) {
-  $("#userRole").val(user.isAdmin?"Admin":"Khách hàng");
-  $("#userFullName").val(user.name);
-  $("#userUsername").val(user.username);
+  $("#userRole").val(user.LaAdmin ? "Admin" : "Khách hàng");
+  $("#userFullName").val(user.HoTen);
+  $("#userUsername").val(user.UserName);
   $("#editNam").prop(
     "checked",
-    user.gender.toLowerCase() === "nam" ? true : false
+    user.GioiTinh.toLowerCase() === "nam" ? true : false
   );
   $("#editNu").prop(
     "checked",
-    user.gender.toLowerCase() === "nữ" ? true : false
+    user.GioiTinh.toLowerCase() === "nữ" ? true : false
   );
-  $("#userPhone").val(user.phone);
-  $("#userDob").val(user.dob);
-  $("#userEmail").val(user.email);
-  $("#userAddress").val(user.address);
-  $("#userImage").attr("src", user.image);
+  $("#userPhone").val(user.SDT);
+  $("#userDob").val(user.NgaySinh);
+  $("#userEmail").val(user.Email);
+  $("#userAddress").val(user.DiaChi);
+  $("#userImage").attr("src", user.Anh);
 }
 
 let deletionIndex;
 function deleteUser(index) {
   resetForm();
   deletionIndex = index;
-  let userName = users[index].name;
+  let userName = users[index].HoTen;
   $("#userToDelete").text(userName);
   $("#deleteUserBtn").data("index", index);
   $("#deleteConfirmationModal").modal("show");
@@ -340,7 +340,7 @@ function validateImage() {
 function validateUsername(newUsername, currentIndex) {
   let isValid = !users.some(
     (user, index) =>
-      index != currentIndex && user.username.trim() === newUsername
+      index != currentIndex && user.UserName.trim() === newUsername
   );
 
   if (!isValid) $("#userUsernameError").text("User name đã tồn tại!");
@@ -367,16 +367,16 @@ function addUser() {
 function saveEdit(index) {
   let user = users[index];
 
-  user.isAdmin = $("#userRole").val().trim() === "Admin"?true:false;
-  user.isCustomer = !user.isAdmin;
-  user.name = $("#userFullName").val().trim();
-  user.username = $("#userUsername").val().trim();
-  user.gender = $('input[name="userGender"]:checked').val();
-  user.phone = $("#userPhone").val().trim();
-  user.dob = $("#userDob").val().trim();
-  user.email = $("#userEmail").val().trim();
-  user.address = $("#userAddress").val().trim();
-  user.image = $("#userImage").attr("src") || "";
+  user.LaAdmin = $("#userRole").val().trim() === "Admin" ? true : false;
+  user.LaKhachHang = !user.LaAdmin;
+  user.HoTen = $("#userFullName").val().trim();
+  user.UserName = $("#userUsername").val().trim();
+  user.GioiTinh = $('input[name="userGender"]:checked').val();
+  user.SDT = $("#userPhone").val().trim();
+  user.NgaySinh = $("#userDob").val().trim();
+  user.Email = $("#userEmail").val().trim();
+  user.DiaChi = $("#userAddress").val().trim();
+  user.Anh = $("#userImage").attr("src") || "";
 
   updateTable();
 }
@@ -443,11 +443,35 @@ function validatePassword() {
 }
 
 function populateRole() {
-	let roleInput = $("#userRole");
-	roleInput.empty();
-	roles.forEach(role => {
-		roleInput.append(`<option value="${role}">${role}</option>`);
-	});
+  let roleInput = $("#userRole");
+  roleInput.empty();
+  roles.forEach(role => {
+    roleInput.append(`<option value="${role}">${role}</option>`);
+  });
 }
 
 populateRole();
+
+let users;
+async function main() {
+  data = await getAccounts(1);
+  users = data.data;
+  console.log(data);
+  await updateTable();
+
+  perpage = data.perpage;
+  totalPages = data.totalPages;
+  showedPages = (totalPages < showedPages) ? totalPages : showedPages;
+  lastPage = showedPages;
+  // loadPageContainer(firstPage, lastPage);
+}
+main();
+
+// Pagination
+let currentPage = 1;
+let totalPages = null;
+let showedPages = 5;
+let firstPage = 1;
+let lastPage = null;
+let currentType = 'Tất cả';
+let perpage = null;
