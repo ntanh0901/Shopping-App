@@ -1,8 +1,13 @@
-async function getAccounts(page) {
+async function getAccounts(page, searchinput, sortOrder) {
     try {
         const response = await $.ajax({
-            url: `/admin/accountsmanagement/getAccounts?page=${page}`,
-            method: 'GET'
+            url: `/admin/accountsmanagement/getAccounts`,
+            method: 'POST',
+            data: {
+                page: page,
+                searchinput: searchinput,
+                orderBy: sortOrder
+            }
         });
         return response;
     } catch (err) {

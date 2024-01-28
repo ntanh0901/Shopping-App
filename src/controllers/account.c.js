@@ -56,16 +56,16 @@ module.exports = {
     // }
     getAccounts: async (req, res, next) => {
         try {
-            const orderBy = req.query.orderBy || "MaND";
-            const isDesc = req.query.isDesc || false;
-            const searchInput = req.query.search || null;
-            const searchCol = req.query.searchCol || "HoTen";
+            const orderBy = req.body.orderBy || "MaND";
+            const isDesc = req.body.isDesc || false;
+            const searchInput = req.body.searchinput || null;
+            const searchCol = req.body.searchCol || "HoTen";
             let data = null;
             if (searchInput === null) {
                 data = await Account.getAllBy(orderBy, isDesc);
                 // console.log(data);
             } else {
-                data = await Account.getSearch(searchInput, searchCol);
+                data = await Account.getSearch(searchInput, searchCol, orderBy);
             }
             for (let i = 0; i < data.length; i++) {
                 delete data[i].MatKhau;
@@ -79,8 +79,8 @@ module.exports = {
 
             const total = data.length;
 
-            const currentPage = req.query.page || 1;
-            const itemsPerPage = 5;
+            const currentPage = req.body.page || 1;
+            const itemsPerPage = 2;
 
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;

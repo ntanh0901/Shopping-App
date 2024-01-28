@@ -4,7 +4,7 @@ const accountController = require('../controllers/account.c');
 const fs = require('fs').promises;
 const path = require('path');
 
-router.get('/getAccounts', accountController.getAccounts);
+router.post('/getAccounts', accountController.getAccounts);
 router.post('/updateAccount', accountController.updateAccount);
 router.post('/deleteAccount', accountController.deleteAccount);
 router.post('/addAccount', accountController.addAccount);

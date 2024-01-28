@@ -11,6 +11,29 @@
         </div>
     </div>
 
+    <div class="row text-center align-self-center mb-3">
+        <div class="col px-3">
+            <select class="form-select" aria-label="Default select example" id="sort">
+
+            </select>
+        </div>
+        <div class="col px3">
+            <div class="m-3 pagination d-flex gap-2 justify-content-center">
+                <button id="previous-page" class="btn"><i class='bx bxs-chevrons-left'></i></button>
+                <div id="page-container" class="d-flex gap-2">
+
+                </div>
+                <button id="next-page" class="btn"><i class='bx bxs-chevrons-right'></i></button>
+            </div>
+        </div>
+        <div class="col px-3">
+            <form class="d-flex" role="search" method="post" action="/">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" id="searchInput">
+                <button class="btn btn-outline-success" type="button" id="searchbtn">Search</button>
+            </form>
+        </div>
+    </div>
+
     <div class="position-relative  mx-auto w-50">
         <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="userTable">
             <thead class="my-auto">

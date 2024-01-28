@@ -158,10 +158,10 @@ async function confirmDeleteUser(index) {
   const result = await deleteAccount(users[index].MaND, users[index].Anh);
   if (result) {
     users.splice(deletionIndex, 1);
-    // if (products.length === 0 && currentPage > 1) {
-    //   lastPage--;firstPage--;
-    //   loadPage(currentType, --currentPage);
-    // }
+    if (users.length === 0 && currentPage > 1) {
+      lastPage--; firstPage--;
+      loadPage(--currentPage, currentSearch, currentSort);
+    }
     await updateTable();
   }
   else {
@@ -388,15 +388,16 @@ async function addUser() {
     return;
   }
   user.MaND = result.MaND;
-  // // End of page
-  // if (products.length < perpage) {
-  //   products.push(product);
-  // }
-  // else if (lastPage === totalPages) {
-  //   loadPage(currentType, currentPage);
-  // }
+  // End of page
+  if (users.length < perpage) {
+    users.push(user);
+  }
+  else if (lastPage === totalPages) {
+    if (lastPage < maxShowedPages) lastPage++;
+    loadPage(currentPage, currentSearch, currentSort);
+  }
 
-  users.push(user);
+  // users.push(user);
   await updateTable();
   onAvtChangeFlag = false;
 }
@@ -509,25 +510,120 @@ populateRole();
 
 let onAvtChangeFlag = false;
 let users;
-async function main() {
-  data = await getAccounts(1);
-  users = data.data;
-  console.log(data);
-  await updateTable();
-
-  perpage = data.perpage;
-  totalPages = data.totalPages;
-  showedPages = (totalPages < showedPages) ? totalPages : showedPages;
-  lastPage = showedPages;
-  // loadPageContainer(firstPage, lastPage);
-}
-main();
 
 // Pagination
 let currentPage = 1;
 let totalPages = null;
-let showedPages = 5;
+const maxShowedPages = 3;
+let showedPages = 3;
 let firstPage = 1;
 let lastPage = null;
-let currentType = 'Tất cả';
 let perpage = null;
+let currentSearch = null;
+let currentSort = null;
+
+async function main(searchInput, sortOrder) {
+  currentPage = 1;
+  totalPages = null;
+  showedPages = null;
+  firstPage = 1;
+  lastPage = null;
+  perpage = null;
+
+  data = await getAccounts(1, searchInput, sortOrder);
+  // console.log(searchInput, sortOrder);
+  users = data.data;
+  // console.log(users);
+  await updateTable();
+
+  perpage = data.perpage;
+  totalPages = data.totalPages;
+  showedPages = (totalPages < maxShowedPages) ? totalPages : maxShowedPages;
+  lastPage = showedPages;
+  firstPage = 1;
+  loadPageContainer(firstPage, lastPage);
+}
+main(null, null);
+
+function loadPageContainer(first, last) {
+  // console.log(first, last);
+  $('#page-container').empty();
+  if (first < 1) first = 1;
+  if (last < first) last = first;
+  for (let i = first; i <= last; i++) {
+    $('#page-container').append(`<button class="page-click ${i == currentPage ? "active" : ""}">${i}</button>`);
+  }
+  $('.page-click').on('click', function () {
+    if ($('.page-active').length) {
+      $('.page-active').removeClass('page-active');
+    }
+    $(this).addClass('page-active');
+    currentPage = parseInt($(this).text());
+    loadPage(currentPage, currentSearch, currentSort);
+  });
+}
+
+// next page button click event
+$('#next-page').on('click', function () {
+  if (currentPage < totalPages) {
+    ++currentPage;
+    loadPage(currentPage, currentSearch, currentSort);
+    if (currentPage > lastPage) {
+      firstPage++;
+      lastPage++;
+    }
+  }
+});
+
+// previous page button click event
+$('#previous-page').on('click', function () {
+
+  if (currentPage > 1) {
+    --currentPage;
+    loadPage(currentPage, currentSearch, currentSort);
+    if (currentPage < firstPage) {
+      firstPage--;
+      lastPage--;
+    }
+  }
+})
+
+async function loadPage(page, searchInput, sortOrder) {
+  // console.log("load page: ", page);
+  data = await getAccounts(page, searchInput, sortOrder);
+  users = data.data;
+  await updateTable();
+
+  currentPage = page;
+  perpage = data.perpage;
+  totalPages = data.totalPages;
+
+  if (lastPage > totalPages) lastPage = totalPages;
+
+  loadPageContainer(firstPage, lastPage);
+}
+
+async function search(input) {
+  if (input === "" || input === null) await main(null, currentSort);
+  currentSearch = input;
+  await main(input, currentSort);
+}
+
+$('#searchbtn').on('click', async () => {
+  await search($('#searchInput').val().trim());
+})
+
+
+const sortKeys = ["MaND", "HoTen"];
+
+sortKeys.forEach(key => {
+  $('#sort').append(`
+    <option value="${key}">${key}</option>
+  `);
+});
+
+$('#sort').change(async function () {
+  const selectedValue = $(this).val();
+  currentSort = selectedValue;
+  await loadPage(1, currentSearch, selectedValue);
+})

@@ -208,42 +208,42 @@ async function create() {
 }
 async function insertData() {
     // Product
-    await insertWithoutID("Loai", {TenLoai: "Đồng hồ"});
-    await insertWithoutID("Loai", {TenLoai: "Bách hóa"});
-    await insertWithoutID("Loai", {TenLoai: "Thể thao"});
-    await insertWithoutID("Loai", {TenLoai: "Nhà cửa và đời sống "});
-    await insertWithoutID("Loai", {TenLoai: "Phụ kiện thời trang"});
+    await insertWithoutID("Loai", { TenLoai: "Đồng hồ" });
+    await insertWithoutID("Loai", { TenLoai: "Bách hóa" });
+    await insertWithoutID("Loai", { TenLoai: "Thể thao" });
+    await insertWithoutID("Loai", { TenLoai: "Nhà cửa và đời sống " });
+    await insertWithoutID("Loai", { TenLoai: "Phụ kiện thời trang" });
 
     const link = "/img/products/";
     const ext = ".jpg";
-    await insertWithoutID("SanPham", {Ten: "Đồng hồ nam dây da Skmei 90TCK58", DonGia: "500", SoLuongTon: "100", Anh: [link + "Đồng hồ nam dây da Skmei 90TCK58" + ext], MaLoai: "1"})
-    await insertWithoutID("SanPham", {Ten: "Đồng hồ Nam thể thao SKMEI 1155B", DonGia: "340", SoLuongTon: "100", Anh: [link + "Đồng hồ Nam thể thao SKMEI 1155B" + ext], MaLoai: "1"})
-    await insertWithoutID("SanPham", {Ten: "Đồng hồ Nữ Daniel Klein", DonGia: "720", SoLuongTon: "100", Anh: [link + "Đồng hồ Nữ Daniel Klein" + ext], MaLoai: "1"})
-    await insertWithoutID("SanPham", {Ten: "Đồng Hồ Nữ JA-1017 Julius", DonGia: "475", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JA-1017 Julius" + ext], MaLoai: "1"})
-    await insertWithoutID("SanPham", {Ten: "Đồng Hồ Nữ JS-060 Julius", DonGia: "263", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JS-060 Julius" + ext], MaLoai: "1"})
-    await insertWithoutID("SanPham", {Ten: "Dầu Đậu Nành Simply", DonGia: "76.7", SoLuongTon: "100", Anh: [link + "Dầu Đậu Nành Simply" + ext], MaLoai: "2"})
-    await insertWithoutID("SanPham", {Ten: "Hộp quà Tết OREO 463.2g", DonGia: "50", SoLuongTon: "100", Anh: [link + "Hộp quà Tết OREO 463.2g" + ext], MaLoai: "2"})
-    await insertWithoutID("SanPham", {Ten: "Bình Giữ Nhiệt Lock&Lock", DonGia: "329", SoLuongTon: "100", Anh: [link + "Bình Giữ Nhiệt Lock&Lock" + ext], MaLoai: "2"})
-    await insertWithoutID("SanPham", {Ten: "Cà phê G7 3in1", DonGia: "129", SoLuongTon: "100", Anh: [link + "Cà phê G7 3in1" + ext], MaLoai: "2"})
-    await insertWithoutID("SanPham", {Ten: "Bánh ăn sáng C'est bon", DonGia: "129", SoLuongTon: "100", Anh: [link + "Bánh ăn sáng C'est bon" + ext], MaLoai: "2"})
-    await insertWithoutID("SanPham", {Ten: "Dụng cụ tập cơ tay điều chỉnh lực", DonGia: "39", SoLuongTon: "100", Anh: [link + "Dụng cụ tập cơ tay điều chỉnh lực" + ext], MaLoai: "3"})
-    await insertWithoutID("SanPham", {Ten: "Kính bơi HMK", DonGia: "109", SoLuongTon: "100", Anh: [link + "Kính bơi HMK" + ext], MaLoai: "3"})
-    await insertWithoutID("SanPham", {Ten: "Xà Đơn  Treo Tường", DonGia: "298", SoLuongTon: "100", Anh: [link + "Xà Đơn  Treo Tường" + ext], MaLoai: "3"})
-    await insertWithoutID("SanPham", {Ten: "Thảm Tập Yoga TPE", DonGia: "119", SoLuongTon: "100", Anh: [link + "Thảm Tập Yoga TPE" + ext], MaLoai: "3"})
-    await insertWithoutID("SanPham", {Ten: "Bảng Phóng Phi Tiêu", DonGia: "59", SoLuongTon: "100", Anh: [link + "Bảng Phóng Phi Tiêu" + ext], MaLoai: "3"})
-    await insertWithoutID("SanPham", {Ten: "Cây lăn bụi", DonGia: "27.5", SoLuongTon: "100", Anh: [link + "Cây lăn bụi" + ext], MaLoai: "4"})
-    await insertWithoutID("SanPham", {Ten: "Vợt Muỗi Sunhouse", DonGia: "72", SoLuongTon: "100", Anh: [link + "Vợt Muỗi Sunhouse" + ext], MaLoai: "4"})
-    await insertWithoutID("SanPham", {Ten: "Ủng Bọc Giày", DonGia: "39.9", SoLuongTon: "100", Anh: [link + "Ủng Bọc Giày" + ext], MaLoai: "4"})
-    await insertWithoutID("SanPham", {Ten: "Combo 10 Móc Dán Tường", DonGia: "25", SoLuongTon: "100", Anh: [link + "Combo 10 Móc Dán Tường" + ext], MaLoai: "4"})
-    await insertWithoutID("SanPham", {Ten: "Thảm nhà tắm", DonGia: "120", SoLuongTon: "100", Anh: [link + "Thảm nhà tắm" + ext], MaLoai: "4"})
-    await insertWithoutID("SanPham", {Ten: "Gọng kính SARIFA", DonGia: "130", SoLuongTon: "100", Anh: [link + "Gọng kính SARIFA" + ext], MaLoai: "5"})
-    await insertWithoutID("SanPham", {Ten: "Thắt lưng dây nịt nam da bò", DonGia: "126", SoLuongTon: "100", Anh: [link + "Thắt lưng dây nịt nam da bò" + ext], MaLoai: "5"})
-    await insertWithoutID("SanPham", {Ten: "Tất vớ nam", DonGia: "45", SoLuongTon: "100", Anh: [link + "Tất vớ nam" + ext], MaLoai: "5"})
-    await insertWithoutID("SanPham", {Ten: "Mắt Kính Râm Mát Nam", DonGia: "139", SoLuongTon: "100", Anh: [link + "Mắt Kính Râm Mát Nam" + ext], MaLoai: "5"})
-    await insertWithoutID("SanPham", {Ten: "Mũ lưỡi trai Ulzzang", DonGia: "55", SoLuongTon: "100", Anh: [link + "Mũ lưỡi trai Ulzzang" + ext], MaLoai: "5"})
+    await insertWithoutID("SanPham", { Ten: "Đồng hồ nam dây da Skmei 90TCK58", DonGia: "500", SoLuongTon: "100", Anh: [link + "Đồng hồ nam dây da Skmei 90TCK58" + ext], MaLoai: "1" })
+    await insertWithoutID("SanPham", { Ten: "Đồng hồ Nam thể thao SKMEI 1155B", DonGia: "340", SoLuongTon: "100", Anh: [link + "Đồng hồ Nam thể thao SKMEI 1155B" + ext], MaLoai: "1" })
+    await insertWithoutID("SanPham", { Ten: "Đồng hồ Nữ Daniel Klein", DonGia: "720", SoLuongTon: "100", Anh: [link + "Đồng hồ Nữ Daniel Klein" + ext], MaLoai: "1" })
+    await insertWithoutID("SanPham", { Ten: "Đồng Hồ Nữ JA-1017 Julius", DonGia: "475", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JA-1017 Julius" + ext], MaLoai: "1" })
+    await insertWithoutID("SanPham", { Ten: "Đồng Hồ Nữ JS-060 Julius", DonGia: "263", SoLuongTon: "100", Anh: [link + "Đồng Hồ Nữ JS-060 Julius" + ext], MaLoai: "1" })
+    await insertWithoutID("SanPham", { Ten: "Dầu Đậu Nành Simply", DonGia: "76.7", SoLuongTon: "100", Anh: [link + "Dầu Đậu Nành Simply" + ext], MaLoai: "2" })
+    await insertWithoutID("SanPham", { Ten: "Hộp quà Tết OREO 463.2g", DonGia: "50", SoLuongTon: "100", Anh: [link + "Hộp quà Tết OREO 463.2g" + ext], MaLoai: "2" })
+    await insertWithoutID("SanPham", { Ten: "Bình Giữ Nhiệt Lock&Lock", DonGia: "329", SoLuongTon: "100", Anh: [link + "Bình Giữ Nhiệt Lock&Lock" + ext], MaLoai: "2" })
+    await insertWithoutID("SanPham", { Ten: "Cà phê G7 3in1", DonGia: "129", SoLuongTon: "100", Anh: [link + "Cà phê G7 3in1" + ext], MaLoai: "2" })
+    await insertWithoutID("SanPham", { Ten: "Bánh ăn sáng C'est bon", DonGia: "129", SoLuongTon: "100", Anh: [link + "Bánh ăn sáng C'est bon" + ext], MaLoai: "2" })
+    await insertWithoutID("SanPham", { Ten: "Dụng cụ tập cơ tay điều chỉnh lực", DonGia: "39", SoLuongTon: "100", Anh: [link + "Dụng cụ tập cơ tay điều chỉnh lực" + ext], MaLoai: "3" })
+    await insertWithoutID("SanPham", { Ten: "Kính bơi HMK", DonGia: "109", SoLuongTon: "100", Anh: [link + "Kính bơi HMK" + ext], MaLoai: "3" })
+    await insertWithoutID("SanPham", { Ten: "Xà Đơn  Treo Tường", DonGia: "298", SoLuongTon: "100", Anh: [link + "Xà Đơn  Treo Tường" + ext], MaLoai: "3" })
+    await insertWithoutID("SanPham", { Ten: "Thảm Tập Yoga TPE", DonGia: "119", SoLuongTon: "100", Anh: [link + "Thảm Tập Yoga TPE" + ext], MaLoai: "3" })
+    await insertWithoutID("SanPham", { Ten: "Bảng Phóng Phi Tiêu", DonGia: "59", SoLuongTon: "100", Anh: [link + "Bảng Phóng Phi Tiêu" + ext], MaLoai: "3" })
+    await insertWithoutID("SanPham", { Ten: "Cây lăn bụi", DonGia: "27.5", SoLuongTon: "100", Anh: [link + "Cây lăn bụi" + ext], MaLoai: "4" })
+    await insertWithoutID("SanPham", { Ten: "Vợt Muỗi Sunhouse", DonGia: "72", SoLuongTon: "100", Anh: [link + "Vợt Muỗi Sunhouse" + ext], MaLoai: "4" })
+    await insertWithoutID("SanPham", { Ten: "Ủng Bọc Giày", DonGia: "39.9", SoLuongTon: "100", Anh: [link + "Ủng Bọc Giày" + ext], MaLoai: "4" })
+    await insertWithoutID("SanPham", { Ten: "Combo 10 Móc Dán Tường", DonGia: "25", SoLuongTon: "100", Anh: [link + "Combo 10 Móc Dán Tường" + ext], MaLoai: "4" })
+    await insertWithoutID("SanPham", { Ten: "Thảm nhà tắm", DonGia: "120", SoLuongTon: "100", Anh: [link + "Thảm nhà tắm" + ext], MaLoai: "4" })
+    await insertWithoutID("SanPham", { Ten: "Gọng kính SARIFA", DonGia: "130", SoLuongTon: "100", Anh: [link + "Gọng kính SARIFA" + ext], MaLoai: "5" })
+    await insertWithoutID("SanPham", { Ten: "Thắt lưng dây nịt nam da bò", DonGia: "126", SoLuongTon: "100", Anh: [link + "Thắt lưng dây nịt nam da bò" + ext], MaLoai: "5" })
+    await insertWithoutID("SanPham", { Ten: "Tất vớ nam", DonGia: "45", SoLuongTon: "100", Anh: [link + "Tất vớ nam" + ext], MaLoai: "5" })
+    await insertWithoutID("SanPham", { Ten: "Mắt Kính Râm Mát Nam", DonGia: "139", SoLuongTon: "100", Anh: [link + "Mắt Kính Râm Mát Nam" + ext], MaLoai: "5" })
+    await insertWithoutID("SanPham", { Ten: "Mũ lưỡi trai Ulzzang", DonGia: "55", SoLuongTon: "100", Anh: [link + "Mũ lưỡi trai Ulzzang" + ext], MaLoai: "5" })
 
-    await insertWithoutID("NguoiDung", {HoTen: "Admin", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "admin@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "admin", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "0", LaAdmin: "1", DiaChi: null});
-    await insertWithoutID("NguoiDung", {HoTen: "Khach Hang", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "khach@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "khach", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "1", LaAdmin: "0", DiaChi: null});
+    await insertWithoutID("NguoiDung", { HoTen: "Admin", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "admin@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "admin", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "0", LaAdmin: "1", DiaChi: null });
+    await insertWithoutID("NguoiDung", { HoTen: "Khach Hang", SDT: "0123456789", NgaySinh: "2024-01-27", Email: "khach@gmail.com", Anh: null, GioiTinh: "Nam", UserName: "khach", MatKhau: "$2b$10$QtR0ofZC1BDmuiuzYkqNfuajeXLHgTt8h8XHLDNKon3wq9dYwqW82", LaKhachHang: "1", LaAdmin: "0", DiaChi: null });
 }
 async function insertWithoutID(tbName, entity) {
     try {
@@ -485,11 +485,11 @@ module.exports = {
         }
     },
 
-    selectByQuery: async(queryString) => {
+    selectByQuery: async (queryString) => {
         try {
             return db.manyOrNone(queryString);
         }
-        catch(error) {
+        catch (error) {
             console.log('query error:', error);
         }
     },
@@ -515,11 +515,17 @@ module.exports = {
             console.log("Join table error: ", error);
         }
     },
-    searchAll: async (tbName, searchTerm, col) => {
+    searchAll: async (tbName, searchTerm, col, colOrder, isDesc) => {
         try {
-            const query = `
+            let query = `
             SELECT * FROM "${tbName}"
             WHERE LOWER("${col}") ILIKE LOWER($1)`;
+            if (colOrder) {
+                if (isDesc) {
+                    query += `ORDER BY "${colOrder}" DESC `;
+                }
+                else query += `ORDER BY "${colOrder}" ASC `;
+            }
             const data = await db.any(query, [`%${searchTerm}%`]);
             return data;
         } catch (error) {
