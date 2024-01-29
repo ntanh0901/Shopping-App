@@ -191,7 +191,7 @@ module.exports = {
             const isDesc = req.body.isDesc || false;
             const searchInput = req.body.search || null;
             let data = null;
-            console.log(type, orderBy, searchInput);
+            // console.log(type, orderBy, searchInput);
             if (searchInput === null) {
                 if (type === 'Tất cả') {
                     data = await Product.getAllProductsWithType(orderBy, isDesc);

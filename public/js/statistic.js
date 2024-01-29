@@ -231,7 +231,7 @@ async function getData() {
   for (let i = 0; i < categoriesStatistics.length; i++) {
     for (let j = 0; j < categories.length; j++) {
       if (categoriesStatistics[i].MaLoai === categories[j].MaLoai) {
-        revenueOnCategory.push({type: categories[j].TenLoai, sum: categoriesStatistics[i].TongTien });
+        revenueOnCategory.push({type: categories[j].TenLoai, sum: parseFloat(categoriesStatistics[i].TongTien) * 1000 });
         continue;
       }
     }
