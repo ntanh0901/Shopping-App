@@ -84,7 +84,7 @@ module.exports = {
             const id = orderInfo.substring(2, orderInfo.length);
             const amount = parseInt(vnp_Params.vnp_Amount) / 100;
             const result = await model.updateBalance(id, amount);
-            res.redirect('http://localhost:3000/client/wallet');
+            res.redirect('https://localhost:3000/client/wallet');
             //res.render('success', {code: vnp_Params['vnp_ResponseCode']});
         } else{
             console.log('error return bill');
