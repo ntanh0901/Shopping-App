@@ -8,6 +8,6 @@ router.post('/getAccessToken', controller.getAccessToken);
 router.post('/token', controller.getNewAccessToken);
 router.delete('/logout', controller.deleteRefreshToken);
 router.get('/returnBill', controller.returnBill);
-
+router.post('/transferMoney', controller.transferMoney);
 
 module.exports = router;

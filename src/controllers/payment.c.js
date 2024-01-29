@@ -83,7 +83,6 @@ module.exports = {
             const orderInfo = vnp_Params.vnp_OrderInfo;
             const id = orderInfo.substring(2, orderInfo.length);
             const amount = parseInt(vnp_Params.vnp_Amount) / 100;
-            console.log(amount);
             const result = await model.updateBalance(id, amount);
             res.redirect('http://localhost:3000/client/wallet');
             //res.render('success', {code: vnp_Params['vnp_ResponseCode']});
@@ -91,6 +90,14 @@ module.exports = {
             console.log('error return bill');
             //res.render('success', {code: '97'});
         }
+    },
+    
+    transferMoney: async(req, res, next) => {
+        const id = req.body.id;
+        const amount = req.body.amount;
+        const result1 = await model.updateBalance(id, -amount);
+        const result2 = await model.updateBalance(-1, amount);
+        res.sendStatus(200);
     }
 }
 
