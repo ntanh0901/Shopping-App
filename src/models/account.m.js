@@ -41,4 +41,10 @@ module.exports = class User {
     static async insertChiTietHoaDon(chiTietHoaDon) {
         return await db.insertWithoutID("ChiTietHoaDon", chiTietHoaDon);
     }
+    static async getAllHoaDon(id) {
+        return await db.selectMany("HoaDon", "KHMua", id);
+    }
+    static async getAllChiTietHoaDon(maHD) {
+        return await db.selectMany("ChiTietHoaDon", "MaHD", maHD);
+    }
 }

@@ -76,11 +76,13 @@ router.get('/wallet', accountController.getAccessToken, accountController.getBal
     })
 });
 
-router.get('/order', (req, res) => {
-    res.render('client/order', {
-        title: 'Đơn hàng của tôi'
-    })
-})
+// router.get('/order', (req, res) => {
+//     res.render('client/order', {
+//         title: 'Đơn hàng của tôi'
+//     })
+// })
+
+router.get('/order', productController.getMyOrders);
 
 router.get('/products/:slug', productController.show);
 
