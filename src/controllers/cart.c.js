@@ -60,6 +60,20 @@ module.exports = {
 
     },
 
+    updateChecked: (req, res, next) => {
+        const id = req.body.productId;
+        if(!req.session.cart) {
+            console.log("no cart found");
+            return;
+        }
+        let index = req.session.cart.findIndex((element) => {
+            return element.id == id;
+        });
+
+        req.session.cart[index].checked = true;
+        res.json('sucess');
+    },
+
     index: (req, res, next) => {
         res.render('client/cart', {
             data: req.session.cart,

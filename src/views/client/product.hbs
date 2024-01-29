@@ -124,6 +124,8 @@
             <h6>Tổng tiền</h6>
             <p class="fw-bold" id="total-price"></p>
             <div class="d-flex flex-column gap-3">
+                <input type="hidden" name="muaNgay" value="muaNgay">
+                <input type="hidden" name="maSP" value="{{product.MaSP}}">
                 <button type="submit" class="btn btn-danger" data-id="{{product.MaSP}}">Mua ngay</button>
                 <button type="button" class="btn btn-outline-primary d-flex align-items-center justify-content-center" data-id="{{product.MaSP}}" id="addToCart">
                     <i class='bx bx-cart-add fs-4'></i>

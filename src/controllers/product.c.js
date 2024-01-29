@@ -116,5 +116,17 @@ module.exports = {
         catch (err) {
             console.log('err type: ', err);
         }
+    },
+
+    checkoutNow: async (req, res, next) => {
+        const id = req.body.maSP;
+        const product = await Product.getProduct(id);
+        const cartItem = {
+            id: parseInt(id),
+            product: product,
+            amount: 1,
+            checked: true
+        };
+        return cartItem;
     }
 }

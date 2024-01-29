@@ -24,7 +24,7 @@
                         <a href="/client/products/{{this.id}}">{{this.product.Ten}}</a>
                     </label>
                 </div>
-                <span class="fw-bold" id="price-{{this.id}}" data-price="{{this.product.DonGia}}">{{this.product.DonGia}}&#8363;</span>
+                <span class="fw-bold"><span class="price-value" id="price-{{this.id}}" data-price="{{this.product.DonGia}}">{{this.product.DonGia}}</span>&#8363;</span>
                 <div class="input-group product-amount">
                     <button class="btn border decrease-btn" type="button" data-id="{{this.id}}">
                         <i class='bx bx-minus'></i>
@@ -34,7 +34,7 @@
                         <i class='bx bx-plus'></i>
                     </button>
                 </div>
-                <span class="fw-bold text-danger"><span id="total-{{this.id}}">{{this.product.TongGia}}</span>&#8363;</span>
+                <span class="fw-bold text-danger"><span class="total-value" id="total-{{this.id}}">{{this.product.TongGia}}</span>&#8363;</span>
                 <button type="button" class="btn text-muted">
                     <i class='bx bx-trash fs-4'></i>
                 </button>
@@ -57,6 +57,7 @@
                 <form class="d-flex flex-column" method="post" action="/client/checkout">
                     <div class="d-flex align-items-center justify-content-between">
                         <h6>Tổng tiền</h6>
+                        <input type="hidden" id="totalPrice" name="totalPrice">
                         <span class="fw-bold"><span id="total-price"></span>&#8363;</span>
                     </div>
                     <button class="btn btn-danger">Mua Hàng</button>

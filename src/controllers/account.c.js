@@ -190,6 +190,10 @@ module.exports = {
             console.log('Revoke access token error: ' + error);
         }
         next();
+    }, 
+
+    checkoutSuccess: async (req, res, next) => {
+        console.log('Stay still');
     }
 }
 
