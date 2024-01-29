@@ -357,12 +357,12 @@ function submitForm() {
   validationResults.push(validteDob());
 
   if (!/^\d{10}$/.test($("#userPhone").val())) {
-    $("#errorPhone").text("Số điện thoại không hợp lệ!");
+    $("#userPhoneError").text("Số điện thoại không hợp lệ!");
     validationResults.push(false);
   }
 
   if (!/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm.test($("#userEmail").val())) {
-    $("#errorEmail").text("Email không hợp lệ!");
+    $("#userEmailError").text("Email không hợp lệ!");
     validationResults.push(false);
   }
 
@@ -386,6 +386,7 @@ function submitForm() {
   if (isValid) {
     if (index === "-1") {
       addUser();
+    $("#userFormModal").modal("hide");
     } else {
       saveEdit(index);
     }
