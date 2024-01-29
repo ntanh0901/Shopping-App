@@ -635,5 +635,21 @@ module.exports = {
             console.log("Join table error: ", error);
         }
     },
-
+    getBestselling: async(limit, orderBy) => {
+        try {
+            const query = `
+            SELECT
+            "SanPham"."MaSP", "Ten", 
+                SUM("SoLuong") AS "SoLuong",
+                SUM("TongTien") AS "TongTien"
+            FROM "ChiTietHoaDon" join "SanPham" on "ChiTietHoaDon"."MaSP" = "SanPham"."MaSP"
+            GROUP BY "SanPham"."MaSP", "Ten"
+            ORDER BY "${orderBy}" DESC
+            LIMIT ${limit}
+            `
+            return db.manyOrNone(query);
+        } catch (error) {
+            console.log("Join table error: ", error);
+        }
+    }
 }

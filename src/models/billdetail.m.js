@@ -17,8 +17,11 @@ module.exports = class BillDetail {
     static async getAllBy(orderBy, isDesc) {
         return db.selectAllBy(tbName, orderBy, isDesc);
     }
+    // static async calcTotal(limit, orderBy) {
+    //     return db.calculateTotals(["MaSP"], ["SoLuong", "TongTien"], tbName, limit, orderBy);
+    // }
     static async calcTotal(limit, orderBy) {
-        return db.calculateTotals(["MaSP"], ["SoLuong", "TongTien"], tbName, limit, orderBy);
+        return db.getBestselling(limit, orderBy);
     }
     static async categoriesStatistics(orderBy) {
         return db.joinAndCalculateTotals("ChiTietHoaDon", "SanPham", "MaSP", "MaSP",["MaLoai"], ["SoLuong", "TongTien"], null, orderBy);

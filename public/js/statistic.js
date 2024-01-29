@@ -1,10 +1,15 @@
-let revenueOnCategory = [
-  { type: "Phụ kiện thời trang", sum: 1000000 },
-  { type: "Nhà cửa và đời sống", sum: 3000000 },
-  { type: "Thể thao", sum: 2000000 },
-  { type: "Bách hóa", sum: 5000000 },
-  { type: "Đồng hồ", sum: 6000000 },
-];
+let top5 = [];
+let revenueOnCategory = [];
+async function main() {
+await getData();
+
+// let revenueOnCategory = [
+//   { type: "Phụ kiện thời trang", sum: 1000000 },
+//   { type: "Nhà cửa và đời sống", sum: 3000000 },
+//   { type: "Thể thao", sum: 2000000 },
+//   { type: "Bách hóa", sum: 5000000 },
+//   { type: "Đồng hồ", sum: 6000000 },
+// ];
 
 let aggregatedData = {};
 let totalSum = 0;
@@ -96,14 +101,13 @@ $("#legendChart").html(legendHTML);
 
 // Top 5 best seller
 // -- table
-const top5 = [
-  { name: "Đồng hồ nam dây da Skmei 90TCK58", sold: 150 },
-  { name: "Thảm Tập Yoga TPE", sold: 120 },
-  { name: "Ủng Bọc Giày", sold: 90 },
-  { name: "Mắt Kính Râm Mát Nam", sold: 80 },
-  { name: "Cà phê G7 3in1", sold: 70 },
-];
-
+// top5 = [
+//   { name: "Đồng hồ nam dây da Skmei 90TCK58", sold: 150 },
+//   { name: "Thảm Tập Yoga TPE", sold: 120 },
+//   { name: "Ủng Bọc Giày", sold: 90 },
+//   { name: "Mắt Kính Râm Mát Nam", sold: 80 },
+//   { name: "Cà phê G7 3in1", sold: 70 },
+// ];
 top5.forEach((product, index) => {
   const listItem = `
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -173,9 +177,8 @@ function createRevenueCard(period, color) {
 
   const cardContent = `
   <div class=" p-2 d-flex justify-content-between align-items-center">
-  <div class="card-title text-black-50">${
-    getLocalizedPeriodLabel(period)
-  } </div>
+  <div class="card-title text-black-50">${getLocalizedPeriodLabel(period)
+    } </div>
   <h4 class="rounded-1 card-text ${color} p-2 e-0 text-white text-end" style="width: 13rem">
       ${revenue.toLocaleString("vi-VN")} ₫
   </h4>
@@ -212,3 +215,59 @@ const yearCard = createRevenueCard("year", "bg-danger");
 revenueSection.appendChild(dayCard);
 revenueSection.appendChild(monthCard);
 revenueSection.appendChild(yearCard);
+
+}
+main();
+
+async function getData() {
+  let bestselling = await getBestselling(5);
+  bestselling.forEach(element => {
+    top5.push( {name: element.Ten, sold: element.SoLuong })
+  });
+
+  const categories = (await getCategories()).categories;
+  const categoriesStatistics = await getRevenueOnCategory();
+
+  for (let i = 0; i < categoriesStatistics.length; i++) {
+    for (let j = 0; j < categories.length; j++) {
+      if (categoriesStatistics[i].MaLoai === categories[j].MaLoai) {
+        revenueOnCategory.push({type: categories[j].TenLoai, sum: categoriesStatistics[i].TongTien });
+        continue;
+      }
+    }
+  }
+}
+
+async function getBestselling(top) {
+  try {
+    const response = await $.ajax({
+      url: `/admin/statistics/bestselling?top=${top}`,
+      method: 'GET',
+    });
+    return response;
+  } catch (err) {
+    console.error('Error fetching data:', err);
+  }
+}
+async function getRevenueOnCategory() {
+  try {
+    const response = await $.ajax({
+      url: `/admin/statistics/categoriesStatistics`,
+      method: 'GET',
+    });
+    return response;
+  } catch (err) {
+    console.error('Error fetching data:', err);
+  }
+}
+async function getCategories() {
+  try {
+      const response = await $.ajax({
+          url: `/admin/productsmanagement/getCategories`,
+          method: 'POST'
+      });
+      return response;
+  } catch (err) {
+      console.error('Error fetching data:', err);
+  }
+}
