@@ -635,7 +635,7 @@ module.exports = {
             console.log("Join table error: ", error);
         }
     },
-    getBestselling: async(limit, orderBy) => {
+    getBestselling: async (limit, orderBy) => {
         try {
             const query = `
             SELECT
@@ -650,6 +650,25 @@ module.exports = {
             return db.manyOrNone(query);
         } catch (error) {
             console.log("Join table error: ", error);
+        }
+    },
+
+    calculateTotalByDateLevel: async (level) => {
+        try {
+            const result = await db.one(`
+            SELECT
+            DATE_TRUNC('${level}', "NgayLap") AS "ThoiGian",
+            COALESCE(SUM("TongHoaDon"), 0) AS "TongHoaDon"
+            FROM "HoaDon"
+            WHERE "NgayLap" >= DATE_TRUNC('${level}', CURRENT_DATE)
+            AND "NgayLap" < DATE_TRUNC('${level}', CURRENT_DATE + INTERVAL '1 ${level}')
+            GROUP BY "ThoiGian"
+            ORDER BY "ThoiGian";
+          `);
+            return result;
+        } catch (error) {
+            console.log("calculateTotalByDateLevel error: ", error);
+            return null;
         }
     }
 }

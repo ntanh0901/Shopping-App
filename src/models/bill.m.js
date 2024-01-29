@@ -17,4 +17,7 @@ module.exports = class Bill {
     static async getAllBy(orderBy, isDesc) {
         return db.selectAllBy(tbName, orderBy, isDesc);
     }
+    static async calculateTotalByDateLevel(level) {
+        return db.calculateTotalByDateLevel(level);
+    }
 }

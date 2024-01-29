@@ -24,5 +24,17 @@ module.exports = {
             console.log("categoriesstatistics error: ", err);
             res.json(false);
         }
+    },
+
+    currentRevenue: async (req, res) => {
+        try {
+            const level = req.query.level || 'day';
+            const data = await Bill.calculateTotalByDateLevel(level); 
+            res.json(data);
+        }
+        catch (err) {
+            console.log("categoriesstatistics error: ", err);
+            res.json(false);
+        }
     }
 }
