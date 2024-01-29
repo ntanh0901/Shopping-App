@@ -1,0 +1,42 @@
+{{> topbar }}
+
+<div class="order-body bg-light px-5 py-3 d-flex flex-column gap-3">
+    <h5>Đơn hàng của tôi</h5>
+    {{#each data.orders}}
+    <section class="bg-white rounded p-3 d-flex gap-3 flex-column">
+        <h6>Đơn hàng: {{ this.hoaDon.MaHD }}</h6>
+        {{#each this.chiTiet}}
+        <div class="single-product py-3 border-top border-bottom d-flex justify-content-between align-items-center">
+            <div class="grid-container">
+                <div class="img-container">
+                    <img src="/{{this.product.Anh.[0]}}" alt="">
+                </div>
+                <div class="d-flex flex-column justify-content-between">
+                    <a href="#" class="text-muted">
+                        {{this.product.Ten}}
+                    </a>
+                    <span> x{{this.SoLuong}}</span>
+                </div>
+            </div>
+            <span><span class="totalPrice">{{this.TongTien}}</span>&#8363;</span>
+        </div>
+        {{/each}}
+    {{/each}}
+</div>
+
+<script>
+    $('.totalPrice').each(function () {
+        let totalValue = $(this).text();
+        totalValue += '000';
+
+        const formattedTotal = addThousandSeparator(totalValue);
+
+        $(this).text(formattedTotal);
+    });
+
+    function addThousandSeparator(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+</script>
+
+{{> footer }}

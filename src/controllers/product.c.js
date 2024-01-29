@@ -135,6 +135,33 @@ module.exports = {
         return cartItem;
     },
 
+    getMyOrders: async (req, res, next) => {
+        const id = req.user.MaND;
+        let data = { orders: [] };
+        const hoaDon = await Account.getAllHoaDon(id);
+        for (let i = 0; i < hoaDon.length; i++) {
+            let order = {
+                hoaDon: hoaDon[i],
+                chiTiet: []
+            };
+            let chiTiet = await Account.getAllChiTietHoaDon(hoaDon[i].MaHD);
+            console.log(chiTiet);
+            for (let j = 0; j < chiTiet.length; j++) {
+                const product = await Product.getProduct(chiTiet[j].MaSP);
+                chiTiet[j].product = product;
+                order.chiTiet.push(chiTiet[j]);
+            }
+            data.orders.push(order);
+        }
+
+        console.log(data.orders);
+        
+        res.render('client/order', {
+            title: 'Đơn hàng của tôi',
+            data: data
+        });
+    },
+
     //Product Management
 
     updateProduct: async (req, res) => {
