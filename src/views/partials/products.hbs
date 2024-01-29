@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="position-relative  mx-auto" style="width: 95%">
-        <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="productTable">
+    <div class="position-relative bg-light mx-auto" style="width: 95%  ;min-height: 50vh ; background-color: $nav-bg">
+        <table class="manageTable table custom-table-bg table-hover mx-auto rounded-3 overflow-hidden" id="productTable" >
             <thead class="my-auto">
                 <tr>
                     <th scope="col">#</th>
@@ -109,9 +109,25 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center align-items-center">
+            <li class="page-item">
+                <button id="previous-page" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <div id="page-container" class="d-flex gap-2">
+            </div>
+            <li class="page-item">
+                <button id="next-page" class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
 
 
 </div>

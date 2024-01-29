@@ -42,27 +42,87 @@ let users = [
     isCustomer: true,
     isAdmin: false,
   },
+  {
+    id: 4,
+    name: "David",
+    phone: "0123456789",
+    dob: "1990-08-15",
+    email: "david@gmail.com",
+    image: "/img/logo_hcmus.png",
+    gender: "Nam",
+    username: "un4",
+    password: "pw4",
+    address: "Address 4",
+    isCustomer: true,
+    isAdmin: false,
+  },
+  {
+    id: 5,
+    name: "Eva",
+    phone: "0123456789",
+    dob: "1985-05-22",
+    email: "eva@gmail.com",
+    image: "/img/logo_hcmus.png",
+    gender: "Nữ",
+    username: "un5",
+    password: "pw5",
+    address: "Address 5",
+    isCustomer: true,
+    isAdmin: false,
+  },
+  {
+    id: 6,
+    name: "Frank",
+    phone: "0123456789",
+    dob: "1993-11-30",
+    email: "frank@gmail.com",
+    image: "/img/logo_hcmus.png",
+    gender: "Nam",
+    username: "un6",
+    password: "pw6",
+    address: "Address 6",
+    isCustomer: false,
+    isAdmin: true,
+  },
 ];
+let currentPage = 1;
+const usersPerPage = 5;
+let totalPages;
+totalPages = Math.ceil(users.length / usersPerPage);
+
 updateTable();
+
 function updateTable() {
   let tableBody = $("#userTable tbody").html("");
-
   users.sort((a, b) => a.id - b.id);
 
-  users.forEach((user, index) => {
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const displayedUsers = users.slice(startIndex, endIndex);
+
+  displayedUsers.forEach((user, index) => {
     if (!user.image) {
       user.image = "/img/logo_hcmus.png";
     }
+
     let row = tableBody[0].insertRow(index);
-    row.innerHTML = `<td>${index + 1}</td>
-                       <td>${user.id}</td>
-                       <td>${user.name}</td>
-                       <td> 
-                          <i class='bx bx-file-find text-dark cursor-pointer' role="button" onclick="viewUser(${index})" title="Xem"></i>
-                          <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editUser(${index})" title="Sửa"></i>
-                          <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteUser(${index})" title="Xóa"></i>
-                       </td>`;
+    row.innerHTML = `<td>${startIndex + index + 1}</td>
+                     <td>${user.id}</td>
+                     <td>${user.name}</td>
+                     <td> 
+                       <i class='bx bx-file-find text-dark cursor-pointer' role="button" onclick="viewUser(${
+                         startIndex + index
+                       })" title="Xem"></i>
+                       <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editUser(${
+                         startIndex + index
+                       })" title="Sửa"></i>
+                       <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteUser(${
+                         startIndex + index
+                       })" title="Xóa"></i>
+                     </td>`;
   });
+
+  updatePaginationButtons();
 }
 
 function resetForm() {
@@ -457,3 +517,88 @@ function populateRole() {
 }
 
 populateRole();
+
+// pagination
+$("#previous-page-user").on("click", function () {
+  if (currentPage > 1) {
+    currentPage--;
+    updateTable();
+  }
+});
+
+$("#next-page-user").on("click", function () {
+  console.log('ne');
+  if (currentPage < totalPages) {
+    currentPage++;
+    updateTable();
+  }
+});
+function updateTable() {
+  let tableBody = $("#userTable tbody").html("");
+  users.sort((a, b) => a.id - b.id);
+
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const displayedUsers = users.slice(startIndex, endIndex);
+
+  displayedUsers.forEach((user, index) => {
+    if (!user.image) {
+      user.image = "/img/logo_hcmus.png";
+    }
+
+    let row = tableBody[0].insertRow(index);
+    row.innerHTML = `<td>${startIndex + index + 1}</td>
+                     <td>${user.id}</td>
+                     <td>${user.name}</td>
+                     <td> 
+                       <i class='bx bx-file-find text-dark cursor-pointer' role="button" onclick="viewUser(${
+                         startIndex + index
+                       })" title="Xem"></i>
+                       <i class='bx bx-edit text-info cursor-pointer' role="button" onclick="editUser(${
+                         startIndex + index
+                       })" title="Sửa"></i>
+                       <i class='bx bx-trash text-danger cursor-pointer' role="button" onclick="deleteUser(${
+                         startIndex + index
+                       })" title="Xóa"></i>
+                     </td>`;
+  });
+
+  updatePaginationButtons();
+}
+
+function updatePaginationButtons() {
+  totalPages = Math.ceil(users.length / usersPerPage);
+
+  $("#currentPage").text(currentPage);
+
+  const prevPageBtn = $("#previous-page-user");
+  const nextPageBtn = $("#next-page-user");
+  const pageContainer = $("#page-container-user");
+
+  prevPageBtn.prop("disabled", currentPage === 1);
+  nextPageBtn.prop("disabled", currentPage === totalPages);
+
+  pageContainer.empty();
+
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = $("<button>")
+      .addClass("page-link")
+      .text(i)
+      .on("click", function () {
+        changePage(i);
+      });
+
+    const pageItem = $("<li>").addClass("page-item").append(pageButton);
+
+    if (i === currentPage) {
+      pageItem.addClass("active");
+    }
+
+    pageContainer.append(pageItem);
+  }
+}
+
+function changePage(pageNumber) {
+  currentPage = pageNumber;
+  updateTable();
+}
