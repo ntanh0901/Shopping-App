@@ -1,0 +1,70 @@
+{{> topbar }}
+<div class="cart-body bg-light px-4 py-3">
+    <h5 class="mb-3">Giỏ hàng</h5>
+    <div class="cart-view-container d-flex gap-4">
+        <section class=" flex-grow-1 d-flex flex-column gap-3">
+            <div class="grid-container bg-white rounded px-3 py-2">
+                <div class="d-flex gap-2">
+                    <input class="form-check-input" type="checkbox" name="all" id="checkAll">
+                    <label class="form-check-label" for="checkAll">Tất cả</label>
+                </div>
+                <span>Đơn giá</span>
+                <span>Số lượng</span>
+                <span>Thành tiền</span>
+                <span>Xóa</span>
+            </div>
+            {{#each data}}
+            <div class="grid-container bg-white rounded px-3 py-2">
+                <div class="d-flex gap-2 align-items-center">
+                    <input class="form-check-input check-cart" type="checkbox" value="{{this.id}}">
+                    <label class="form-check-label flex-grow-1 product-label">
+                        <div class="img-container border rounded">
+                            <img src="/{{this.product.Anh.[0]}}" alt="{{this.product.Ten}}" class="rounded">
+                        </div>
+                        <a href="/client/products/{{this.id}}">{{this.product.Ten}}</a>
+                    </label>
+                </div>
+                <span class="fw-bold"><span class="price-value" id="price-{{this.id}}" data-price="{{this.product.DonGia}}">{{this.product.DonGia}}</span>&#8363;</span>
+                <div class="input-group product-amount">
+                    <button class="btn border decrease-btn" type="button" data-id="{{this.id}}">
+                        <i class='bx bx-minus'></i>
+                    </button>
+                    <input type="number" class="form-control" value="{{this.amount}}" id="value-{{this.id}}">
+                    <button class="btn border increase-btn" type="button" data-id="{{this.id}}">
+                        <i class='bx bx-plus'></i>
+                    </button>
+                </div>
+                <span class="fw-bold text-danger"><span class="total-value" id="total-{{this.id}}">{{this.product.TongGia}}</span>&#8363;</span>
+                <button type="button" class="btn text-muted">
+                    <i class='bx bx-trash fs-4'></i>
+                </button>
+            </div>
+            {{/each}}
+             
+        </section>
+
+        <section class="checkout-form d-flex flex-column gap-3">
+            <section class="address-container p-3 rounded bg-white">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-muted m-0 fw-light">Giao tới</h6>
+                    <a href="/">Thay đổi</a>
+                </div>
+                <p>Ngô Tuấn Đạt | 0966452047</p>
+                <p class="text-muted fw-light">18, Buôn Jung 2, Xã Ea Yông, Huyện Krông Pắc, Đắk Lắk</p>
+            </section>
+
+            <section class="p-3 bg-white rounded">
+                <form class="d-flex flex-column" method="post" action="/client/checkout">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6>Tổng tiền</h6>
+                        <input type="hidden" id="totalPrice" name="totalPrice">
+                        <span class="fw-bold"><span id="total-price"></span>&#8363;</span>
+                    </div>
+                    <button class="btn btn-danger">Mua Hàng</button>
+                </form>
+            </section>
+        </section>
+    </div>
+</div>
+{{> footer }}
+<script src="/js/cart.js"></script>

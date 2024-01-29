@@ -35,6 +35,12 @@ module.exports = class User {
     static async update(col, colval, id) {
         return db.update(tbName, col, colval, "MaND", id);
     }
+    static async insertHoaDon(hoaDon) {
+        return await db.insertWithoutID("HoaDon", hoaDon);
+    }
+    static async insertChiTietHoaDon(chiTietHoaDon) {
+        return await db.insertWithoutID("ChiTietHoaDon", chiTietHoaDon);
+    }
     static async getAllBy(orderBy, isDesc) {
         return db.selectAllBy(tbName, orderBy, isDesc);
     }

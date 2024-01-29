@@ -110,13 +110,13 @@
             <span>{{product.Ten}}</span>
         </div>
         <hr class="text-muted">
-        <form>
+        <form method="post" action="/client/checkout">
             <h6>Chọn số lượng</h6>
             <div class="input-group w-50 mb-3">
                 <button class="btn border" type="button" id="decrease-btn" disabled>
                     <i class='bx bx-minus'></i>
                 </button>
-                <input type="number" class="form-control" value="1" id="input-value">
+                <input type="number" class="form-control" value="1" id="input-value" name="amount">
                 <button class="btn border" type="button" id="increase-btn">
                     <i class='bx bx-plus'></i>
                 </button>
@@ -124,8 +124,10 @@
             <h6>Tổng tiền</h6>
             <p class="fw-bold" id="total-price"></p>
             <div class="d-flex flex-column gap-3">
-                <button type="submit" class="btn btn-danger">Mua ngay</button>
-                <button type="button" class="btn btn-outline-primary d-flex align-items-center justify-content-center">
+                <input type="hidden" name="muaNgay" value="muaNgay">
+                <input type="hidden" name="maSP" value="{{product.MaSP}}">
+                <button type="submit" class="btn btn-danger" data-id="{{product.MaSP}}">Mua ngay</button>
+                <button type="button" class="btn btn-outline-primary d-flex align-items-center justify-content-center" data-id="{{product.MaSP}}" id="addToCart">
                     <i class='bx bx-cart-add fs-4'></i>
                     Thêm vào giỏ hàng
                 </button>

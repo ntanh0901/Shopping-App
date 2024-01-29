@@ -7,6 +7,11 @@ if(value >= maxValue) {
     $('#increase-btn').prop('disabled', true)
 }
 
+$('#input-value').on('blur', function() {
+    value = $(this).val();
+    showTotalPrice();
+})
+
 $('#increase-btn').on('click', function() {
     value = $('#input-value').val();
     value++;
@@ -42,3 +47,24 @@ function showTotalPrice() {
     });
     $('#total-price').text(vnd.format(totalPrice));
 }
+
+// add to cart - POST to client/cart
+$('#addToCart').on('click', async function() {
+    try {
+        const id = parseInt($(this).data('id'));
+        value = $('#input-value').val();
+        const response = await $.ajax({
+            url: '/client/cart',
+            method: 'POST',
+            data: {
+                productId: id,
+                amount: value
+            }
+        });
+        sessionStorage.setItem("cartLength", response.cartLength);
+        $('#cart-value-noti').text(response.cartLength);
+    }
+    catch(err) {
+        console.log(err);
+    }
+})

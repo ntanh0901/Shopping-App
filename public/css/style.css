@@ -1,4 +1,7 @@
-@import"https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap";@import"https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css";/*!
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap");
+@import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css");
+/*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -11854,6 +11857,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.cart-notification {
+  position: relative;
+}
+.cart-notification > span {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.75rem;
+  font-size: 0.75rem;
+}
+
 .third-app-icon {
   width: 2.25rem;
 }
@@ -11925,14 +11938,15 @@ textarea.form-control-lg {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(calc(20% - 0.5rem), 1fr));
   grid-gap: 0.5rem;
+}
+.card-container .card-item {
+  transition: all 300ms;
 }
 .card-container .card-item .img-container {
   padding-top: 100%;
   position: relative;
-  border-radius: 0.5rem 0.5rem 0 0;
-  transition: all 350ms;
 }
 .card-container .card-item .img-container img {
   position: absolute;
@@ -11951,13 +11965,185 @@ textarea.form-control-lg {
 .card-container .card-item .content .subcontent p {
   font-size: 0.75rem;
 }
-.card-container .card-item .content .subcontent i {
-  color: yellow;
-}
 .card-container .card-item:hover {
   outline: 1px #008F95 solid;
   transform: translateY(-3px);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+}
+
+#pagination .page-click:hover, #pagination .page-click.page-active {
+  background-color: #008F95;
+  color: #fff;
+}
+
+.product-main-body {
+  display: grid;
+  grid-template-columns: 1fr 22.5rem;
+  column-gap: 1.5rem;
+  align-items: start;
+}
+.product-main-body .left {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 1rem;
+}
+.product-main-body .left .product-container {
+  display: grid;
+  grid-template-columns: 23rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.product-main-body .left .product-container .product-cover {
+  position: sticky;
+  top: 1rem;
+}
+.product-main-body .left .product-container .img-container {
+  padding-top: 100%;
+  position: relative;
+}
+.product-main-body .left .product-container .img-container img {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+.product-main-body .left .rating-comment .rate-bar {
+  width: 10rem;
+  height: 0.5rem;
+}
+.product-main-body .checkout-form {
+  position: sticky;
+  top: 1rem;
+}
+.product-main-body .checkout-form .product-small-container {
+  display: grid;
+  grid-template-columns: calc(20% - 1rem) 1fr;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+.product-main-body .checkout-form .product-small-container .img-thumb {
+  padding-top: 100%;
+  position: relative;
+}
+.product-main-body .checkout-form .product-small-container .img-thumb img {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+.product-main-body .checkout-form #increase-btn:hover, .product-main-body .checkout-form #decrease-btn:hover {
+  background-color: #e9ecef;
+}
+
+.card-container-small {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 0.5rem), 1fr));
+  gap: 0.5rem;
+}
+.card-container-small .card-item {
+  transition: all 300ms;
+}
+.card-container-small .card-item .img-container {
+  padding-top: 100%;
+  position: relative;
+}
+.card-container-small .card-item .img-container img {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+.card-container-small .card-item .item-link {
+  font-size: 0.875rem;
+}
+.card-container-small .card-item .content {
+  padding: 0.75rem;
+  font-size: 0.875rem;
+}
+.card-container-small .card-item .content .subcontent p {
+  font-size: 0.75rem;
+}
+.card-container-small .card-item:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px;
+}
+
+.cart-body .cart-view-container .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 11.25rem 7.5rem 7.5rem 3rem;
+  column-gap: 1.5rem;
+  font-size: 0.875rem;
+  align-items: center;
+}
+.cart-body .cart-view-container .grid-container .product-amount > * {
+  font-size: 0.875rem;
+}
+.cart-body .cart-view-container .grid-container .product-amount button:hover {
+  background-color: #e9ecef;
+}
+.cart-body .cart-view-container .grid-container .product-label {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+.cart-body .cart-view-container .grid-container .product-label .img-container {
+  position: relative;
+  padding-top: 100%;
+}
+.cart-body .cart-view-container .grid-container .product-label .img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+.cart-body .checkout-form {
+  width: 23rem;
+}
+
+.checkout-body {
+  min-height: 75vh;
+}
+.checkout-body .grid-container {
+  display: grid;
+  grid-template-columns: 3rem 1fr 1fr 1fr;
+  column-gap: 1.5rem;
+  font-size: 0.875rem;
+  align-items: center;
+}
+.checkout-body .grid-container .img-container {
+  position: relative;
+  padding-top: 100%;
+}
+.checkout-body .grid-container .img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+
+.wallet-body {
+  min-height: 75vh;
+}
+.wallet-body .money-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
 }
 
 .sidebar {
@@ -12126,7 +12312,7 @@ a.nav-item:hover i, a.nav-item.active i {
 
 .main-header {
   margin-top: 1rem;
-  color: #008f95;
+  color: #008F95;
   font-weight: 800;
   font-family: "Be Vietnam Pro", sans-serif;
   font-size: 1.5rem;
@@ -12157,7 +12343,7 @@ a.nav-item:hover i, a.nav-item.active i {
   border-top-right-radius: 1rem;
 }
 .manageTable th {
-  background-color: #008f95 !important;
+  background-color: #008F95 !important;
   color: #fff;
   height: 2rem;
 }
@@ -12195,6 +12381,14 @@ a {
   height: 100vh;
   display: flex;
   position: relative;
+}
+
+.bx.bxs-star {
+  color: #FFC400;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 
 #overlay {
