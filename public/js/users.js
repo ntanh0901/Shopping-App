@@ -566,7 +566,7 @@ function loadPageContainer(first, last) {
   if (first < 1) first = 1;
   if (last < first) last = first;
   for (let i = first; i <= last; i++) {
-    $('#page-container').append(`<button class="page-click ${i == currentPage ? "active" : ""}">${i}</button>`);
+    $('#page-container').append(`<li class="page-item ${i == currentPage ? "active" : ""}"><button class="page-click page-link ">${i}</button></li>`);
   }
   $('.page-click').on('click', function () {
     if ($('.page-active').length) {
