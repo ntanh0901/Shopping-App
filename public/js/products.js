@@ -135,7 +135,7 @@ function viewProduct(index) {
   $("#productPrice").val(product.price);
   $("#productStock").val(product.stock);
   $("#productCategory").val(product.categoryId);
-  console.log(product.image);
+  // console.log(product.image);
   if (product.image) {
     $("#imagePreview").attr("src", product.image);
   } else {
@@ -268,7 +268,7 @@ function isProductNameExist(newName, currentIndex) {
 async function addProduct() {
   // Upload
   const files = $("#productImages")[0].files;
-  console.log(files);
+  // console.log(files);
   let filenames = (await uploadImages(files)).filenames;
   const path = "/img/products/";
   for (let i = 0; i < filenames.length; i++) {
@@ -401,7 +401,7 @@ async function main(type, searchInput, sortOrder) {
 
   data = await getProducts(type, 1, sortOrder, searchInput);
   products = data.data;
-  console.log(products);
+  // console.log(products);
   await updateMainTable();
   categories = (await getCategories()).categories;
   populateCategoryOptions();
@@ -470,7 +470,7 @@ $('#previous-page').on('click', function () {
 async function loadPage(type, page, sortOrder, searchInput) {
   // console.log(page);
   data = await getProducts(type, page, sortOrder, searchInput);
-  console.log(data);
+  // console.log(data);
   products = data.data;
   await updateMainTable();
 
@@ -531,5 +531,5 @@ async function search(input) {
   }
   $('#type').val(currentType);
   $('#sort').val(currentSort);
-  console.log('curr ', currentType, currentSort);
+  // console.log('curr ', currentType, currentSort);
 }

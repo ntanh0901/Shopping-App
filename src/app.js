@@ -45,7 +45,15 @@ require('./mws/passport')(app);
 
 route(app);
 
-// http
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-})
+// // http
+// app.listen(port, () => {
+//     console.log(`App listening on port ${port}`);
+// })
+
+// https
+const server = https.createServer({
+    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
+}, app);
+
+server.listen(port, () => console.log(`Listening on port ${port}`));
