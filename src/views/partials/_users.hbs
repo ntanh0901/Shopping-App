@@ -1,0 +1,191 @@
+<div class="main-content">
+    <div class="title_content">
+        <div>
+            <div class="main-header">
+                Người dùng
+            </div>
+
+            <div class="sub-header">
+                Quản lý người dùng
+            </div>
+        </div>
+    </div>
+
+    <div class="position-relative  mx-auto w-50 bg-light" style="min-height: 45vh; background-color: $nav-bg">
+        <table class="manageTable table table-hover mx-auto rounded-3 overflow-hidden" id="userTable">
+            <thead class="my-auto">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Xem/Sửa/Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+            <div class="ic-plus" id="btn_add">
+                <i class='btn bx bxs-plus-square btn-plus position-absolute cursor-pointer end-0 bottom-0'
+                    style="font-size:1.5rem; margin-bottom:-2rem" data-placement="top" title="Thêm"
+                    onclick="addNewUser() "></i>
+            </div>
+        </table>
+
+        {{!-- Modal delete confirm --}}
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal-dialog ">
+                <div class="modal-content p-3 ">
+                    <div class="modal-header  bg-light text-primary">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Xóa người dùng "<span id="userToDelete"></span>"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="comfirmDeleteUserBtn"
+                            onclick="confirmDeleteUser()" data-bs-dismiss="modal">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center align-items-center">
+            <li class="page-item">
+                <button id="previous-page-user" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </button>
+            </li>
+            <div id="page-container-user" class="d-flex gap-2">
+                
+            </div>
+            <li class="page-item">
+                <button id="next-page-user" class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>
+
+<!-- Form  edit/add user -->
+<div class="modal fade position-absolute ms-0" id="userFormModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <div class="modal-header bg-light text-primary">
+                <h5 class="modal-title" id="modalTitle">Thêm người dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form class="" id="userForm" onsubmit="event.preventDefault();" method="post">
+                    <input type="hidden" id="editIndex" value="-1">
+
+                    <div class="mb-2">
+                        <label for="userRole" class="form-label">Vai trò</label>
+                        <select class="form-select" id="userRole" name="userRole" required>
+                        </select>
+                        <div class="error-message" id="userRoleError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="userFullName" class="form-label">Họ tên</label>
+                        <input type="text" class="form-control" id="userFullName" name="Họ tên" required>
+                        <div class="error-message" id="userFullNameError"></div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="userUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="userUsername" name="Username" required>
+                        <div class="error-message" id="userUsernameError"></div>
+                    </div>
+                    {{!-- password --}}
+                    <div id="password">
+                        <label for="userPassword" class="form-label">Mật khẩu</label>
+                        <div class="input-group mb-3 position-relative d-flex align-items-center">
+                            <input type="password" class="form-control z-0" id="userPassword" required>
+                            <i style="font-size: 1rem;"
+                                class="bi bi-eye-slash input-group-text border-0 bg-transparent show-hide-pass position-absolute end-0 z-2"
+                                onclick="togglePasswordVisibility('userPassword')"></i>
+                        </div>
+                    </div>
+
+                    <!-- repw -->
+                    <div id="repassword" class=" mb-3">
+                        <label for="userRepassword" class="form-label">Xác nhận mật khẩu</label>
+                        <div class="input-group position-relative d-flex align-items-center">
+                            <input type="password" class="form-control z-0" id="userRepassword" required>
+                            <i style="font-size: 1rem;"
+                                class="bi bi-eye-slash input-group-text border-0 bg-transparent show-hide-pass position-absolute end-0 z-2"
+                                onclick="togglePasswordVisibility('userRepassword')"></i>
+                        </div>
+                        <div class="error-message" id="userPasswordError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="d-block ">Giới tính</label>
+                        <div class="form-check form-check-inline ms-5">
+                            <input class="form-check-input" type="radio" name="userGender" id="userNam" value="Nam">
+                            <label class="form-check-label" class="form-label" for="userNam">Nam</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="userGender" id="userNu" value="Nữ">
+                            <label class="form-check-label" class="form-label" for="userNu">Nữ</label>
+                        </div>
+                        <br />
+                        <div class="error-message" id="userGenderError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label" for="userPhone">Điện thoại</label>
+                        <input type="tel" id="userPhone" name="userPhone" class="form-control" required />
+                        <div class="error-message" id="userPhoneError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="userDob" class="form-label">Ngày sinh</label>
+                        <input type="date" class="form-control" id="userDob" name="Ngày sinh" required>
+                        <div class="error-message" id="userDobError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label" for="userEmail">Email</label>
+                        <input type="email" id="userEmail" name="userEmail" class="form-control" required />
+                        <div class="error-message" id="userEmailError"></div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label" for="userAddress">Địa chỉ</label>
+                        <input type="text" id="userAddress" name="userAddress" class="form-control" required />
+                        <div class="error-message" id="userAddressError"></div>
+                    </div>
+
+                    <div class="mb-2 ">
+                        <label for="userImage" class="form-label">Ảnh</label>
+                        <br />
+                        <input type="file" class="form-control" id="uploadUserImage" name="Ảnh" accept="image/*"
+                            onchange="updateImagePreview(this)">
+                        <img id="userImage" src="" class="mt-2" style="max-width: 100px; max-height: 100px;">
+                        <div class="error-message" id="userImageError"></div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary text-white" id="confirmBtn"
+                    onclick="submitForm()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/1users.js"></script>
