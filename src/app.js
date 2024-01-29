@@ -34,7 +34,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false }
 }));
-// require('./mws/ggpassport')(app);
+require('./mws/ggpassport')(app);
 // require('./mws/fbpassport')(app);
 require('./mws/passport')(app);
 

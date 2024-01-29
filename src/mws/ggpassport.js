@@ -14,7 +14,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: `http://localhost:3000/gg/auth`
+    callbackURL: `https://localhost:3000/gg/auth`
 },
     async function (accessToken, refreshToken, profile, done) {
         let rs = await AccountModel.getUserByUsername(profile.id);
@@ -27,7 +27,7 @@ passport.use(new GoogleStrategy({
                 console.log("Passport login error: ", e);
             }
         }
-        done(null, profile);
+        done(null, rs);
     }
 ));
 

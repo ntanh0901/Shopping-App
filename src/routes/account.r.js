@@ -123,6 +123,7 @@ router.get('/gg/auth', passport.authenticate('google', {
     failureRedirect: '/login'
 }),
     function (req, res) {
+        console.log(req.user);
         res.redirect('/client');
     });
 
