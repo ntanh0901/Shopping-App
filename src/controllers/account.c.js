@@ -193,7 +193,50 @@ module.exports = {
     }, 
 
     checkoutSuccess: async (req, res, next) => {
+        console.log(req.body);
         console.log('Stay still');
+        const dateFormat = require('dateformat');
+        const date = new Date();
+        const maHD = dateFormat(date, 'HHmmss');
+        let rawTotalPrice = req.body.rawTotalPrice.replace(/\./g, '');
+        const amount = rawTotalPrice / 1000;
+        const customer = req.user.MaND;
+        const hoaDon = {
+            MaHD: maHD,
+            NgayLap: date,
+            TongHoaDon: amount,
+            KHMua: customer
+        };
+        await Account.insertHoaDon(hoaDon);
+        const data =  req.session.cart;
+        for (let i = 0; i < data.length; i++) {
+            let chiTietHoaDon = { MaHD: maHD };
+            if (data[i].checked) {
+                chiTietHoaDon.MaSP = data[i].id;
+                chiTietHoaDon.SoLuong = data[i].amount;
+                chiTietHoaDon.TongTien = data[i].product.TongGia || data[i].product.DonGia;
+                await Account.insertChiTietHoaDon(chiTietHoaDon);
+            }
+        }
+
+        try {
+            const response = await fetch("http://localhost:3001/transferMoney", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: customer, amount: amount * 1000 }),
+            });
+
+            const data = await response;
+
+        } catch (error) {
+            console.log('Transfer money error: ' + error);
+        }
+
+        req.session.cart = [];
+        res.redirect('/client');
+        
     }
 }
 

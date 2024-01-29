@@ -48,6 +48,7 @@ router.post('/checkout', accountController.getAccessToken, accountController.get
             title: 'Thanh toán',
             balance: addThousandSeparator(req.session.balance),
             totalPrice: addThousandSeparator(data[0].product.DonGia),
+            rawTotalPrice: data[0].product.DonGia,
             canAfford: canAfford,
             data: data
         })
@@ -59,6 +60,7 @@ router.post('/checkout', accountController.getAccessToken, accountController.get
             title: 'Thanh toán',
             balance: addThousandSeparator(req.session.balance),
             totalPrice: addThousandSeparator(req.body.totalPrice),
+            rawTotalPrice: req.body.totalPrice,
             canAfford: canAfford,
             data: data
         })

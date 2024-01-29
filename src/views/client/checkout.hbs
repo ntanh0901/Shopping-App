@@ -44,6 +44,7 @@
                 <h6>Đơn hàng <span class="text-muted"> ({{ data.length }} sản phẩm) </span></h6>
                 <div class="d-flex align-itmes-center justify-content-between">
                     <h6>Tổng tiền</h6>
+                    <input type="hidden" name="rawTotalPrice" value="{{rawTotalPrice}}">
                     <span class="fw-bold"><span id="total-price">{{totalPrice}}</span>&#8363;</span>
                 </div>
                 <button class="btn btn-danger">Thanh toán</button>
